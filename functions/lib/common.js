@@ -20,7 +20,10 @@ export async function getSetting(env, key) {
 }
 
 // ---------- Пароль: PBKDF2-SHA256 + случайная соль ----------
-const PBKDF2_ITERATIONS = 210000;
+// Cloudflare Workers ограничивает deriveBits для PBKDF2 значением 10000 итераций,
+// поэтому используется максимально допустимое число. Существующие записи с другим
+// числом итераций проверяются через rec.iterations (см. verifyPassword).
+const PBKDF2_ITERATIONS = 10000;
 
 function bufToHex(buf) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
