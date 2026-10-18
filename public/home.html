@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Larpdeez — главная</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <!-- Приветствие -->
+    <div class="page-head">
+      <div>
+        <h1 class="page-title" id="greeting">Главная</h1>
+        <p class="page-sub" id="home-sub">Загрузка…</p>
+      </div>
+      <button class="btn" id="new-course-btn" type="button"></button>
+    </div>
+
+    <div class="home-grid">
+      <div class="home-main">
+        <!-- Прогресс главного курса -->
+        <section id="primary-wrap" class="hidden">
+          <div class="section-title"><span id="pw-ic"></span> Прогресс обучения</div>
+          <div class="panel" id="primary-card"></div>
+        </section>
+
+        <!-- Активные курсы -->
+        <section>
+          <div class="section-title">
+            <span id="ac-ic"></span> Активные курсы
+            <a class="small" href="/courses.html" style="margin-left:auto">Все курсы →</a>
+          </div>
+          <div class="course-grid" id="active-courses"></div>
+          <div class="empty-state hidden" id="empty-courses">
+            <div id="ec-ic"></div>
+            <p><b>Курсов пока нет.</b><br>Создайте первый — например, «Испанский с нуля» или «Основы программирования».</p>
+            <button class="btn" id="empty-create-btn" type="button">Создать курс</button>
+          </div>
+        </section>
+
+        <!-- Ближайшие занятия -->
+        <section>
+          <div class="section-title">
+            <span id="up-ic"></span> Ближайшие занятия
+            <a class="small" href="/calendar.html" style="margin-left:auto">Календарь →</a>
+          </div>
+          <div class="panel" id="upcoming"></div>
+        </section>
+      </div>
+
+      <!-- Правая колонка -->
+      <aside class="side-panel">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Статистика</span></div>
+          <div class="stat-grid" id="home-stats"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title" id="mini-cal-title">Этот месяц</span>
+            <a class="small" href="/calendar.html">Открыть</a>
+          </div>
+          <div class="mini-cal" id="mini-calendar"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Быстрые действия</span></div>
+          <div style="display:flex; flex-direction:column; gap:var(--sp-2)">
+            <button class="btn secondary small" data-quick="event" type="button"></button>
+            <button class="btn secondary small" data-quick="assignment" type="button"></button>
+            <a class="btn secondary small" href="/planner.html" id="quick-planner"></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/icons.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/home-page.js"></script>
+</body>
+</html>

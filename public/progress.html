@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Прогресс — Larpdeez</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Прогресс</h1>
+        <p class="page-sub">Статистика по всем курсам: темы, задания, оценки и финальные проекты.</p>
+      </div>
+    </div>
+
+    <!-- Общая сводка -->
+    <div class="stat-grid" id="total-stats"></div>
+
+    <div class="home-grid">
+      <div class="home-main">
+        <section>
+          <div class="section-title"><span id="bars-ic"></span> Прогресс по курсам</div>
+          <div class="panel" id="course-bars"></div>
+        </section>
+
+        <section>
+          <div class="section-title"><span id="mod-ic"></span> Разбивка по модулям</div>
+          <div class="panel hidden" id="module-picker-wrap" style="margin-bottom:var(--sp-3)">
+            <select class="input" id="module-course" style="width:auto;max-width:320px;font-size:var(--fs-13)"></select>
+          </div>
+          <div class="panel" id="module-bars"></div>
+        </section>
+
+        <section>
+          <div class="section-title"><span id="hist-ic"></span> Последняя активность</div>
+          <div class="panel" id="activity-list"></div>
+        </section>
+      </div>
+
+      <aside class="side-panel">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Общий прогресс</span></div>
+          <div class="donut-wrap" id="overall-donut"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Оценки</span></div>
+          <div id="grades-summary"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/icons.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/progress-page.js"></script>
+</body>
+</html>

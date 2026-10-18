@@ -92,14 +92,22 @@
       paintTopbar(shellState.crumbs);
       return;
     }
-    const isEditor = !!opts.editor;
+    const isEditor = active === 'editor' || !!opts.editor ||
+      !!(document.querySelector('main') && document.querySelector('main').classList.contains('editor-layout'));
     const oldMain = document.querySelector('main');
     const content = document.createElement('div');
     content.className = isEditor ? 'editor-layout' : ('page' + (opts.narrow ? ' page-narrow' : ''));
     content.id = 'page-content';
     if (oldMain) {
-      while (oldMain.firstChild) content.appendChild(oldMain.firstChild);
-      oldMain.replaceWith(content);
+      if (isEditor) {
+        // Редактор: переносим <main> целиком (внутри него aside + section),
+        // иначе ломаются flex-раскладка и все ссылки на #tree-pane/#workspace.
+        content.appendChild(oldMain.cloneNode(true));
+        oldMain.replaceWith(content);
+      } else {
+        while (oldMain.firstChild) content.appendChild(oldMain.firstChild);
+        oldMain.replaceWith(content);
+      }
     }
     const wrap = document.createElement('div');
     wrap.innerHTML =
@@ -574,8 +582,53 @@
   // ---------- Формы верхнего уровня ----------
   const COURSE_ICONS = ['book', 'code', 'pen', 'flask', 'music', 'palette', 'star', 'trophy', 'target', 'flag', 'clipboard', 'calendar'];
 
+  // Иконки узлов дерева: ключ API ('pen','clipboard','flask') -> имя иконки в LD.
+  const NODE_ICON_ALIASES = { pen: 'pen-line', clipboard: 'clipboard-list', flask: 'flask-conical' };
+  const MODULE_ICONS = ['layers', 'book', 'target', 'flag', 'star', 'trophy', 'code', 'palette', 'music', 'pen', 'flask', 'clipboard', 'calendar', 'hash'];
+  const TOPIC_ICONS = ['file-text', 'book', 'star', 'flag', 'target', 'code', 'palette', 'music', 'pen', 'flask', 'clipboard', 'calendar', 'hash'];
+  const ASSIGNMENT_ICONS = ['clipboard-list', 'check', 'flag', 'target', 'award', 'pen', 'book', 'code', 'star', 'hash'];
+  function nodeIconName(name) { return NODE_ICON_ALIASES[name] || name; }
+
+  // Слоты для иконок узлов: значение хранится в hidden-поле формы.
+  function iconGridHtml(name, list, current) {
+    return `<div class="icon-grid" data-icon-grid="${esc(name)}">${list.map((ic) =>
+      `<button type="button" class="icon-choice${(current || '') === ic ? ' selected' : ''}" data-ic="${ic}" title="${ic}">${LD.icon(nodeIconName(ic), 16)}</button>`).join('')}</div>
+      <input type="hidden" name="${esc(name)}" value="${esc(current || list[0])}">`;
+  }
+  function mountIconGrids(root) {
+    (root || document).querySelectorAll('[data-icon-grid]').forEach((grid) => {
+      grid.addEventListener('click', (e) => {
+        const b = e.target.closest('.icon-choice');
+        if (!b) return;
+        grid.querySelectorAll('.icon-choice').forEach((s) => s.classList.remove('selected'));
+        b.classList.add('selected');
+        grid.nextElementSibling.value = b.dataset.ic;
+      });
+    });
+  }
+
+  // Единый «слот цвета» для инлайн-виджетов: значение читается из слота при отправке формы.
+  function colorSlotHtml(name, value, emptyLabel) {
+    return `<div class="color-slot" data-color-slot="${name || 'ld-color'}" data-color-value="${esc(value || '')}" data-color-empty="${esc(emptyLabel || 'Без цвета')}"></div>`;
+  }
+  function mountColors(root) {
+    (root || document).querySelectorAll('[data-color-slot]').forEach((slot) => {
+      UI.inlineColor(slot, slot.dataset.colorValue || '', {
+        allowEmpty: true,
+        emptyLabel: slot.dataset.colorEmpty || 'Без цвета',
+      });
+    });
+  }
+  function slotColor(root, name) {
+    const w = root.querySelector(`[data-color-slot="${name}"] .color-row`);
+    if (!w) return '';
+    const t = String(w.title || '');
+    return /^#[0-9a-f]{6}$/i.test(t) ? t.toLowerCase() : '';
+  }
+
   function courseFields(c) {
     c = c || { title: '', description: '', color: '#007AFF', emoji: 'book' };
+    const cc = String(c.color || '#007AFF').toLowerCase();
     return `
       <div class="field">
         <label for="cf-title">Название *</label>
@@ -589,9 +642,9 @@
         <div class="field">
           <label>Акцентный цвет</label>
           <div class="color-swatches compact" id="cf-colors">
-            ${PALETTE.filter((p) => p.key !== 'red').map((p) => `<button type="button" class="color-swatch${(c.color || '').toLowerCase() === p.hex ? ' selected' : ''}" data-hex="${p.hex}" style="--sw:${p.hex}" title="${p.name}">${(c.color || '').toLowerCase() === p.hex ? LD.icon('check', 13) : ''}</button>`).join('')}
+            ${PALETTE.filter((p) => p.key !== 'red').map((p) => `<button type="button" class="color-swatch${cc === p.hex.toLowerCase() ? ' selected' : ''}" data-hex="${p.hex}" style="--sw:${p.hex}" title="${p.name}">${cc === p.hex.toLowerCase() ? LD.icon('check', 13) : ''}</button>`).join('')}
           </div>
-          <input type="hidden" name="color" id="cf-color" value="${esc(c.color || '#007AFF')}">
+          <input type="hidden" name="color" id="cf-color" value="${esc(cc)}">
         </div>
         <div class="field">
           <label>Иконка</label>
@@ -633,7 +686,7 @@
         onOk: async (v) => {
           const title = String(v.title || '').trim();
           if (!title) throw new Error('Название курса обязательно.');
-          const r = await Larpdeez.api('courses', { method: 'POST', body: { title, description: v.description, color: v.color, emoji: v.icon } });
+          const r = await Larpdeez.api('courses', { method: 'POST', body: { title, description: v.description, color: v.color, emoji: v.emoji } });
           result = r.id;
           return true;
         },
@@ -655,7 +708,7 @@
           if (!title) throw new Error('Название курса обязательно.');
           await Larpdeez.api('courses/' + encodeURIComponent(course.id), {
             method: 'PUT',
-            body: { title, description: v.description, color: v.color, emoji: v.icon },
+            body: { title, description: v.description, color: v.color, emoji: v.emoji },
           });
           await loadCourses(true);
           toast('Курс обновлён', 'success');
@@ -671,6 +724,7 @@
 
   function eventFields(ev) {
     ev = ev || { title: '', description: '', date: todayISO(), time: '', icon: 'calendar', color: '#007AFF' };
+    const ec = String(ev.color || '#007AFF').toLowerCase();
     return `
       <div class="field">
         <label for="ef-title">Название *</label>
@@ -690,9 +744,9 @@
         <div class="field">
           <label>Цвет</label>
           <div class="color-swatches compact" id="ef-colors">
-            ${PALETTE.map((p) => `<button type="button" class="color-swatch${(ev.color || '#007AFF').toLowerCase() === p.hex ? ' selected' : ''}" data-hex="${p.hex}" style="--sw:${p.hex}" title="${p.name}">${(ev.color || '#007AFF').toLowerCase() === p.hex ? LD.icon('check', 13) : ''}</button>`).join('')}
+            ${PALETTE.map((p) => `<button type="button" class="color-swatch${ec === p.hex.toLowerCase() ? ' selected' : ''}" data-hex="${p.hex}" style="--sw:${p.hex}" title="${p.name}">${ec === p.hex.toLowerCase() ? LD.icon('check', 13) : ''}</button>`).join('')}
           </div>
-          <input type="hidden" name="color" id="ef-color" value="${esc(ev.color || '#007AFF')}">
+          <input type="hidden" name="color" id="ef-color" value="${esc(ec)}">
         </div>
         <div class="field">
           <label>Иконка</label>
@@ -1020,6 +1074,8 @@
 
   window.UI = {
     PALETTE, tintForHex, tintHash, nodeTint, iconName,
+    MODULE_ICONS, TOPIC_ICONS, ASSIGNMENT_ICONS, nodeIconName, iconGridHtml, mountIconGrids,
+    colorSlotHtml, mountColors, slotColor,
     renderShell, loadSession, getProfile, getSettings, setSetting,
     getCourses, loadCourses, refreshCourses,
     treeOps, uid, loadTree,
