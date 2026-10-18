@@ -53,21 +53,28 @@ const Larpdeez = {
     if (el) el.className = 'notice';
   },
 
-  // ---------- Тема оформления (единственное разумное использование localStorage) ----------
+  // ---------- Тема оформления (согласовано с ui.js / настройкой на сервере) ----------
   applyTheme() {
-    const theme = localStorage.getItem('larpdeez-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    let theme = 'system';
+    try { theme = localStorage.getItem('larpdeez-theme') || 'system'; } catch (e) {}
+    const attr = theme === 'dark' ? 'dark' : theme === 'light' ? 'light' : 'system';
+    document.documentElement.setAttribute('data-theme', attr);
   },
   toggleTheme() {
-    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('larpdeez-theme', cur);
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('larpdeez-theme', next); } catch (e) {}
     this.applyTheme();
     const btn = document.getElementById('theme-toggle');
-    if (btn) btn.textContent = cur === 'dark' ? '☀️' : '🌙';
+    if (btn) btn.textContent = next === 'dark' ? '☀️' : '🌙';
+    // Если подключён ui.js — синхронизируем настройку с сервером.
+    if (window.UI && UI.setSetting) UI.setSetting('theme', next).catch(() => {});
   },
 
-  // ---------- Шапка ----------
+  // ---------- Шапка (legacy: используется только старым course.html) ----------
   renderTopbar(active) {
+    // Новая дизайн-система рисует собственный topbar (ui.js) — не мешаем ей.
+    if (document.querySelector('.main-area .topbar')) return;
     const el = document.getElementById('topbar');
     if (!el) return;
     el.className = 'topbar';

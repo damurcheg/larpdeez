@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Курсы — Larpdeez</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Мои курсы</h1>
+        <p class="page-subtitle" id="courses-sub">Загрузка…</p>
+      </div>
+      <button class="btn" id="new-course-btn" type="button"></button>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="lead" id="search-lead"></span>
+        <input class="input search-input" id="course-search" placeholder="Поиск по названию или описанию…" autocomplete="off">
+      </div>
+      <select class="input" id="course-sort" style="width:auto;padding:6px 10px;font-size:var(--fs-13)" title="Сортировка">
+        <option value="updated">Сначала изменённые</option>
+        <option value="created">Сначала новые</option>
+        <option value="alpha">По алфавиту</option>
+        <option value="progress">По прогрессу</option>
+      </select>
+      <div class="seg" role="group" aria-label="Вид">
+        <button type="button" data-view="grid" id="view-grid"></button>
+        <button type="button" data-view="list" id="view-list"></button>
+      </div>
+    </div>
+
+    <div class="course-grid" id="course-grid"></div>
+    <div class="empty hidden" id="empty-courses">
+      <div class="big" id="empty-ic"></div>
+      <p id="empty-text">Курсов пока нет. Создайте первый — например, «Испанский с нуля» или «Основы программирования».</p>
+      <button class="btn" id="empty-create-btn" type="button">Создать курс</button>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/icons.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/courses-page.js"></script>
+</body>
+</html>

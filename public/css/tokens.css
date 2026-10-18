@@ -171,9 +171,9 @@
   --danger-text: #FF6961;
   --danger-bg: rgba(255, 69, 58, 0.16);
 
-  --bg: #000000;
-  --surface: #0A0A0A;
-  --surface-raised: #111111;
+  --bg: #191919;              /* глубокий графит, не сплошной чёрный */
+  --surface: #202020;
+  --surface-raised: #262626;
   --surface-extra: #171717;
   --hover: #1C1C1C;
   --selected: #242424;
@@ -217,9 +217,9 @@
     --warning: #FF9F0A; --warning-text: #FFB340; --warning-bg: rgba(255, 159, 10, 0.16);
     --danger: #FF453A; --danger-hover: #FF6961; --danger-text: #FF6961; --danger-bg: rgba(255, 69, 58, 0.16);
 
-    --bg: #000000;
-    --surface: #0A0A0A;
-    --surface-raised: #111111;
+    --bg: #191919;
+    --surface: #202020;
+    --surface-raised: #262626;
     --surface-extra: #171717;
     --hover: #1C1C1C;
     --selected: #242424;
