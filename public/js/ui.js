@@ -61,7 +61,7 @@
 
   // ---------- Каркас: сайдбар + топбар ----------
   const NAV = [
-    { id: 'home', href: '/index.html', icon: 'layout-dashboard', label: 'Главная' },
+    { id: 'home', href: '/home.html', icon: 'layout-dashboard', label: 'Главная' },
     { id: 'courses', href: '/courses.html', icon: 'book-open', label: 'Мои курсы' },
     { id: 'calendar', href: '/calendar.html', icon: 'calendar', label: 'Календарь' },
     { id: 'planner', href: '/planner.html', icon: 'list-checks', label: 'Планировщик' },
@@ -74,12 +74,40 @@
 
   // Единый каркас для всех страниц. Содержимое страницы берётся из
   // <main class="container"> (обычные страницы) или <main class="editor-layout"> (редактор).
+  // Если каркас уже построен в HTML страницы (<div class="app-shell">), содержимое
+  // переносится в #page-content без перестройки DOM (иначе id элементов «слетают»).
   function renderShell(active, opts) {
     opts = opts || {};
     shellState.active = active;
     shellState.crumbs = opts.crumbs || [];
+    // Каркас уже построен в HTML страницы: переносим содержимое <main>
+    // в #page-content без клонирования (иначе теряются id и слушатели).
+    const preShell = document.querySelector('.app-shell #sidebar');
+    if (preShell) {
+      const holder = preShell.closest('.main-area').querySelector('#page-holder') ||
+        document.getElementById('page-holder');
+      const oldMain = document.querySelector('main');
+      let content = document.getElementById('page-content');
+      if (oldMain && !content) {
+        const isEditor = !!oldMain.classList.contains('editor-layout');
+        content = document.createElement('div');
+        content.className = isEditor ? 'editor-layout' : ('page' + (opts.narrow ? ' page-narrow' : ''));
+        content.id = 'page-content';
+        while (oldMain.firstChild) content.appendChild(oldMain.firstChild);
+        oldMain.remove();
+        if (holder) { holder.innerHTML = ''; holder.appendChild(content); }
+        else document.body.appendChild(content);
+      }
+      if (content && opts.narrow !== undefined) content.classList.toggle('page-narrow', !!opts.narrow);
+      if (opts.contentEl && holder) { holder.innerHTML = ''; holder.appendChild(opts.contentEl); }
+      initSidebar(preShell);
+      initTopbar(document.querySelector('.app-shell .topbar') || document.getElementById('topbar'));
+      paintSidebar();
+      paintTopbar(shellState.crumbs);
+      return;
+    }
     if (document.getElementById('sidebar')) {
-      // Каркас уже построен (повторный вызов) — обновляем только содержимое.
+      // Каркас уже построен JS (повторный вызов) — обновляем только содержимое.
       if (opts.contentEl) {
         const holder = document.getElementById('page-holder');
         if (holder) { holder.innerHTML = ''; holder.appendChild(opts.contentEl); }
@@ -134,6 +162,8 @@
   }
 
   function initSidebar(el) {
+    if (el._ldInit) return;
+    el._ldInit = true;
     el.addEventListener('click', (e) => {
       const link = e.target.closest('a[data-nav]');
       if (link) closeMobileSidebar();
@@ -172,6 +202,8 @@
   }
 
   function initTopbar(el) {
+    if (el._ldInit) return;
+    el._ldInit = true;
     el.addEventListener('click', (e) => {
       if (e.target.closest('#mobile-menu-btn')) {
         const sb = document.getElementById('sidebar');
@@ -438,14 +470,7 @@
     pop.id = 'ld-popover';
     pop.innerHTML = html;
     document.body.appendChild(pop);
-    const r = anchor.getBoundingClientRect();
-    const pw = pop.offsetWidth, ph = pop.offsetHeight;
-    let left = (opts && opts.align === 'left') ? r.left : r.right - pw;
-    left = Math.max(8, Math.min(left, innerWidth - pw - 8));
-    let top = r.bottom + 6;
-    if (top + ph > innerHeight - 8) top = Math.max(8, r.top - ph - 6);
-    pop.style.left = left + 'px';
-    pop.style.top = top + 'px';
+    positionPopover(pop, anchor, opts);
     if (onClick) pop.addEventListener('click', onClick);
     const outside = (e) => { if (!pop.contains(e.target) && !anchor.contains(e.target)) closePopover(); };
     const escH = (e) => { if (e.key === 'Escape') closePopover(); };
@@ -456,6 +481,18 @@
     pop._cleanup = () => { document.removeEventListener('mousedown', outside); document.removeEventListener('keydown', escH); };
     return pop;
   }
+  // Позиционирование поповера под/над якорем с прижатием к краям экрана.
+  function positionPopover(pop, anchor, opts) {
+    const r = anchor.getBoundingClientRect();
+    const pw = pop.offsetWidth, ph = pop.offsetHeight;
+    let left = (opts && opts.align === 'left') ? r.left : r.right - pw;
+    left = Math.max(8, Math.min(left, innerWidth - pw - 8));
+    let top = r.bottom + 6;
+    if (top + ph > innerHeight - 8) top = Math.max(8, r.top - ph - 6);
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+  }
+
   function closePopover() {
     const p = document.getElementById('ld-popover');
     if (p) { if (p._cleanup) p._cleanup(); p.remove(); }
@@ -539,6 +576,8 @@
           }
         }, { align: 'left' });
       pop.classList.add('color-pop');
+      // После заполнения контентом пересчитываем позицию (поповер мог «выпасть» за нижний край).
+      positionPopover(pop, row, { align: 'left' });
       function pick(hex) {
         cur = hex;
         paint();
