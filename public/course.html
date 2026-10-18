@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Курс — Larpdeez</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header id="topbar"></header>
+
+  <main class="container">
+    <div class="notice" id="course-notice"></div>
+
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <div>
+        <h1 class="page-title" id="course-title">Загрузка…</h1>
+        <p class="page-subtitle" id="course-desc" style="margin-bottom:10px;"></p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn secondary small" id="edit-course-btn">⚙️ Настройки курса</button>
+        <button class="btn danger small" id="delete-course-btn">🗑 Удалить курс</button>
+      </div>
+    </div>
+
+    <!-- Прогресс курса -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="progress-bar"><div id="course-progress-bar" style="width:0%"></div></div>
+      <div class="progress-label" id="course-progress-text">Загрузка…</div>
+    </div>
+
+    <!-- Материалы -->
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+      <h2 style="margin:0;">Материалы и задания</h2>
+      <button class="btn" id="add-material-btn">＋ Добавить материал</button>
+    </div>
+    <ul class="material-list" id="material-list"></ul>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/course.js"></script>
+</body>
+</html>

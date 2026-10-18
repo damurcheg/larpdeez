@@ -1,0 +1,16 @@
+{
+  "name": "larpdeez",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Личная образовательная платформа на Cloudflare Pages + D1",
+  "scripts": {
+    "dev": "wrangler pages dev public --d1=DB --persist-to=.wrangler",
+    "deploy": "wrangler pages deploy public",
+    "migrate:local": "wrangler d1 migrations apply larpdeez-data --local --persist-to=.wrangler",
+    "migrate:remote": "wrangler d1 migrations apply larpdeez-data --remote",
+    "test": "node tests/run.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

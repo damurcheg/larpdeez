@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Larpdeez — мои курсы</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header id="topbar"></header>
+
+  <main class="container">
+    <div class="notice" id="page-notice"></div>
+
+    <h1 class="page-title" id="greeting">Мои курсы</h1>
+    <p class="page-subtitle">Здесь хранятся ваши курсы, материалы и прогресс обучения. Всё сохраняется в облаке (Cloudflare D1).</p>
+
+    <!-- Общая статистика -->
+    <section class="stats" id="stats">
+      <div class="stat card"><div class="num" id="stat-courses">—</div><div class="lbl">курсов</div></div>
+      <div class="stat card"><div class="num" id="stat-materials">—</div><div class="lbl">материалов</div></div>
+      <div class="stat card"><div class="num" id="stat-done">—</div><div class="lbl">пройдено</div></div>
+      <div class="stat card"><div class="num" id="stat-percent">—</div><div class="lbl">% выполнения</div></div>
+    </section>
+
+    <!-- Список курсов -->
+    <section id="courses">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+        <h2 style="margin:0;">Курсы</h2>
+        <button class="btn" id="add-course-btn">＋ Новый курс</button>
+      </div>
+      <div class="course-grid" id="course-grid"></div>
+      <div class="empty hidden" id="empty-courses">
+        <div class="big">📚</div>
+        <p>Курсов пока нет. Создайте первый — например, «Английский язык» или «Основы программирования».</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Логика главной страницы небольшая — оставили её прямо здесь, чтобы всё было наглядно.
+    (async function () {
+      let profile;
+      try {
+        profile = await Larpdeez.requirePageAuth();
+      } catch (e) { return; }
+
+      Larpdeez.renderTopbar('home');
+      Larpdeez.setTopbarUser(profile);
+      if (profile.name) {
+        document.getElementById('greeting').textContent = profile.avatarEmoji + ' Привет, ' + profile.name + '!';
+      }
+
+      let courses = [];
+
+      async function load() {
+        try {
+          const data = await Larpdeez.api('courses');
+          courses = data.courses;
+          render();
+        } catch (e) {
+          if (e.code === 'unauthorized') return;
+          Larpdeez.showNotice('page-notice', 'Не удалось загрузить курсы: ' + (e.message || ''), 'error');
+        }
+      }
+
+      function render() {
+        const grid = document.getElementById('course-grid');
+        const empty = document.getElementById('empty-courses');
+
+        // Статистика
+        const totalMaterials = courses.reduce((s, c) => s + c.totalMaterials, 0);
+        const doneMaterials = courses.reduce((s, c) => s + c.doneMaterials, 0);
+        document.getElementById('stat-courses').textContent = courses.length;
+        document.getElementById('stat-materials').textContent = totalMaterials;
+        document.getElementById('stat-done').textContent = doneMaterials;
+        document.getElementById('stat-percent').textContent = totalMaterials ? Larpdeez.progressPercent(doneMaterials, totalMaterials) + '%' : '—';
+
+        grid.innerHTML = '';
+        empty.classList.toggle('hidden', courses.length > 0);
+
+        for (const c of courses) {
+          const pct = Larpdeez.progressPercent(c.doneMaterials, c.totalMaterials);
+          const a = document.createElement('a');
+          a.className = 'course-card card';
+          a.href = '/course.html?id=' + encodeURIComponent(c.id);
+          a.innerHTML = `
+            <div class="course-head">
+              <div class="course-emoji" style="background:${Larpdeez.escapeHtml(c.color)}">${Larpdeez.escapeHtml(c.emoji)}</div>
+              <h3>${Larpdeez.escapeHtml(c.title)}</h3>
+            </div>
+            <p class="desc">${Larpdeez.escapeHtml(c.description)}</p>
+            <div class="progress-bar"><div style="width:${pct}%"></div></div>
+            <div class="progress-label">${c.doneMaterials} из ${c.totalMaterials} • ${pct}%</div>`;
+          grid.appendChild(a);
+        }
+      }
+
+      function courseFieldsHtml(c) {
+        c = c || { title: '', description: '', color: '#6c5ce7', emoji: '📘' };
+        return `
+          <label>Название
+            <input type="text" name="title" maxlength="200" required value="${Larpdeez.escapeHtml(c.title)}" placeholder="Например, Испанский с нуля">
+          </label>
+          <label>Описание
+            <textarea name="description" style="min-height:70px" placeholder="О чём этот курс?">${Larpdeez.escapeHtml(c.description)}</textarea>
+          </label>
+          <div class="row">
+            <label>Цвет карточки
+              <input type="color" name="color" value="${Larpdeez.escapeHtml(c.color)}">
+            </label>
+            <label>Эмодзи
+              <input type="text" name="emoji" maxlength="4" value="${Larpdeez.escapeHtml(c.emoji)}">
+            </label>
+          </div>`;
+      }
+
+      document.getElementById('add-course-btn').addEventListener('click', () => {
+        Larpdeez.openModal('Новый курс', courseFieldsHtml(null), async (fd) => {
+          const data = await Larpdeez.api('courses', {
+            method: 'POST',
+            body: {
+              title: fd.get('title'),
+              description: fd.get('description'),
+              color: fd.get('color'),
+              emoji: fd.get('emoji'),
+            },
+          });
+          location.href = '/course.html?id=' + encodeURIComponent(data.id);
+        }, 'Создать');
+      });
+
+      await load();
+    })();
+  </script>
+</body>
+</html>

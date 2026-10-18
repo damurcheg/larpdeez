@@ -1,0 +1,193 @@
+/* Общие стили Larpdeez. Меняйте смело — этот файл влияет на все страницы. */
+
+:root {
+  --bg: #f4f5fb;
+  --surface: #ffffff;
+  --text: #1f2340;
+  --muted: #6b7194;
+  --border: #e3e5f0;
+  --primary: #6c5ce7;
+  --primary-dark: #5a4bd1;
+  --danger: #e74c3c;
+  --success: #2ecc71;
+  --radius: 14px;
+  --shadow: 0 2px 10px rgba(31, 35, 64, 0.07);
+}
+
+[data-theme="dark"] {
+  --bg: #14162b;
+  --surface: #1e2140;
+  --text: #eceefc;
+  --muted: #9aa0c3;
+  --border: #2c3055;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- Шапка ---------- */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar .logo {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar nav { display: flex; gap: 4px; flex: 1; }
+.topbar nav a {
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.topbar nav a:hover { background: var(--bg); text-decoration: none; color: var(--text); }
+.topbar nav a.active { background: var(--primary); color: #fff; }
+.topbar .user-chip {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--muted); font-size: 14px;
+}
+
+/* ---------- Контейнер и карточки ---------- */
+.container { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.page-title { font-size: 26px; margin: 10px 0 4px; }
+.page-subtitle { color: var(--muted); margin: 0 0 24px; }
+
+/* ---------- Кнопки и формы ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--primary); color: #fff; border: none;
+  padding: 10px 18px; border-radius: 10px; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s;
+}
+.btn:hover { background: var(--primary-dark); }
+.btn.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.btn.secondary:hover { background: var(--bg); }
+.btn.danger { background: var(--danger); }
+.btn.small { padding: 6px 12px; font-size: 13px; border-radius: 8px; }
+.btn:disabled { opacity: 0.55; cursor: wait; }
+
+label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+input[type="text"], input[type="password"], input[type="color"], textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+textarea { min-height: 120px; resize: vertical; }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--primary); outline-offset: -1px; }
+
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.row > * { flex: 1; min-width: 140px; }
+
+/* ---------- Сообщения ---------- */
+.notice { padding: 12px 16px; border-radius: 10px; margin: 14px 0; font-size: 14px; display: none; }
+.notice.show { display: block; }
+.notice.error { background: #fdecea; color: #b03a2e; border: 1px solid #f5b7b1; }
+.notice.success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+.notice.info { background: #ebf0fd; color: #2c3e8f; border: 1px solid #bcd0f5; }
+[data-theme="dark"] .notice.error { background: #3a1d1d; color: #f1948a; border-color: #641e16; }
+[data-theme="dark"] .notice.success { background: #16321f; color: #7dcea0; border-color: #145a32; }
+[data-theme="dark"] .notice.info { background: #1b2547; color: #85a5f6; border-color: #27366b; }
+
+/* ---------- Курсы ---------- */
+.course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.course-card { cursor: pointer; transition: transform 0.12s; display: block; color: inherit; }
+.course-card:hover { transform: translateY(-2px); text-decoration: none; }
+.course-card .course-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.course-card .course-emoji {
+  font-size: 26px; width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; color: #fff; flex: none;
+}
+.course-card h3 { margin: 0; font-size: 17px; }
+.course-card .desc { color: var(--muted); font-size: 14px; margin: 8px 0 12px; min-height: 40px; }
+
+.progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-bar > div { height: 100%; background: var(--primary); border-radius: 4px; transition: width 0.3s; }
+.progress-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat { text-align: center; padding: 16px; }
+.stat .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+.stat .lbl { font-size: 13px; color: var(--muted); }
+
+.empty { text-align: center; color: var(--muted); padding: 40px 20px; }
+.empty .big { font-size: 40px; }
+
+/* ---------- Страница курса ---------- */
+.material-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.material-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; }
+.material-item .check {
+  width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border);
+  background: var(--surface); cursor: pointer; flex: none; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff;
+}
+.material-item.done .check { background: var(--success); border-color: var(--success); }
+.material-item.done .m-title { text-decoration: line-through; color: var(--muted); }
+.material-item .m-body { flex: 1; min-width: 0; }
+.m-title { font-weight: 600; margin: 0 0 4px; }
+.kind-badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); margin-left: 8px; vertical-align: middle; }
+.m-content { white-space: pre-wrap; word-wrap: break-word; color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+
+/* ---------- Модалка ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(10, 12, 30, 0.55);
+  display: none; align-items: flex-start; justify-content: center; padding: 40px 16px; z-index: 50; overflow-y: auto;
+}
+.modal-backdrop.show { display: flex; }
+.modal { width: 100%; max-width: 520px; }
+.modal h2 { margin-top: 0; }
+.modal .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+/* ---------- Экран входа / настройки ---------- */
+.auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.auth-card { width: 100%; max-width: 420px; text-align: center; }
+.auth-card .logo-big { font-size: 44px; margin-bottom: 4px; }
+.auth-card h1 { margin: 0 0 6px; font-size: 24px; }
+.auth-card .sub { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+.auth-card form { text-align: left; }
+
+.hidden { display: none !important; }
+.muted { color: var(--muted); font-size: 14px; }
+hr.sep { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+
+@media (max-width: 640px) {
+  .topbar { padding: 0 12px; gap: 8px; }
+  .topbar nav a { padding: 8px 10px; }
+  .container { padding: 16px 12px 50px; }
+}

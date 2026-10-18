@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Профиль — Larpdeez</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header id="topbar"></header>
+
+  <main class="container">
+    <h1 class="page-title">👤 Профиль и настройки</h1>
+    <p class="page-subtitle">Личные данные, пароль и резервные копии. Всё сохраняется в вашей базе Cloudflare D1.</p>
+
+    <div class="notice" id="profile-notice"></div>
+
+    <!-- Данные профиля -->
+    <section class="card" style="margin-bottom:20px;">
+      <h2 style="margin-top:0;">Данные профиля</h2>
+      <form id="profile-form">
+        <label for="p-name">Имя</label>
+        <input type="text" id="p-name" name="name" maxlength="100" placeholder="Как к вам обращаться">
+
+        <label for="p-emoji">Эмодзи-аватар</label>
+        <input type="text" id="p-emoji" name="avatarEmoji" maxlength="4" value="🎓">
+
+        <label for="p-about">О себе / заметка</label>
+        <textarea id="p-about" name="about" maxlength="2000" placeholder="Например, какие цели у вашего обучения"></textarea>
+
+        <button type="submit" class="btn" style="margin-top:14px;">Сохранить профиль</button>
+      </form>
+    </section>
+
+    <!-- Смена пароля -->
+    <section class="card" style="margin-bottom:20px;">
+      <h2 style="margin-top:0;">Смена пароля</h2>
+      <p class="muted">Пароль хранится в базе только в виде надёжного хеша (PBKDF2-SHA256). Изменить его можно,
+        только зная текущий пароль.</p>
+      <div class="notice" id="password-notice"></div>
+      <form id="password-form">
+        <label for="pw-current">Текущий пароль</label>
+        <input type="password" id="pw-current" required autocomplete="current-password">
+
+        <label for="pw-new">Новый пароль (минимум 8 символов)</label>
+        <input type="password" id="pw-new" minlength="8" required autocomplete="new-password">
+
+        <label for="pw-confirm">Повторите новый пароль</label>
+        <input type="password" id="pw-confirm" minlength="8" required autocomplete="new-password">
+
+        <button type="submit" class="btn" style="margin-top:14px;">Изменить пароль</button>
+      </form>
+    </section>
+
+    <!-- Резервные копии -->
+    <section class="card">
+      <h2 style="margin-top:0;">Резервные копии (экспорт и импорт)</h2>
+      <p class="muted">Экспорт сохраняет все курсы, материалы и прогресс в один JSON-файл. Импорт полностью
+        заменяет текущие данные курсов содержимым файла. Пароль при импорте не меняется.</p>
+      <div class="notice" id="data-notice"></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn secondary" id="export-btn">⬇️ Экспорт данных</button>
+        <label class="btn secondary" style="cursor:pointer; margin:0;">
+          ⬆️ Импорт из файла
+          <input type="file" id="import-file" accept="application/json,.json" style="display:none;">
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Логика страницы профиля — небольшая, оставили её прямо на странице для наглядности.
+    (async function () {
+      let profile;
+      try {
+        profile = await Larpdeez.requirePageAuth();
+      } catch (e) { return; }
+
+      Larpdeez.renderTopbar('profile');
+      Larpdeez.setTopbarUser(profile);
+
+      document.getElementById('p-name').value = profile.name || '';
+      document.getElementById('p-emoji').value = profile.avatarEmoji || '🎓';
+      document.getElementById('p-about').value = profile.about || '';
+
+      // ---------- Сохранение профиля ----------
+      document.getElementById('profile-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        try {
+          await Larpdeez.api('profile', {
+            method: 'PUT',
+            body: {
+              name: fd.get('name'),
+              avatarEmoji: fd.get('avatarEmoji') || '🎓',
+              about: fd.get('about'),
+            },
+          });
+          Larpdeez.showNotice('profile-notice', 'Профиль сохранён ✔', 'success');
+          Larpdeez.setTopbarUser({ name: fd.get('name'), avatarEmoji: fd.get('avatarEmoji') });
+        } catch (err) {
+          Larpdeez.showNotice('profile-notice', 'Не удалось сохранить: ' + (err.message || ''), 'error');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      // ---------- Смена пароля ----------
+      document.getElementById('password-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const current = document.getElementById('pw-current').value;
+        const next = document.getElementById('pw-new').value;
+        const confirmPw = document.getElementById('pw-confirm').value;
+        if (next !== confirmPw) {
+          return Larpdeez.showNotice('password-notice', 'Новые пароли не совпадают.', 'error');
+        }
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        Larpdeez.hideNotice('password-notice');
+        try {
+          await Larpdeez.api('password', {
+            method: 'POST',
+            body: { currentPassword: current, newPassword: next, confirmPassword: confirmPw },
+          });
+          Larpdeez.showNotice('password-notice', 'Пароль изменён ✔ На других устройствах нужно будет войти с новым паролем.', 'success');
+          e.target.reset();
+        } catch (err) {
+          const msg = err.code === 'bad-password'
+            ? 'Текущий пароль указан неверно.'
+            : (err.message || 'Не удалось изменить пароль.');
+          Larpdeez.showNotice('password-notice', msg, 'error');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      // ---------- Экспорт ----------
+      document.getElementById('export-btn').addEventListener('click', async () => {
+        try {
+          const data = await Larpdeez.api('data');
+          const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'larpdeez-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+          a.click();
+          URL.revokeObjectURL(a.href);
+          Larpdeez.showNotice('data-notice', 'Резервная копия скачана ✔', 'success');
+        } catch (err) {
+          Larpdeez.showNotice('data-notice', 'Экспорт не удался: ' + (err.message || ''), 'error');
+        }
+      });
+
+      // ---------- Импорт ----------
+      document.getElementById('import-file').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        e.target.value = '';
+        if (!file) return;
+        if (!confirm('Импорт ПОЛНОСТЬЮ заменит текущие курсы, материалы и прогресс данными из файла. Продолжить?')) return;
+        Larpdeez.hideNotice('data-notice');
+        try {
+          const text = await file.text();
+          const payload = JSON.parse(text);
+          const res = await Larpdeez.api('data', { method: 'POST', body: payload });
+          Larpdeez.showNotice('data-notice', `Импортировано: ${res.courses} курсов, ${res.materials} материалов ✔`, 'success');
+        } catch (err) {
+          const msg = err instanceof SyntaxError
+            ? 'Файл повреждён или это не JSON.'
+            : ('Импорт не удался: ' + (err.message || ''));
+          Larpdeez.showNotice('data-notice', msg, 'error');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

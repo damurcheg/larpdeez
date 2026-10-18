@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Larpdeez — вход</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-card card">
+      <div class="logo-big">🎓</div>
+      <h1>Larpdeez</h1>
+      <p class="sub">Личная образовательная платформа</p>
+
+      <div class="notice" id="auth-notice"></div>
+
+      <!-- Экран загрузки / проверки состояния -->
+      <div id="loading-view">
+        <p class="muted">Проверяем состояние платформы…</p>
+      </div>
+
+      <!-- Первоначальная настройка пароля (видна только пока пароль не задан) -->
+      <div id="setup-view" class="hidden">
+        <p><strong>Добро пожаловать! Придумайте пароль для своей образовательной платформы.</strong></p>
+        <p class="muted">Пароль сохранится в вашей базе Cloudflare D1. Введите его один раз — он будет работать
+          на любом устройстве и после любых обновлений сайта.</p>
+        <form id="setup-form">
+          <label for="setup-name">Как к вам обращаться? (необязательно)</label>
+          <input type="text" id="setup-name" name="name" maxlength="100" placeholder="Например, Алекс">
+
+          <label for="setup-password">Придумайте пароль (минимум 8 символов)</label>
+          <input type="password" id="setup-password" name="password" minlength="8" required autocomplete="new-password">
+
+          <label for="setup-confirm">Повторите пароль</label>
+          <input type="password" id="setup-confirm" name="confirm" minlength="8" required autocomplete="new-password">
+
+          <button type="submit" class="btn" style="width:100%; margin-top:16px;">Сохранить пароль и войти</button>
+        </form>
+      </div>
+
+      <!-- Обычный вход (виден, когда пароль уже установлен) -->
+      <div id="login-view" class="hidden">
+        <form id="login-form">
+          <label for="login-password">Пароль</label>
+          <input type="password" id="login-password" required autocomplete="current-password">
+          <button type="submit" class="btn" style="width:100%; margin-top:16px;">Войти</button>
+        </form>
+        <p class="muted" style="margin-top:14px;">
+          Забыли пароль? <a href="#" id="forgot-link">Как восстановить доступ</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

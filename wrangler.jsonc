@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "larpdeez",
+  "pages_build_output_dir": "public",
+  "compatibility_date": "2025-06-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "larpdeez-data",
+      "database_id": "2cbb429c-db4f-40d4-8eeb-968ced08d5d7",
+      "migrations_dir": "migrations"
+    }
+  ]
+}
