@@ -20,7 +20,7 @@ export async function getSetting(env, key) {
 }
 
 // ---------- Пароль: PBKDF2-SHA256 + случайная соль ----------
-const PBKDF2_ITERATIONS = 210000;
+const PBKDF2_ITERATIONS = 100000;
 
 function bufToHex(buf) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
