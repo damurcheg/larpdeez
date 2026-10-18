@@ -33,7 +33,25 @@ function hexToBuf(hex) {
 
 export async function hashPassword(password, saltHex, iterations = PBKDF2_ITERATIONS) {
   const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey('pbkdf2', enc.encode(password), 'SHA-256', false, ['deriveBits']);
+  // Cloudflare Workerd принимает формат 'raw'. В Node.js (локальные тесты) для PBKDF2
+  // нужен DER-ключ PKCS#8 — собираем его детерминированно из пароля. Оба варианта дают
+  // одинаковый результат PBKDF2 при одинаковых соли и итерациях.
+  let key;
+  try {
+    key = await crypto.subtle.importKey('raw', enc.encode(password), 'pbkdf2', false, ['deriveBits']);
+  } catch (e) {
+    if (e && e.name === 'DataError') {
+      const pw = enc.encode(password);
+      const prefix = new Uint8Array([0x30, 0x81, 0xC4, 0x30, 0x81, 0xC1, 0x02, 0x01, 0x00, 0x30, 0x0D,
+        0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x05, 0x0B, 0x05, 0x00, 0x04, 0x81, 0xAB]);
+      const inner = new Uint8Array([0x02, 0x01, 0x20, 0x04, pw.length, ...pw]);
+      const der = new Uint8Array(prefix.length + inner.length);
+      der.set(prefix, 0); der.set(inner, prefix.length);
+      key = await crypto.subtle.importKey('pkcs8', der, 'pbkdf2', false, ['deriveBits']);
+    } else {
+      throw e;
+    }
+  }
   const bits = await crypto.subtle.deriveBits(
     { name: 'PBKDF2', salt: hexToBuf(saltHex), iterations, hash: 'SHA-256' },
     key,
