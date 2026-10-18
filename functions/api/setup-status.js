@@ -1,4 +1,4 @@
-import { json, err, handle } from '../../lib/common.js';
+import { json, err, handle } from '../lib/common.js';
 
 // GET /api/setup-status — можно ли ещё выполнить первоначальную настройку пароля.
 // Ответ публичный: только true/false, никаких секретов.

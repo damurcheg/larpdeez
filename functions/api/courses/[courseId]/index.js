@@ -1,4 +1,4 @@
-import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../../../lib/common.js';
+import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../../lib/common.js';
 
 function cleanString(v, max) {
   return typeof v === 'string' ? v.slice(0, max) : '';

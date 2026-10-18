@@ -1,7 +1,7 @@
 import {
   json, err, handle, getSetting, createPasswordRecord,
   createSession, sessionCookie, csrfCookie, checkRateLimit, recordFailedAttempt, readJson,
-} from '../../lib/common.js';
+} from '../lib/common.js';
 
 // POST /api/setup — первоначальная настройка пароля (один раз, пока пароль не задан).
 // Защита от гонки: INSERT ... ON CONFLICT DO NOTHING — первый запрос записывает хеш,

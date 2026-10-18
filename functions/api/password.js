@@ -1,6 +1,6 @@
 import {
   json, err, handle, requireAuth, getSetting, verifyPassword, createPasswordRecord, readJson,
-} from '../../lib/common.js';
+} from '../lib/common.js';
 
 // POST /api/password — смена пароля. Требует текущий пароль и новый пароль.
 export const onRequestPost = handle(async ({ request, env }) => {

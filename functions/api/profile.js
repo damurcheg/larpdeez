@@ -1,4 +1,4 @@
-import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../lib/common.js';
+import { json, err, handle, requireAuth, checkCsrf, readJson } from '../lib/common.js';
 
 // GET /api/profile — данные профиля.
 export const onRequestGet = handle(async ({ request, env }) => {

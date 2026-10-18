@@ -1,4 +1,4 @@
-import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../../lib/common.js';
+import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../lib/common.js';
 
 // POST /api/progress — отметить материал пройденным или снять отметку.
 export const onRequestPost = handle(async ({ request, env }) => {

@@ -1,4 +1,4 @@
-import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../../lib/common.js';
+import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../lib/common.js';
 
 // Курсы + прогресс по ним. Прогресс считается по материалам курса:
 // doneMaterials / totalMaterials.

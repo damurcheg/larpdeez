@@ -1,4 +1,4 @@
-import { json, handle, getSessionUser } from '../../lib/common.js';
+import { json, handle, getSessionUser } from '../lib/common.js';
 
 // GET /api/session — проверяет, вошёл ли пользователь (по cookie сессии).
 export const onRequestGet = handle(async ({ request, env }) => {

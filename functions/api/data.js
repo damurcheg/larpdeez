@@ -1,4 +1,4 @@
-import { json, err, handle, requireAuth, checkCsrf, readJson } from '../../lib/common.js';
+import { json, err, handle, requireAuth, checkCsrf, readJson } from '../lib/common.js';
 
 // GET /api/data — экспорт всех данных пользователя (курсы, материалы, прогресс, профиль).
 export const onRequestGet = handle(async ({ request, env }) => {

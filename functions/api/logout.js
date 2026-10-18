@@ -1,4 +1,4 @@
-import { json, handle, requireAuth, destroySession, clearSessionCookie } from '../../lib/common.js';
+import { json, handle, requireAuth, destroySession, clearSessionCookie } from '../lib/common.js';
 
 // POST /api/logout — выход и аннулирование текущей сессии.
 export const onRequestPost = handle(async ({ request, env }) => {

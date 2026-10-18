@@ -1,7 +1,7 @@
 import {
   json, err, handle, getSetting, verifyPassword, createSession, sessionCookie, csrfCookie,
   checkRateLimit, recordFailedAttempt, clearFailedAttempts, readJson,
-} from '../../lib/common.js';
+} from '../lib/common.js';
 
 // POST /api/login — вход по паролю.
 export const onRequestPost = handle(async ({ request, env }) => {
