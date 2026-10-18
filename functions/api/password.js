@@ -3,6 +3,9 @@ import {
 } from '../lib/common.js';
 
 // POST /api/password — смена пароля. Требует текущий пароль и новый пароль.
+// Пароль никогда не возвращается клиенту. После смены все остальные сессии
+// аннулируются (текущая остаётся активной), чтобы другие устройства пришлось
+// перелогинить с новым паролем.
 export const onRequestPost = handle(async ({ request, env }) => {
   const session = await requireAuth(env, request); // только для вошедших
   const body = await readJson(request);
@@ -32,6 +35,16 @@ export const onRequestPost = handle(async ({ request, env }) => {
     throw e;
   }
 
+  const now = Date.now();
+  let revoked = 0;
+  if (session && session.id) {
+    // Аннулирование всех остальных сессий: другие устройства придётся перелогинить
+    // с новым паролем. Текущая сессия остаётся активной и продлевается на 30 дней.
+    const res = await env.DB.prepare('DELETE FROM sessions WHERE id != ?').bind(session.id).run();
+    revoked = ((res && res.meta) || {}).changes || 0;
+    await env.DB.prepare('UPDATE sessions SET expires_at = ? WHERE id = ?')
+      .bind(now + 30 * 24 * 3600 * 1000, session.id).run();
+  }
   await env.DB.prepare("UPDATE settings SET value = ? WHERE key = 'password_hash'").bind(record).run();
-  return json({ ok: true });
+  return json({ ok: true, otherSessionsRevoked: revoked });
 });
