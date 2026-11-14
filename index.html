@@ -2355,34 +2355,123 @@ async function ghWriteVault(v){
 
 function ghSetup(err){
   return new Promise(resolve=>{
-    ghOverlay(`<div class="gh-card"><div class="gh-logo">larpdeez</div><div class="gh-sub">Подключение GitHub-хранилища</div><div class="gh-err${err?' on':''}">${esc(err||'')}</div><label class="lbl">Владелец (логин GitHub)</label><input class="field" id="gh-owner" placeholder="my-login" autocomplete="off"><label class="lbl">Приватный репозиторий данных</label><input class="field" id="gh-repo" value="larpdeez-data" autocomplete="off"><label class="lbl">Файл сейфа</label><input class="field" id="gh-path" value="vault.json" autocomplete="off"><label class="lbl">Fine-grained token</label><input class="field" id="gh-token" type="password" placeholder="github_pat_…" autocomplete="off"><label class="lbl">Логин входа</label><input class="field" id="gh-login" value="admin" autocomplete="off"><label class="lbl">Пароль входа</label><input class="field" id="gh-pass" value="12345678" type="password"><button type="button" class="btn btn-primary gh-main" id="gh-create"><i data-lucide="shield"></i>Создать защищённый сейф</button><p class="hint">Нужен HTTPS (GitHub Pages). Токен хранится только в этом браузере, данные шифруются паролем.</p></div>`);
-    $('#gh-create').onclick=async()=>{
-      $('#gh-err').classList.remove('on');
-      const owner=$('#gh-owner').value.trim(),repo=$('#gh-repo').value.trim(),path=$('#gh-path').value.trim()||'vault.json',token=$('#gh-token').value.trim(),login=$('#gh-login').value.trim()||'admin',pass=$('#gh-pass').value;
-      if(!owner||!repo||!token){ghErr('Заполни владельца, репозиторий и токен.');return}
-      if(pass.length<8){ghErr('Пароль минимум 8 символов.');return}
-      if(!window.isSecureContext||!crypto||!crypto.subtle){ghErr('Шифрование недоступно. Открой страницу по HTTPS (GitHub Pages), а не как локальный файл.');return}
-      Object.assign(GH,{owner,repo,path,token});
+    ghOverlay(`<div class="gh-card">
+      <div class="gh-logo">larpdeez</div>
+      <div class="gh-sub">Подключение GitHub-хранилища</div>
+      <div class="gh-err${err?' on':''}" id="gh-err">${esc(err||'')}</div>
+      <label class="lbl">Владелец (логин GitHub)</label>
+      <input class="field" id="gh-owner" placeholder="my-login" autocomplete="off">
+      <label class="lbl">Приватный репозиторий данных</label>
+      <input class="field" id="gh-repo" value="larpdeez-data" autocomplete="off">
+      <label class="lbl">Файл сейфа</label>
+      <input class="field" id="gh-path" value="vault.json" autocomplete="off">
+      <label class="lbl">Fine-grained token</label>
+      <input class="field" id="gh-token" type="password" placeholder="github_pat_…" autocomplete="off">
+      <label class="lbl">Логин входа</label>
+      <input class="field" id="gh-login" value="admin" autocomplete="off">
+      <label class="lbl">Пароль входа</label>
+      <input class="field" id="gh-pass" value="12345678" type="password">
+      <button type="button" class="btn btn-primary gh-main" id="gh-create"><i data-lucide="shield"></i>Создать защищённый сейф</button>
+      <p class="hint">Нужен HTTPS (GitHub Pages). Токен хранится только в этом браузере, данные шифруются паролем.</p>
+    </div>`);
+    
+    $('#gh-create').onclick = async () => {
+      console.log('[GH] клик по кнопке');
+      const errEl = $('#gh-err'); 
+      if(errEl) errEl.classList.remove('on');
+      
+      const owner = $('#gh-owner')?.value?.trim();
+      const repo = $('#gh-repo')?.value?.trim();
+      const path = $('#gh-path')?.value?.trim() || 'vault.json';
+      const token = $('#gh-token')?.value?.trim();
+      const login = $('#gh-login')?.value?.trim() || 'admin';
+      const pass = $('#gh-pass')?.value;
+      
+      console.log('[GH] поля:', {owner, repo, path, token: token ? token.slice(0,8)+'...' : 'none', login, passLen: pass?.length});
+      
+      if(!owner || !repo || !token){
+        if(errEl){ errEl.textContent = 'Заполни владельца, репозиторий и токен'; errEl.classList.add('on'); }
+        else alert('Заполни владельца, репозиторий и токен');
+        return;
+      }
+      if((pass || '').length < 8){
+        if(errEl){ errEl.textContent = 'Пароль минимум 8 символов'; errEl.classList.add('on'); }
+        else alert('Пароль минимум 8 символов');
+        return;
+      }
+      if(!window.isSecureContext || !crypto?.subtle){
+        const msg = 'Шифрование недоступно. Открой страницу по HTTPS.';
+        if(errEl){ errEl.textContent = msg; errEl.classList.add('on'); } 
+        else alert(msg);
+        return;
+      }
+      
+      Object.assign(GH, {owner, repo, path, token});
       try{
-        ghBusy(true,'Проверяю токен и репозиторий…');
-        const chk=await ghFetch('https://api.github.com/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo),{headers:ghHeaders(),cache:'no-store'});
-        if(chk.status===404)throw new Error('Репозиторий не найден или токен не имеет к нему доступа. Проверь владельца, название и Repository access в токене.');
-        if(chk.status===401)throw new Error('Токен неверный или истёк.');
-        if(!chk.ok)throw new Error('GitHub вернул '+chk.status+' при проверке репозитория.');
-        ghBusy(true,'Ищу существующий сейф…');
-        const existing=await ghReadVault();
-        if(existing){GH.vault=existing;ghBusy(false);return resolve(await ghLock(existing))}
-        ghBusy(true,'Шифрую данные…');
-        const dek=crypto.getRandomValues(new Uint8Array(32)),recovery=ghRecovery();
-        GH.dek=dek;
-        const v={app:'larpdeez-vault',v:1,login,iterations:GH.iterations,main:await ghWrap(dek,pass),recovery:await ghWrap(dek,recovery),data:await ghEncryptData(state),updatedAt:Date.now()};
-        ghBusy(true,'Записываю сейф в GitHub…');
-        await ghWriteVault(v);
-        GH.vault=v;GH.ready=true;ghCfgSave({owner,repo,path,token});
-        ghBusy(false);
-        await ghShowRecovery(recovery);
-        ghSetSync('ok');resolve(state);
-      }catch(ex){ghBusy(false);ghErr(ex.message||'Неизвестная ошибка')}
+        const b = $('#gh-create'); 
+        if(b){ b.disabled = true; b.innerHTML = '<i data-lucide="loader-pinwheel"></i> Проверяю...'; icons(); }
+        
+        console.log('[GH] проверяю токен...');
+        const chk = await fetch('https://api.github.com/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo), {
+          headers: { Authorization: 'Bearer '+token, Accept: 'application/vnd.github+json' }, cache: 'no-store'
+        });
+        console.log('[GH] ответ репо:', chk.status);
+        if(chk.status === 404) throw new Error('Репозиторий не найден или токен не имеет к нему доступа. Проверь "Repository access" в настройках токена.');
+        if(chk.status === 401) throw new Error('Токен неверный или истёк.');
+        if(!chk.ok) throw new Error('GitHub вернул ' + chk.status);
+        
+        console.log('[GH] ищу vault.json...');
+        const url = 'https://api.github.com/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo)+'/contents/'+encodeURIComponent(path);
+        const vr = await fetch(url, { headers: { Authorization: 'Bearer '+token, Accept: 'application/vnd.github+json' }, cache: 'no-store' });
+        console.log('[GH] ответ vault:', vr.status);
+        
+        if(vr.status === 404){
+          console.log('[GH] vault нет, создаю...');
+          const dek = crypto.getRandomValues(new Uint8Array(32));
+          GH.dek = dek;
+          const recovery = ghRecovery();
+          const main = await ghWrap(dek, pass);
+          const rec = await ghWrap(dek, recovery);
+          const data = await ghEncryptData(state);
+          const v = { app: 'larpdeez-vault', v: 1, login, iterations: GH.iterations, main, recovery, data, updatedAt: Date.now() };
+          
+          const content = btoa(unescape(encodeURIComponent(JSON.stringify(v))));
+          const wr = await fetch(url, { 
+            method: 'PUT', 
+            headers: { Authorization: 'Bearer '+token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ message: 'init vault', content }) 
+          });
+          console.log('[GH] запись:', wr.status);
+          if(!wr.ok){ const j = await wr.json().catch(()=>({})); throw new Error(j.message || 'GitHub '+wr.status); }
+          
+          const wj = await wr.json(); 
+          GH.sha = wj.content.sha; 
+          GH.vault = v; 
+          GH.ready = true;
+          ghCfgSave({owner, repo, path, token});
+          
+          if(b){ b.disabled = false; b.innerHTML = '<i data-lucide="shield"></i> Создать защищённый сейф'; icons(); }
+          alert('Сейф создан!\n\nЗапасной код: ' + recovery + '\n\nСОХРАНИ ЕГО В НАДЁЖНОМ МЕСТЕ!');
+          ghSetSync('ok'); 
+          resolve(state);
+        } else if(vr.ok){
+          console.log('[GH] vault найден, разблокирую');
+          const j = await vr.json(); 
+          GH.sha = j.sha;
+          const v = JSON.parse(decodeURIComponent(escape(atob(j.content))));
+          GH.vault = v;
+          if(b){ b.disabled = false; b.innerHTML = '<i data-lucide="shield"></i> Создать защищённый сейф'; icons(); }
+          resolve(await ghLock(v));
+        } else {
+          throw new Error('GitHub вернул ' + vr.status);
+        }
+      } catch(ex){
+        console.error('[GH] ошибка:', ex);
+        if(errEl){ errEl.textContent = ex.message; errEl.classList.add('on'); }
+        else alert('Ошибка: ' + ex.message);
+        const b = $('#gh-create'); 
+        if(b){ b.disabled = false; b.innerHTML = '<i data-lucide="shield"></i> Создать защищённый сейф'; icons(); }
+      }
     };
   });
 }
