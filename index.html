@@ -2315,6 +2315,77 @@ function bindCloudPanel(){const p=$('#cloud-panel');if(!p)return;if(!GH.cfg){p.i
 $('#cl-save').onclick=async()=>{const cur=$('#cl-cur').value,n1=$('#cl-new').value,n2=$('#cl-new2').value;if(!cur){toast('Введи текущий пароль или запасной код',{type:'error'});return}if(n1&&n1!==n2){toast('Новые пароли не совпадают',{type:'error'});return}if(n1&&n1.length<8){toast('Пароль минимум 8 символов',{type:'error'});return}try{await GH.changeAccess($('#cl-login').value.trim(),cur,n1||undefined);$('#cl-cur').value=$('#cl-new').value=$('#cl-new2').value='';toast('Доступ обновлён',{type:'success'})}catch(e){toast(e.message||'Ошибка',{type:'error'})}};
 $('#cl-rec').onclick=async()=>{const cur=prompt('Текущий пароль или запасной код:');if(!cur)return;try{const code=await GH.newRecovery(cur);openModal(`<div class="modal-head"><h3>Новый запасной код</h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div><div class="modal-body"><p class="mono" style="font-size:18px;font-weight:700">${code}</p><p class="hint" style="margin-top:10px">Сохрани его. Старый код больше не работает.</p></div><div class="modal-foot"><button class="btn btn-primary" data-action="modal-close">Сохранил</button></div>`,{type:'info'})}catch(e){toast(e.message||'Ошибка',{type:'error'})}};
 $('#gh-disconnect').onclick=()=>{localStorage.removeItem(GH.cfgKey);location.reload()}}
+// === Исправленный поток создания сейфа ===
+async function ghFetch(url,opts={},ms=20000){
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);
+  try{return await fetch(url,{...opts,signal:c.signal})}
+  catch(e){throw new Error(e.name==='AbortError'?'GitHub не ответил за 20 секунд. Проверь сеть или открой api.github.com через VPN.':'Нет связи с api.github.com: '+(e.message||'сеть'))}
+  finally{clearTimeout(t)}
+}
+function ghBusy(on,label){
+  const b=$('#gh-create');if(!b)return;
+  b.disabled=on;
+  b.innerHTML=on?'<i data-lucide="loader-pinwheel"></i>'+esc(label||'Подожди…'):'<i data-lucide="shield"></i>Создать защищённый сейф';
+  icons();
+}
+function ghErr(msg){const e=$('#gh-err');if(e){e.textContent=msg;e.classList.add('on')}}
+
+async function ghReadVault(){
+  const r=await ghFetch(ghUrl(),{headers:ghHeaders(),cache:'no-store'});
+  if(r.status===404)return null;
+  if(r.status===401)throw new Error('Токен неверный или истёк.');
+  if(r.status===403)throw new Error('Нет доступа. Токен должен быть выдан для '+GH.owner+'/'+GH.repo+' с Contents: Read and write.');
+  if(!r.ok)throw new Error('GitHub вернул '+r.status);
+  const j=await r.json();GH.sha=j.sha;
+  const v=JSON.parse(ghDec.decode(ghUnB64(j.content)));
+  if(!v||v.app!=='larpdeez-vault')throw new Error('Файл '+GH.path+' не является сейфом larpdeez.');
+  return v;
+}
+
+async function ghWriteVault(v){
+  const content=ghB64(ghEnc.encode(JSON.stringify(v)));
+  const mk=sha=>({message:'larpdeez sync '+new Date().toISOString(),content,...(sha?{sha}:{})});
+  let r=await ghFetch(ghUrl(),{method:'PUT',headers:ghHeaders(),body:JSON.stringify(mk(GH.sha))});
+  if(r.status===409){await ghReadVault();r=await ghFetch(ghUrl(),{method:'PUT',headers:ghHeaders(),body:JSON.stringify(mk(GH.sha))})}
+  if(r.status===401||r.status===403)throw new Error('Нет прав на запись. В токене нужно Contents: Read and write для '+GH.owner+'/'+GH.repo+'.');
+  if(r.status===404)throw new Error('Репозиторий не найден. Проверь владельца и название репозитория.');
+  if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.message||'GitHub '+r.status)}
+  const j=await r.json();GH.sha=j.content.sha;GH.updatedAt=v.updatedAt;
+}
+
+function ghSetup(err){
+  return new Promise(resolve=>{
+    ghOverlay(`<div class="gh-card"><div class="gh-logo">larpdeez</div><div class="gh-sub">Подключение GitHub-хранилища</div><div class="gh-err${err?' on':''}">${esc(err||'')}</div><label class="lbl">Владелец (логин GitHub)</label><input class="field" id="gh-owner" placeholder="my-login" autocomplete="off"><label class="lbl">Приватный репозиторий данных</label><input class="field" id="gh-repo" value="larpdeez-data" autocomplete="off"><label class="lbl">Файл сейфа</label><input class="field" id="gh-path" value="vault.json" autocomplete="off"><label class="lbl">Fine-grained token</label><input class="field" id="gh-token" type="password" placeholder="github_pat_…" autocomplete="off"><label class="lbl">Логин входа</label><input class="field" id="gh-login" value="admin" autocomplete="off"><label class="lbl">Пароль входа</label><input class="field" id="gh-pass" value="12345678" type="password"><button type="button" class="btn btn-primary gh-main" id="gh-create"><i data-lucide="shield"></i>Создать защищённый сейф</button><p class="hint">Нужен HTTPS (GitHub Pages). Токен хранится только в этом браузере, данные шифруются паролем.</p></div>`);
+    $('#gh-create').onclick=async()=>{
+      $('#gh-err').classList.remove('on');
+      const owner=$('#gh-owner').value.trim(),repo=$('#gh-repo').value.trim(),path=$('#gh-path').value.trim()||'vault.json',token=$('#gh-token').value.trim(),login=$('#gh-login').value.trim()||'admin',pass=$('#gh-pass').value;
+      if(!owner||!repo||!token){ghErr('Заполни владельца, репозиторий и токен.');return}
+      if(pass.length<8){ghErr('Пароль минимум 8 символов.');return}
+      if(!window.isSecureContext||!crypto||!crypto.subtle){ghErr('Шифрование недоступно. Открой страницу по HTTPS (GitHub Pages), а не как локальный файл.');return}
+      Object.assign(GH,{owner,repo,path,token});
+      try{
+        ghBusy(true,'Проверяю токен и репозиторий…');
+        const chk=await ghFetch('https://api.github.com/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo),{headers:ghHeaders(),cache:'no-store'});
+        if(chk.status===404)throw new Error('Репозиторий не найден или токен не имеет к нему доступа. Проверь владельца, название и Repository access в токене.');
+        if(chk.status===401)throw new Error('Токен неверный или истёк.');
+        if(!chk.ok)throw new Error('GitHub вернул '+chk.status+' при проверке репозитория.');
+        ghBusy(true,'Ищу существующий сейф…');
+        const existing=await ghReadVault();
+        if(existing){GH.vault=existing;ghBusy(false);return resolve(await ghLock(existing))}
+        ghBusy(true,'Шифрую данные…');
+        const dek=crypto.getRandomValues(new Uint8Array(32)),recovery=ghRecovery();
+        GH.dek=dek;
+        const v={app:'larpdeez-vault',v:1,login,iterations:GH.iterations,main:await ghWrap(dek,pass),recovery:await ghWrap(dek,recovery),data:await ghEncryptData(state),updatedAt:Date.now()};
+        ghBusy(true,'Записываю сейф в GitHub…');
+        await ghWriteVault(v);
+        GH.vault=v;GH.ready=true;ghCfgSave({owner,repo,path,token});
+        ghBusy(false);
+        await ghShowRecovery(recovery);
+        ghSetSync('ok');resolve(state);
+      }catch(ex){ghBusy(false);ghErr(ex.message||'Неизвестная ошибка')}
+    };
+  });
+}
 // #endregion
 
 // #region Инициализация
