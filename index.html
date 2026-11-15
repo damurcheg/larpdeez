@@ -2512,11 +2512,8 @@ return`<label class="lbl">${meta.eid?'Время события':'Время в�
 <p class="hint" style="margin-top:8px">Начало 08:00–22:30 · конец 08:30–23:00</p>
 <div class="pop-foot">${meta.eid?'<span></span>':'<button class="btn btn-ghost sm" data-action="tr-clear" style="color:var(--danger)">Без времени</button>'}<button class="btn btn-primary sm" data-action="tr-save">Готово</button></div>`;
 }
-function timeRangePopHtml(meta){
-  return`<label class="lbl">Время выполнения</label>
-  <div class="time-sel"><div><label class="lbl">Начало</label><input class="field time-input" id="tr-start" value="${esc(meta.start||'')}" placeholder="08:00" inputmode="numeric" maxlength="5" autocomplete="off"></div><div><label class="lbl">Конец</label><input class="field time-input" id="tr-end" value="${esc(meta.end||'')}" placeholder="09:00" inputmode="numeric" maxlength="5" autocomplete="off"></div></div>
-  <p class="hint" style="margin-top:8px">Начало 08:00–22:30 · конец 08:30–23:00</p>
-  <div class="pop-foot"><button class="btn btn-ghost sm" data-action="tr-clear" style="color:var(--danger)">Без времени</button><button class="btn btn-primary sm" data-action="tr-save">Готово</button></div>`;
+function datePopHtml(meta){
+  return miniCal(meta.month,{sel:meta.value,prefix:'pp'})+`<div class="pop-foot"><span style="display:flex;gap:6px"><button class="btn btn-ghost sm" data-action="pp-today">Сегодня</button><button class="btn btn-ghost sm" data-action="pp-tomorrow">Завтра</button></span>${meta.value?'<button class="btn btn-ghost sm" data-action="pp-clear" style="color:var(--danger)">Убрать дату</button>':''}</div>`;
 }
 // #endregion
 
