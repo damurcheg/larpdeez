@@ -238,7 +238,7 @@ section[id]{scroll-margin-top:calc(var(--header-total-h) + 16px)}
 .mod-ic svg{width:21px;height:21px}
 .mod-top h3{font-weight:700;font-size:15.5px;color:var(--pc-text);line-height:1.3;flex:1;min-width:0}
 .mod-body{padding:14px 18px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
-.mod-desc{font-size:13px;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:38px}
+.mod-desc{font-size:13px;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:38px}
 .mod-tags{display:flex;gap:6px;flex-wrap:wrap}
 .mod-foot{margin-top:auto}
 .bar{height:7px;border-radius:6px;background:var(--bg2);overflow:hidden}
@@ -250,7 +250,7 @@ section[id]{scroll-margin-top:calc(var(--header-total-h) + 16px)}
 .mod-done-badge b{font-size:18px;font-weight:800;line-height:1}
 .mod-card.done{opacity:.92}
 .empty{border:1.5px dashed var(--border2);border-radius:var(--r-lg);padding:36px 24px;text-align:center;color:var(--muted)}
-.empty svg{width:34px;height:34px;margin-bottom:10px;opacity:.6}
+.empty>svg{width:34px;height:34px;margin-bottom:10px;opacity:.6}
 .empty p{margin-bottom:14px;font-size:14px}
 /* #endregion */
 /* #region Боковая панель */
@@ -338,7 +338,7 @@ a.it-name:hover{color:var(--pc-accent)}
 .due-chip.over{background:var(--danger-bg);color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,transparent);border-style:solid}
 .time-chip:disabled{opacity:.4;cursor:not-allowed}
 .time-chip:disabled:hover{border-color:var(--border2);color:var(--muted)}
-.grade-chip{display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px 0 5px;border-radius:9px;background:var(--surface);border:1px solid var(--border);transition:.15s;line-height:1;vertical-align:middle}
+.grade-chip{display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px 0 3px;border-radius:9px;background:var(--surface);border:1px solid var(--border);transition:.15s;line-height:1;vertical-align:middle}
 .grade-chip:hover{border-color:var(--accent);transform:translateY(-1px)}
 .grade-chip .letter{height:20px;min-width:20px;font-size:11px;border-radius:6px;padding:0 5px}
 .grade-chip .g-val{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--ink);line-height:1}
@@ -397,6 +397,8 @@ a.it-name:hover{color:var(--pc-accent)}
 .swatch:hover{transform:scale(1.14)}
 .swatch.sel{border-color:var(--ink);transform:scale(1.1)}
 .swatch.sel::after{content:'';position:absolute;inset:0;margin:auto;width:8px;height:8px;border-radius:50%;background:var(--surface)}
+#evt-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(24px,1fr));gap:7px;padding:2px}
+#evt-swatches .swatch{width:100%;height:auto;aspect-ratio:1}
 .accent-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
 .accent-opt{display:flex;align-items:center;gap:10px;height:46px;padding:0 13px;border-radius:13px;border:1.5px solid var(--border);background:var(--surface2);font-weight:600;font-size:13.5px;color:var(--ink);transition:.15s;text-align:left}
 .accent-opt:hover{border-color:var(--border2);transform:translateY(-1px)}
@@ -637,10 +639,15 @@ body.cal-dragging .cal-event{transition:none}
 .dist-legend{display:flex;gap:10px;flex-wrap:wrap}
 .dist-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink2)}
 .dist-legend .dot{width:10px;height:10px;border-radius:4px}
-.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,14px);gap:3px;overflow-x:auto;padding-bottom:4px}
+.heat-scroll{overflow-x:auto;padding-bottom:4px}
+.heat{display:grid;grid-template-columns:26px repeat(12,14px);grid-template-rows:14px repeat(7,14px);gap:3px;width:max-content}
 .heat i{width:14px;height:14px;border-radius:4px;background:var(--bg2);border:1px solid var(--border)}
 .heat i.on{background:var(--acid);border-color:color-mix(in srgb,var(--acid) 60%,var(--border))}
 .heat i.future{opacity:.3}
+.heat .hc,.heat .hd{position:sticky;left:0;z-index:1;background:var(--surface)}
+.heat .hd{display:flex;align-items:center;justify-content:flex-end;padding-right:3px;font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--muted);line-height:1;cursor:help}
+.heat .hw{display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--muted);line-height:1;border-radius:4px;cursor:help}
+.heat .hw:hover{color:var(--accent);background:var(--accent-soft)}
 /* #endregion */
 /* #region Тосты, конфетти */
 #toasts{position:fixed;bottom:calc(20px + var(--safe-bottom));right:20px;z-index:400;display:flex;flex-direction:column;gap:9px;max-width:min(400px,calc(100vw - 32px))}
@@ -930,6 +937,20 @@ const today=()=>iso(new Date());
 const addD=(s,n)=>{const d=fromISO(s);d.setDate(d.getDate()+n);return iso(d)};
 const diffD=(a,b)=>Math.round((fromISO(a)-fromISO(b))/864e5);
 const weekStart=s=>{const d=fromISO(s);d.setDate(d.getDate()-(d.getDay()+6)%7);return iso(d)};
+function isoWeekNum(ds){
+const d=fromISO(ds);
+const t=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+t.setDate(t.getDate()-(t.getDay()+6)%7+3);
+const ft=new Date(t.getFullYear(),0,4);
+ft.setDate(ft.getDate()-(ft.getDay()+6)%7+3);
+return 1+Math.round((t-ft)/6048e5);
+}
+function weekRangeTitle(ws){
+const a=fromISO(ws),b=fromISO(addD(ws,6));
+const ya=a.getFullYear(),yb=b.getFullYear();
+const left=`${a.getDate()} ${MONTHS_R[a.getMonth()]}${ya!==yb?' '+ya:''}`;
+return`Неделя ${isoWeekNum(ws)}&#10;${left} — ${b.getDate()} ${MONTHS_R[b.getMonth()]} ${yb}`;
+}
 const validISO=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&!isNaN(fromISO(s).getTime());
 const validHM=s=>typeof s==='string'&&/^([01]\d|2[0-3]):[0-5]\d$/.test(s);
 const hm2min=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
@@ -1120,9 +1141,26 @@ function moduleInfo(m){
   if(done){const arr=[...grades.map(g=>g.g),...(pg?[pg.g]:[])];if(arr.length)mg=Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10}
   return{topics,tasks,tDone,grades,pg,done,progress,mg,letter:mg?letterOf(mg):null};
 }
+function collectGrades(){
+const out=[];
+state.modules.forEach(m=>{
+m.disciplines.forEach(d=>d.items.forEach(i=>{
+if(i.type!=='task')return;
+const g=calcGrade(i.criteria,i.scores);
+if(g)out.push(g);
+}));
+if(m.project.enabled){
+const pg=calcGrade(m.project.criteria,m.project.scores);
+if(pg)out.push(pg);
+}
+});
+return out;
+}
 function gpa(){
-  const gs=state.modules.map(moduleInfo).filter(x=>x.done&&x.mg).map(x=>x.mg);
-  return gs.length?Math.round(gs.reduce((a,b)=>a+b,0)/gs.length*10)/10:null;
+const gs=collectGrades();
+if(!gs.length)return null;
+const tenths=gs.reduce((a,x)=>a+Math.round(x.g*10),0);
+return Math.round(tenths/gs.length)/10;
 }
 function streak(){const set=new Set(state.studyDays);let n=0,cur=today();if(!set.has(cur))cur=addD(cur,-1);while(set.has(cur)){n++;cur=addD(cur,-1)}return n}
 function bestStreak(){const s=[...new Set(state.studyDays)].sort();let best=0,run=0,prev=null;for(const d of s){run=prev&&diffD(d,prev)===1?run+1:1;best=Math.max(best,run);prev=d}return best}
@@ -1452,14 +1490,19 @@ function statsPage(){
   const doneN=infos.filter(x=>x.inf.done).length;
   const topics=infos.reduce((a,x)=>a+x.inf.topics.length,0),tRead=infos.reduce((a,x)=>a+x.inf.tDone,0);
   const tasks=infos.reduce((a,x)=>a+x.inf.tasks.length,0),tGraded=infos.reduce((a,x)=>a+x.inf.grades.length,0);
-  const allGrades=[];
-  state.modules.forEach(m=>{m.disciplines.forEach(d=>d.items.forEach(i=>{if(i.type==='task'){const gr=calcGrade(i.criteria,i.scores);if(gr)allGrades.push(gr)}}));const pg=calcGrade(m.project.criteria,m.project.scores);if(m.project.enabled&&pg)allGrades.push(pg)});
+  const allGrades=collectGrades();
   const dist={A:0,B:0,C:0,D:0,F:0};allGrades.forEach(x=>dist[x.letter]++);
   const total=allGrades.length||1;
   const dcol={A:'var(--gA)',B:'var(--gB)',C:'var(--gC)',D:'var(--gD)',F:'var(--gF)'};
-  const set=new Set(state.studyDays),best=bestStreak();
-  const start=addD(weekStart(today()),-77);
-  let heat='';for(let i=0;i<84;i++){const ds=addD(start,i);const fut=diffD(ds,today())>0;heat+=`<i class="${set.has(ds)?'on':''}${fut?' future':''}" title="${fmtLong(ds)}${set.has(ds)?' · занятие было':''}"></i>`}
+const set=new Set(state.studyDays),best=bestStreak();
+const start=addD(weekStart(today()),-77);
+const WD_FULL=['понедельник','вторник','среда','четверг','пятница','суббота','воскресенье'];
+let heat='<span class="hc" aria-hidden="true"></span>';
+for(let w=0;w<12;w++){const ws=addD(start,w*7);heat+=`<span class="hw" title="${weekRangeTitle(ws)}">${isoWeekNum(ws)}</span>`}
+for(let r=0;r<7;r++){
+heat+=`<span class="hd" title="${WD_FULL[r]}">${WD[r]}</span>`;
+for(let w=0;w<12;w++){const ds=addD(start,w*7+r);const fut=diffD(ds,today())>0;heat+=`<i class="${set.has(ds)?'on':''}${fut?' future':''}" title="${fmtLong(ds)}${set.has(ds)?' · занятие было':''}"></i>`}
+}
   const tile=(ic,val,lab)=>`<div class="stat-tile reveal"><i data-lucide="${ic}"></i><b>${val}</b><span>${lab}</span></div>`;
   return`<div class="page">
   <a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a>
@@ -1468,7 +1511,7 @@ function statsPage(){
 <div class="stats-hero">
 <div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;opacity:.75;margin-bottom:8px">СРЕДНИЙ БАЛЛ</div>
 <div style="display:flex;align-items:center;gap:16px"><span class="gpa-big">${g?g.toFixed(1):'—'}</span></div></div>
-<p>${g?'Среднее по завершённым модулям. Оценка модуля складывается из оценок заданий и финального проекта.':'Завершите первый модуль, чтобы появился средний балл. Оценки: 1 + (процент / 100 × 4).'}</p>
+<p>${g?'Среднее по всем оценённым заданиям и финальным проектам — завершать модуль не обязательно. Каждая оценка учитывается один раз.':'Оцените первое задание или проект, чтобы появился средний балл.'}</p>
 </div>
 <div class="stats-grade ${g?'lt-'+letterOf(g):'no-grade'}">${g?letterOf(g):'—'}</div>
 </div>
@@ -1493,7 +1536,7 @@ function statsPage(){
       </div>
       <div class="panel reveal" style="--d:200ms">
         <div class="panel-title"><i data-lucide="activity"></i>Активность · 12 недель</div>
-        <div class="heat">${heat}</div>
+        <div class="heat-scroll"><div class="heat">${heat}</div></div>
         <div class="hint" style="margin-top:8px">${state.studyDays.length} ${plural(state.studyDays.length,['учебный день','учебных дня','учебных дней'])} всего</div>
       </div>
     </div>
