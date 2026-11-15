@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#F5F3EC">
 <title>larpdeez</title>
-
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="larpdeez">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -652,6 +654,63 @@ body.gh-locked #topbar,body.gh-locked #app,body.gh-locked .foot{visibility:hidde
 #cloud-status[data-state="err"]{color:var(--danger)}
 #cloud-status[data-state="ok"]{color:var(--success)}
 #cloud-status[data-state="save"]{color:var(--warn)}
+/* === НОВОЕ: правки интерфейса larpdeez === */
+
+/* Аватарка заходит на баннер на 40% высоты */
+.hero-av{margin-top:-37px}
+
+/* Статистика: широкий блок + квадрат с буквой */
+.stats-bento{display:grid;grid-template-columns:minmax(0,1fr) var(--sq,170px);gap:14px;align-items:stretch;margin-bottom:20px}
+.stats-bento .stats-hero{margin-bottom:0}
+.stats-grade{display:flex;align-items:center;justify-content:center;height:var(--sq,170px);border-radius:var(--r-xl);font-family:var(--font-display);font-weight:900;font-size:clamp(38px,5vw,56px);line-height:1;border:1px solid color-mix(in srgb,currentColor 25%,transparent)}
+.stats-grade.no-grade{background:var(--surface);color:var(--muted);border-color:var(--border)}
+
+/* Кнопка «Раскрыть» и раскрытое содержимое */
+.exp-btn{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);font-size:11.5px;font-weight:600;line-height:1;transition:.15s}
+.exp-btn:hover{border-color:var(--pc-accent,var(--accent));color:var(--pc-accent,var(--accent))}
+.exp-btn.on{background:var(--pc-bg,var(--bg2));border-color:var(--pc-border,var(--border));color:var(--pc-text,var(--ink2))}
+.exp-btn svg{width:13px;height:13px}
+.item-view{margin:2px 0 10px;padding:12px 14px;border-radius:12px;background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--pc-accent,var(--accent))}
+.item-view .iv-desc{font-size:13px;color:var(--ink2);white-space:pre-line}
+.item-view .iv-label{font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:12px 0 7px}
+.item-view .crit-preview,.item-view .links-row{margin-top:0}
+
+/* Панель GitHub и галочка «запомнить меня» */
+.ed-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gh-remember{display:flex;align-items:center;gap:9px;margin:2px 0 12px;font-size:13px;color:var(--ink2);cursor:pointer}
+.gh-remember input{width:16px;height:16px;accent-color:var(--accent);flex:none;cursor:pointer}
+
+/* Цвет интерфейса = цвет модуля (светлая тема) */
+:root[data-ctx="gray"]{--accent:#5E5A51;--accent-soft:#F0EFEA;--primary-bg:#5E5A51;--primary-fg:#FFFFFF}
+:root[data-ctx="wine"]{--accent:#8E3944;--accent-soft:#F7E9EA;--primary-bg:#8E3944;--primary-fg:#FFFFFF}
+:root[data-ctx="coral"]{--accent:#B2481E;--accent-soft:#FBEBE2;--primary-bg:#B2481E;--primary-fg:#FFFFFF}
+:root[data-ctx="yellow"]{--accent:#87620F;--accent-soft:#F9F0D9;--primary-bg:#87620F;--primary-fg:#FFFFFF}
+:root[data-ctx="green"]{--accent:#2E6B3C;--accent-soft:#E8F2E8;--primary-bg:#2E6B3C;--primary-fg:#FFFFFF}
+:root[data-ctx="azure"]{--accent:#1E6A85;--accent-soft:#E4F1F5;--primary-bg:#1E6A85;--primary-fg:#FFFFFF}
+:root[data-ctx="blue"]{--accent:#3250B3;--accent-soft:#E8ECFA;--primary-bg:#3250B3;--primary-fg:#FFFFFF}
+:root[data-ctx="pink"]{--accent:#A83571;--accent-soft:#F9E9F1;--primary-bg:#A83571;--primary-fg:#FFFFFF}
+:root[data-ctx="purple"]{--accent:#6A45A7;--accent-soft:#F0EAF8;--primary-bg:#6A45A7;--primary-fg:#FFFFFF}
+
+/* Цвет интерфейса = цвет модуля (тёмная тема) */
+[data-theme="dark"][data-ctx="gray"]{--accent:#B6B2A6;--accent-soft:#2A2925;--primary-bg:#9D998D;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="wine"]{--accent:#E4A4AD;--accent-soft:#342226;--primary-bg:#D26C79;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="coral"]{--accent:#F1AD8D;--accent-soft:#35241B;--primary-bg:#E68150;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="yellow"]{--accent:#E8C979;--accent-soft:#322A16;--primary-bg:#DBAF3D;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="green"]{--accent:#9FD1A9;--accent-soft:#1F2C22;--primary-bg:#67B57B;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="azure"]{--accent:#94CEDE;--accent-soft:#1C2B31;--primary-bg:#56AAC5;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="blue"]{--accent:#AAB9F1;--accent-soft:#20263A;--primary-bg:#7C94E9;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="pink"]{--accent:#F0AACC;--accent-soft:#32202B;--primary-bg:#DF77AC;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="purple"]{--accent:#C7AFF1;--accent-soft:#2A2338;--primary-bg:#A684DF;--primary-fg:#141310}
+:root[data-ctx] .back-link{color:var(--accent)}
+
+/* Мобильная версия */
+@media(max-width:760px){
+.hero-av{margin-top:-30px}
+.stats-bento{grid-template-columns:minmax(0,1fr) 88px;align-items:start}
+.stats-grade{height:88px;font-size:34px;border-radius:var(--r-lg)}
+.stats-bento .stats-hero{padding:20px}
+.ed-row2{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -790,7 +849,7 @@ function normProject(p){
   legacyGrade(pr,o.grade,'criteria');
   return pr}
 function normModule(m){if(!m||typeof m!=='object')return null;
-  let tags=[];if(Array.isArray(m.tags))tags=m.tags.filter(t=>typeof t==='string').map(t=>t.slice(0,16)).slice(0,5);else if(typeof m.tags==='string')tags=m.tags.split(',').map(t=>t.trim().slice(0,16)).filter(Boolean).slice(0,5);
+  let tags=[];if(Array.isArray(m.tags))tags=m.tags.filter(t=>typeof t==='string').map(t=>t.replace(/^#+/,'').trim().slice(0,16)).filter(Boolean).slice(0,5);else if(typeof m.tags==='string')tags=m.tags.split(',').map(t=>t.trim().replace(/^#+/,'').trim().slice(0,16)).filter(Boolean).slice(0,5);
   return{id:str(m.id,uid()),name:str(m.name||m.title,'Модуль'),icon:ICON_NAMES.has(m.icon)?m.icon:'book',color:mapColor(m.color),description:str(m.description,'').slice(0,200),tags,disciplines:(Array.isArray(m.disciplines)?m.disciplines:[]).map(normDisc).filter(Boolean).slice(0,5),project:normProject(m.project??m.finalProject)}}
 function normEvent(e){if(!e||typeof e!=='object')return null;
   const start=validHM(e.start||e.startTime)?(e.start||e.startTime):'10:00';
@@ -883,7 +942,7 @@ function save(){
   catch(e){if(!saveErrShown){toast('Не удалось сохранить: хранилище переполнено. Уменьшите изображения или выгрузите данные.',{type:'error',duration:8000});saveErrShown=true}return false}
 }
 const saveSoon=debounce(()=>{if(save()){const a=$('.autosave');if(a){a.classList.remove('pulse');void a.offsetWidth;a.classList.add('pulse')}}},400);
-const ui={months:{side:curMonth()},weekAnchor:null,expanded:new Set(),focusSel:null};
+const ui={months:{side:curMonth()},weekAnchor:null,expanded:new Set(),viewExpanded:new Set(),focusSel:null};
 const findM=id=>state.modules.find(m=>m.id===id);
 const findD=(m,id)=>m?m.disciplines.find(d=>d.id===id):null;
 const findI=(d,id)=>d?d.items.find(i=>i.id===id):null;
@@ -1146,6 +1205,10 @@ function render(opts={}){
   app.innerHTML=html;icons();
     bindCloudPanel();
   if(r.name==='calendar')afterCalendar();
+const ctxM=r.mid?findM(r.mid):null;
+const ctxColor=r.name==='module'&&ctxM?ctxM.color:(r.name==='disc'&&ctxM?(findD(ctxM,r.did)||{}).color:null);
+if(ctxColor)document.documentElement.dataset.ctx=ctxColor;else delete document.documentElement.dataset.ctx;
+if(r.name==='stats')afterStats();
   if(ui.focusSel){const f=app.querySelector(ui.focusSel);if(f){f.focus();if(f.select)try{f.select()}catch{}}ui.focusSel=null}
   scrollTo(0,opts.top?0:y);
   document.title=r.name==='home'?`larpdeez — ${state.course.name||'учебное пространство'}`:'larpdeez';
@@ -1189,7 +1252,7 @@ function moduleCard(m,idx){
     <div class="mod-top"><span class="mod-ic"><i data-lucide="${m.icon}"></i></span><h3>${esc(m.name)}</h3>${inf.done&&inf.mg?letterChip(inf.mg):''}</div>
     <div class="mod-body">
       <p class="mod-desc">${esc(m.description)||'<span style="opacity:.5">Без описания</span>'}</p>
-      ${m.tags.length?`<div class="mod-tags">${m.tags.map(t=>`<span class="chip">#${esc(t)}</span>`).join('')}</div>`:''}
+      ${m.tags.length?`<div class="mod-tags">${m.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>`:''}
       <div class="mod-foot">${inf.done
         ?`<div class="mod-done-badge">${inf.mg?`${letterChip(inf.mg)}<b>${inf.mg.toFixed(1)}</b><span class="hint">итоговая оценка</span>`:`<span class="chip"><i data-lucide="check-check"></i>Модуль завершён</span>`}</div>`
         :`<div class="bar" style="--p:${inf.progress}"><i></i></div><div class="mod-progress-row"><span>${inf.topics.length?`${inf.tDone}/${inf.topics.length} тем`:`${inf.grades.length}/${inf.tasks.length} заданий`}</span><span>${pct}%</span></div>`}
@@ -1268,11 +1331,14 @@ function statsPage(){
   return`<div class="page">
   <a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a>
   <div class="page-head"><h1>Статистика</h1></div>
-  <div class="stats-hero reveal">
-    <div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;opacity:.75;margin-bottom:8px">СРЕДНИЙ БАЛЛ</div>
-      <div style="display:flex;align-items:center;gap:16px"><span class="gpa-big">${g?g.toFixed(1):'—'}</span>${g?letterChip(g):''}</div></div>
-    <p>${g?'Среднее по завершённым модулям. Оценка модуля складывается из оценок заданий и финального проекта.':'Завершите первый модуль, чтобы появился средний балл. Оценки: 1 + (процент / 100 × 4).'}</p>
-  </div>
+  <div class="stats-bento reveal">
+<div class="stats-hero">
+<div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;opacity:.75;margin-bottom:8px">СРЕДНИЙ БАЛЛ</div>
+<div style="display:flex;align-items:center;gap:16px"><span class="gpa-big">${g?g.toFixed(1):'—'}</span></div></div>
+<p>${g?'Среднее по завершённым модулям. Оценка модуля складывается из оценок заданий и финального проекта.':'Завершите первый модуль, чтобы появился средний балл. Оценки: 1 + (процент / 100 × 4).'}</p>
+</div>
+<div class="stats-grade ${g?'lt-'+letterOf(g):'no-grade'}">${g?letterOf(g):'—'}</div>
+</div>
   <div class="stat-tiles">
     ${tile('layers',`${doneN}/${state.modules.length}`,'модулей завершено')}
     ${tile('book-open',`${tRead}/${topics}`,'тем прочитано')}
@@ -1302,23 +1368,48 @@ function statsPage(){
 }
 // #endregion
 
+function afterStats(){
+const b=$('.stats-bento'),h=b&&b.querySelector('.stats-hero');
+if(!b||!h)return;
+const mq=matchMedia('(max-width:760px)');
+let last=0;
+const sync=()=>{
+if(mq.matches){b.style.removeProperty('--sq');last=0;return}
+const v=Math.round(h.getBoundingClientRect().height);
+if(v>0&&Math.abs(v-last)>1){last=v;b.style.setProperty('--sq',v+'px')}
+};
+sync();
+const ro=new ResizeObserver(sync);ro.observe(h);
+pageCleanup=()=>ro.disconnect();
+}
+
 // #region Просмотр модуля
+function itemViewPanel(m,d,i){
+const g=i.type==='task'?calcGrade(i.criteria,i.scores):null;
+return`<div class="item-view" id="iv-${i.id}">
+${i.description?`<p class="iv-desc">${esc(i.description)}</p>`:'<p class="iv-desc" style="opacity:.6">Описание не добавлено.</p>'}
+${i.type==='task'?(i.criteria.length?`<div class="iv-label">Критерии оценивания</div><div class="crit-preview">${i.criteria.map(c=>`<span class="chip">${esc(c.text)||'Критерий'}${g?` · <b>${i.scores[c.id]}/5</b>`:''}</span>`).join('')}</div>`:'<div class="hint" style="margin-top:8px">Критерии оценивания ещё не заданы.</div>'):''}
+${i.links.length?`<div class="iv-label">Материалы</div><div class="links-row">${i.links.map(l=>linkChip(l)).join('')}</div>`:''}
+</div>`;
+}
 function itemRow(m,d,i){
-  const ids=`data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}"`;
-  const g=i.type==='task'?calcGrade(i.criteria,i.scores):null;
-  if(i.type==='topic'){
-    return`<div class="item-row topic${i.read?' read':''}">
-      <span class="it-ic"><i data-lucide="book-open"></i></span>
-      <span class="it-main"><a class="it-name" href="#/module/${m.id}/discipline/${d.id}">${esc(i.name)}</a>
-        <span class="it-meta">${dueChip('item',ids,i.dueDate,i.read)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</span></span>
-      <button class="read-btn${i.read?' on':''}" data-action="toggle-read" ${ids} title="${i.read?'Прочитано — снять отметку':'Отметить прочитанной'}" aria-label="Отметить прочитанной"><i data-lucide="${i.read?'circle-check':'circle'}"></i></button>
-    </div>`;
-  }
-  return`<div class="item-row task">
-    <span class="it-ic"><i data-lucide="clipboard-list"></i></span>
-    <span class="it-main"><a class="it-name" href="#/module/${m.id}/discipline/${d.id}">${esc(i.name)}</a>
-      <span class="it-meta">${g?gradeChipBtn(g,'item',ids):`<button class="btn btn-soft sm" data-action="open-grade" data-kind="item" ${ids} style="height:26px;font-size:11.5px;padding:0 10px">Оценить</button>`}${dueChip('item',ids,i.dueDate,!!g)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</span></span>
-  </div>`;
+const ids=`data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}"`;
+const g=i.type==='task'?calcGrade(i.criteria,i.scores):null;
+const open=ui.viewExpanded.has(i.id);
+const exp=`<button class="exp-btn${open?' on':''}" data-action="expand-view" ${ids} aria-expanded="${open}" aria-controls="iv-${i.id}"><i data-lucide="chevron-${open?'up':'down'}"></i>${open?'Свернуть':'Раскрыть'}</button>`;
+if(i.type==='topic'){
+return`<div class="item-row topic${i.read?' read':''}">
+<span class="it-ic"><i data-lucide="book-open"></i></span>
+<span class="it-main"><span class="it-name">${esc(i.name)}</span>
+<span class="it-meta">${exp}${dueChip('item',ids,i.dueDate,i.read)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</span></span>
+<button class="read-btn${i.read?' on':''}" data-action="toggle-read" ${ids} title="${i.read?'Прочитано — снять отметку':'Отметить прочитанной'}" aria-label="Отметить прочитанной"><i data-lucide="${i.read?'circle-check':'circle'}"></i></button>
+</div>${open?itemViewPanel(m,d,i):''}`;
+}
+return`<div class="item-row task">
+<span class="it-ic"><i data-lucide="clipboard-list"></i></span>
+<span class="it-main"><span class="it-name">${esc(i.name)}</span>
+<span class="it-meta">${exp}${g?gradeChipBtn(g,'item',ids):`<button class="btn btn-soft sm" data-action="open-grade" data-kind="item" ${ids} style="height:26px;font-size:11.5px;padding:0 10px">Оценить</button>`}${dueChip('item',ids,i.dueDate,!!g)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</span></span>
+</div>${open?itemViewPanel(m,d,i):''}`;
 }
 function projectBlock(m){
   const p=m.project;if(!p.enabled)return'';
@@ -1356,7 +1447,7 @@ function modulePage(m){
       <div style="flex:1;min-width:220px">
         <h1>${esc(m.name)}</h1>
         ${m.description?`<p class="desc">${esc(m.description)}</p>`:''}
-        ${m.tags.length?`<div class="mod-tags">${m.tags.map(t=>`<span class="chip">#${esc(t)}</span>`).join('')}</div>`:''}
+        ${m.tags.length?`<div class="mod-tags">${m.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>`:''}
       </div>
       <div class="hero-side">
         ${inf.done&&inf.mg?`<div class="mod-progress"><div class="mod-done-badge">${letterChip(inf.mg)}<div><b style="font-size:22px">${inf.mg.toFixed(1)}</b><div class="hint">итог модуля</div></div></div></div>`
@@ -1505,7 +1596,7 @@ function editCoursePage(){
 // #region Редактор модуля
 function tagsBoxHtml(m){
   const full=m.tags.length>=5;
-  return`<div class="tag-box" id="tags-box">${m.tags.map((t,i)=>`<span class="tag">#${esc(t)}<button data-action="tag-del" data-mid="${m.id}" data-idx="${i}" aria-label="Удалить тег"><i data-lucide="x"></i></button></span>`).join('')}<input id="tag-input" class="field" data-mid="${m.id}" maxlength="16" placeholder="${full?'Лимит 5 тегов':'тег + Enter'}" ${full?'disabled':''}></div>`;
+  return`<div class="tag-box" id="tags-box">${m.tags.map((t,i)=>`<span class="tag">${esc(t)}<button data-action="tag-del" data-mid="${m.id}" data-idx="${i}" aria-label="Удалить тег"><i data-lucide="x"></i></button></span>`).join('')}<input id="tag-input" class="field" data-mid="${m.id}" maxlength="16" placeholder="${full?'Лимит 5 тегов':'тег + Enter'}" ${full?'disabled':''}></div>`;
 }
 function editModulePage(m){
   const p=m.project;
@@ -2199,6 +2290,7 @@ document.addEventListener('click',e=>{
     case 'del-item':{
       if(!d)break;const it=findI(d,ds.id);if(!it)break;
       mutate(()=>{d.items=d.items.filter(x=>x.id!==it.id);ui.expanded.delete(it.id)},`${it.type==='topic'?'Тема удалена':'Задание удалено'}`);break}
+    case 'expand-view':{const id=ds.iid;ui.viewExpanded.has(id)?ui.viewExpanded.delete(id):ui.viewExpanded.add(id);render();break}
     case 'expand-item':ui.expanded.has(ds.id)?ui.expanded.delete(ds.id):ui.expanded.add(ds.id);render();break;
     case 'move':{
       const arr=sortArray(ds.list,ds.mid,ds.did);if(!arr)break;
@@ -2477,6 +2569,111 @@ function ghSetup(err){
   });
 }
 // #endregion
+
+// ===== НОВОЕ: сохранение входа и умные экраны подключения =====
+// ВПИШИ СЮДА свои данные репозитория с данными (это НЕ секрет, токен сюда не пиши):
+const GH_DEFAULTS={owner:'damurcheg',repo:'larpdeez-data',path:'vault.json'};
+const GH_SESSION_DAYS=90;
+
+function ghIdbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open('ldz-secure',1);r.onupgradeneeded=()=>{const db=r.result;if(!db.objectStoreNames.contains('kv'))db.createObjectStore('kv')};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function ghIdbGet(k){try{const db=await ghIdbOpen();return await new Promise((res,rej)=>{const q=db.transaction('kv','readonly').objectStore('kv').get(k);q.onsuccess=()=>res(q.result||null);q.onerror=()=>rej(q.error)})}catch{return null}}
+async function ghIdbSet(k,v){try{const db=await ghIdbOpen();return await new Promise((res,rej)=>{const q=db.transaction('kv','readwrite').objectStore('kv').put(v,k);q.onsuccess=()=>res(true);q.onerror=()=>rej(q.error)})}catch{return false}}
+async function ghIdbDel(k){try{const db=await ghIdbOpen();return await new Promise((res,rej)=>{const q=db.transaction('kv','readwrite').objectStore('kv').delete(k);q.onsuccess=()=>res(true);q.onerror=()=>rej(q.error)})}catch{return false}}
+
+async function ghSessionSave(dek){
+try{
+const key=await crypto.subtle.generateKey({name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+const iv=crypto.getRandomValues(new Uint8Array(12));
+const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,dek);
+const a=await ghIdbSet('deviceKey',key);
+const b=await ghIdbSet('dek',{iv:ghB64(iv),ct:ghB64(ct),at:Date.now()});
+return a&&b;
+}catch{return false}
+}
+async function ghSessionRead(){
+try{
+const key=await ghIdbGet('deviceKey'),box=await ghIdbGet('dek');
+if(!key||!box)return null;
+if(Date.now()-(box.at||0)>GH_SESSION_DAYS*86400000){await ghSessionClear();return null}
+return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:ghUnB64(box.iv)},key,ghUnB64(box.ct)));
+}catch{return null}
+}
+async function ghSessionClear(){await ghIdbDel('deviceKey');await ghIdbDel('dek')}
+
+function ghCfgSave(c){GH.cfg=c;try{localStorage.setItem(GH.cfgKey,JSON.stringify(c))}catch{}ghIdbSet('cfg',c)}
+
+function ghTokenScreen(msg){return new Promise(resolve=>{
+ghOverlay(`<div class="gh-card"><div class="gh-logo">larpdeez</div><div class="gh-sub">Нужен токен GitHub</div><div class="gh-err${msg?' on':''}" id="gh-err">${esc(msg||'')}</div><p class="hint" style="margin-bottom:12px">Хранилище: <b class="mono">${esc(GH.owner)}/${esc(GH.repo)}</b> · файл <b class="mono">${esc(GH.path)}</b></p><label class="lbl">Fine-grained token</label><input class="field" id="gh-token" type="password" placeholder="github_pat…" autocomplete="off"><button class="btn btn-primary gh-main" id="gh-token-ok"><i data-lucide="key-round"></i>Подключить</button><button class="btn btn-ghost gh-main" id="gh-other">Указать другой репозиторий</button><p class="hint">Токен нужен с правом Contents: Read and write. Если токен уже был — просто нажми «Подключить», чтобы проверить снова.</p></div>`);
+$('#gh-token-ok').onclick=async()=>{
+const e=$('#gh-err');e.classList.remove('on');
+const t=$('#gh-token').value.trim()||GH.token;
+if(!t){e.textContent='Вставь токен';e.classList.add('on');return}
+GH.token=t;ghCfgSave({owner:GH.owner,repo:GH.repo,path:GH.path,token:t});
+const b=$('#gh-token-ok');b.disabled=true;b.innerHTML='<i data-lucide="loader-pinwheel"></i>Проверяю…';icons();
+resolve(await GH.boot());
+};
+$('#gh-other').onclick=async()=>{await ghSessionClear();resolve(await ghSetup())};
+})}
+
+function ghLock(v){return new Promise(resolve=>{
+ghOverlay(`<div class="gh-card"><div class="gh-logo">larpdeez</div><div class="gh-sub">Вход в учебное пространство</div><div class="gh-err" id="gh-err"></div><label class="lbl">Логин</label><input class="field" id="gh-login" value="${esc(v.login||'admin')}" autocomplete="username"><label class="lbl">Пароль или запасной код</label><input class="field" id="gh-pass" type="password" placeholder="••••••••" autocomplete="current-password"><label class="gh-remember"><input type="checkbox" id="gh-remember" checked><span>Запомнить меня на этом устройстве</span></label><button class="btn btn-primary gh-main" id="gh-unlock"><i data-lucide="lock-open"></i>Войти</button><button class="btn btn-ghost gh-main" id="gh-reset">Подключить другое хранилище</button><p class="hint">Забыл пароль? Введи запасной код в поле пароля.</p></div>`);
+const go=async()=>{
+const e=$('#gh-err');e.classList.remove('on');
+const b=$('#gh-unlock');b.disabled=true;
+try{
+const data=await ghUnlockVault(v,$('#gh-login').value.trim(),$('#gh-pass').value);
+GH.vault=v;GH.ready=true;
+ghCfgSave({owner:GH.owner,repo:GH.repo,path:GH.path,token:GH.token});
+if($('#gh-remember').checked)await ghSessionSave(GH.dek);else await ghSessionClear();
+ghHideOverlay();ghSetSync('ok');resolve(data);
+}catch(ex){e.textContent=ex.message;e.classList.add('on');b.disabled=false}
+};
+$('#gh-unlock').onclick=go;
+$('#gh-pass').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();go()}});
+$('#gh-reset').onclick=async()=>{await ghSessionClear();try{localStorage.removeItem(GH.cfgKey)}catch{}await ghIdbDel('cfg');location.reload()};
+})}
+
+GH.boot=function(){return new Promise(async resolve=>{
+let cfg=null;
+try{cfg=JSON.parse(localStorage.getItem(GH.cfgKey))}catch{}
+if(!cfg||!cfg.owner||!cfg.repo)cfg=await ghIdbGet('cfg');
+if(!cfg||!cfg.owner||!cfg.repo)cfg={owner:GH_DEFAULTS.owner,repo:GH_DEFAULTS.repo,path:GH_DEFAULTS.path,token:''};
+if(!cfg.owner||!cfg.repo)return resolve(await ghSetup());
+Object.assign(GH,{owner:cfg.owner,repo:cfg.repo,path:cfg.path||'vault.json',token:cfg.token||''});
+GH.cfg=cfg;
+if(!GH.token)return resolve(await ghTokenScreen('В этом браузере нет токена GitHub. Вставь его один раз — дальше вход будет по паролю.'));
+let v=null;
+try{v=await ghReadVault()}catch(e){return resolve(await ghTokenScreen(e.message))}
+if(!v)return resolve(await ghSetup('Файл '+GH.path+' не найден в '+GH.owner+'/'+GH.repo+'. Если репозиторий другой — укажи его. Создавай новый сейф, только если данных точно нет.'));
+GH.vault=v;GH.updatedAt=v.updatedAt||0;
+const dek=await ghSessionRead();
+if(dek){
+try{
+GH.dek=dek;
+const data=await ghDecryptData(v.data);
+GH.ready=true;
+ghCfgSave({owner:GH.owner,repo:GH.repo,path:GH.path,token:GH.token});
+await ghSessionSave(dek);
+ghHideOverlay();ghSetSync('ok');
+return resolve(data);
+}catch{GH.dek=null;await ghSessionClear()}
+}
+return resolve(await ghLock(v));
+})}
+
+const ghBindCloudPanelOld=bindCloudPanel;
+bindCloudPanel=function(){
+ghBindCloudPanelOld();
+const p=$('#cloud-panel');if(!p)return;
+const dis=$('#gh-disconnect');
+if(dis)dis.onclick=async()=>{await ghSessionClear();try{localStorage.removeItem(GH.cfgKey)}catch{}await ghIdbDel('cfg');location.reload()};
+const row=p.querySelector('.data-btns');if(!row||$('#gh-logout'))return;
+const b=document.createElement('button');
+b.className='btn btn-soft';b.id='gh-logout';
+b.innerHTML='<i data-lucide="lock"></i>Выйти на этом устройстве';
+b.onclick=async()=>{await ghSessionClear();location.reload()};
+row.appendChild(b);icons();
+};
 
 // #region Инициализация
 async function init(){
