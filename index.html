@@ -202,7 +202,7 @@ label.lbl{display:block;font-family:var(--font-mono);font-size:11px;font-weight:
 .autosave svg{width:13px;height:13px;color:var(--success)}
 .autosave.pulse{animation:savePulse .6s ease}
 @keyframes savePulse{30%{border-color:var(--success);color:var(--success)}}
-.foot{padding:20px 22px 30px;font-size:12.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.foot{padding:20px 22px calc(40px + var(--safe-bottom));font-size:12.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
 .foot a{color:var(--accent);font-weight:600}
 section[id]{scroll-margin-top:calc(var(--header-total-h) + 16px)}
 /* #endregion */
@@ -868,21 +868,28 @@ body{overflow-x:clip}
 .comp-pick-row:disabled{opacity:.4;cursor:not-allowed}
 .comp-pick-row svg{width:14px;height:14px;color:var(--pc-accent)}
 .jr-wrap{padding:0;overflow:hidden}
-.jr-scroll{overflow-x:auto;max-height:calc(100vh - var(--header-total-h) - 180px)}
-.jr{border-collapse:separate;border-spacing:0;width:100%;min-width:560px}
-.jr th{position:sticky;top:0;z-index:3;background:var(--surface2);font-family:var(--font-mono);font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:10px 8px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
-.jr td{padding:5px 6px;border-bottom:1px solid var(--border);text-align:center}
-.jr-name{position:sticky;left:0;z-index:2;background:var(--surface);text-align:left!important;min-width:190px;max-width:260px;border-right:1px solid var(--border)}
+.jr-scroll{overflow:auto;max-height:calc(100vh - var(--header-total-h) - 180px);-webkit-overflow-scrolling:touch}
+.jr{border-collapse:separate;border-spacing:0;width:100%;min-width:520px}
+.jr th{position:sticky;top:0;z-index:3;background:var(--surface2);font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--muted);padding:11px 6px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
+.jr th.jr-name{text-align:left;padding-left:16px}
+.jr td{padding:6px;border-bottom:1px solid var(--border);text-align:center}
+.jr tbody tr:last-child td{border-bottom:none}
+.jr-name{position:sticky;left:0;z-index:2;background:var(--surface);text-align:left!important;min-width:180px;max-width:250px;border-right:1px solid var(--border);padding-left:16px!important}
 thead .jr-name{z-index:4;background:var(--surface2)}
-.jr-disc{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--pc-text)}
+.jr-disc{display:flex;align-items:center;gap:9px;min-width:0}
 .jr-disc svg{width:15px;height:15px;color:var(--pc-accent);flex:none}
-.jr-mod td{background:var(--pc-bg);border-bottom:1px solid var(--pc-border);padding:9px 12px;text-align:left}
-.jr-mod-in{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--pc-text)}
-.jr-mod-in svg{width:16px;height:16px;color:var(--pc-accent)}
-.jr-cell{display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:9px;font-family:var(--font-mono);font-weight:700;font-size:13px;transition:.14s;border:1px solid transparent}
-.jr-cell:hover{transform:scale(1.12);box-shadow:var(--shadow)}
-.jr-cell.empty{background:var(--bg2);opacity:.5}
-.jr-cell.none{color:var(--muted);background:var(--surface2);border-color:var(--border)}
+.jr-disc b{flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jr-mod td{background:linear-gradient(90deg,var(--pc-bg),color-mix(in srgb,var(--pc-bg) 30%,var(--surface)));border-bottom:1px solid var(--pc-border);border-top:1px solid var(--pc-border);padding:0;text-align:left;box-shadow:inset 3px 0 0 var(--pc-accent)}
+.jr-mod-in{display:flex;align-items:center;gap:9px;padding:9px 14px;font-family:var(--font-display);font-weight:700;font-size:12.5px;color:var(--pc-text)}
+.jr-mod-in svg{width:15px;height:15px;color:var(--pc-accent);flex:none}
+.jr-mod-in b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jr-mod-grade{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:var(--pc-text)}
+.jr-cell{display:inline-flex;align-items:center;justify-content:center;width:36px;height:30px;border-radius:9px;font-family:var(--font-mono);font-weight:700;font-size:13px;transition:transform .14s,box-shadow .14s,border-color .14s,color .14s;border:1px solid transparent}
+button.jr-cell:hover{transform:translateY(-1px) scale(1.08);box-shadow:var(--shadow)}
+.jr-cell.empty{background:transparent;border:none}
+.jr-cell.empty::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--border2)}
+.jr-cell.none{color:var(--muted);background:var(--surface2);border:1px dashed var(--border2)}
+.jr-cell.none:hover{border-color:var(--accent);color:var(--accent)}
 .chart-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .chart-filters .field{flex:1;min-width:140px;height:36px;font-size:13px}
 .chart-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}
@@ -919,23 +926,71 @@ button.hy-cell:hover{outline:2px solid var(--accent);outline-offset:1px}
 .hy-cell.future{opacity:.25}
 .hy-legend{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
 .hy-scale{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--muted)}
-/* #region Достижения: медали, формы и палитра (сетка и клип — в блоке новых компонентов ниже) */
+/* #region Достижения v2: медали, формы, палитра, лента */
 .ach-date{font-family:var(--font-mono);font-size:9px;color:var(--muted)}
-.ach-medal{position:relative;width:62px;height:62px;display:flex;align-items:center;justify-content:center;color:#fff;border:3px solid var(--surface);box-shadow:0 3px 10px -2px rgba(30,25,10,.35),inset 0 -6px 12px rgba(0,0,0,.18),inset 0 4px 8px rgba(255,255,255,.28)}
-.ach-medal svg{width:24px;height:24px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3))}
-.shape-circle{border-radius:50%}
-.shape-shield{clip-path:polygon(0 0,100% 0,100% 72%,50% 100%,0 72%)}
-.shape-hex{clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%)}
-.shape-star{clip-path:polygon(50% 0,63% 32%,98% 35%,71% 58%,80% 94%,50% 74%,20% 94%,29% 58%,2% 35%,37% 32%);width:68px;height:68px}
-.tier-bronze .ach-medal{background:linear-gradient(150deg,#D98E4A,#A8642A)}
-.tier-silver .ach-medal{background:linear-gradient(150deg,#B9C2CF,#7E8A9C)}
-.tier-gold .ach-medal{background:linear-gradient(150deg,#F2C14E,#C88A1B)}
-.tier-rare .ach-medal{background:linear-gradient(150deg,var(--acid),#8B63C9 70%,#5B34A6)}
-.ach-spark{position:absolute;top:-7px;right:-7px;width:16px!important;height:16px!important;color:var(--acid);filter:drop-shadow(0 0 4px var(--acid))}
-.ach.locked{filter:grayscale(1);opacity:.42}
-.ach.locked .ach-medal{background:var(--border2);box-shadow:none}
+.ach{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;min-width:0}
+.ach b{font-size:11px;font-weight:700;line-height:1.25;max-height:28px;overflow:hidden;overflow-wrap:anywhere}
+.ach-medal{position:relative;width:62px;height:62px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;--shape:circle(50% at 50% 50%);filter:drop-shadow(0 5px 12px rgba(25,20,8,.28));transition:transform .18s cubic-bezier(.2,.9,.3,1.3)}
+.ach:hover .ach-medal{transform:translateY(-3px) scale(1.04)}
+.ach-medal .am-rim,.ach-medal .am-face,.ach-medal .am-gloss{position:absolute;clip-path:var(--shape);pointer-events:none}
+.am-rim{inset:0;background:linear-gradient(155deg,color-mix(in srgb,var(--m1,#ccc) 45%,#fff),color-mix(in srgb,var(--m2,#888) 70%,#fff) 45%,var(--m2,#888))}
+.am-face{inset:4px;background:linear-gradient(160deg,var(--m1,#ccc),var(--m2,#888) 82%)}
+.am-gloss{inset:4px;background:radial-gradient(95% 62% at 30% 10%,rgba(255,255,255,.55),rgba(255,255,255,.10) 46%,transparent 62%),linear-gradient(180deg,transparent 58%,rgba(0,0,0,.22))}
+.am-ic{position:relative;width:23px;height:23px;stroke-width:2.2;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+.shape-circle{--shape:circle(50% at 50% 50%)}
+.shape-squircle{--shape:inset(0 round 27%)}
+.shape-hex{--shape:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)}
+.shape-diamond{--shape:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.shape-shield{--shape:polygon(50% 0,100% 10%,100% 64%,50% 100%,0 64%,0 10%)}
+.shape-pentagon{--shape:polygon(50% 0,100% 38%,81% 100%,19% 100%,0 38%)}
+.shape-octagon{--shape:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.shape-banner{--shape:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%)}
+.shape-star{--shape:polygon(50% 0,64.7% 29.8%,97.6% 34.5%,73.8% 57.7%,79.4% 90.5%,50% 75%,20.6% 90.5%,26.2% 57.7%,2.4% 34.5%,35.3% 29.8%)}
+.shape-burst{--shape:polygon(50% 0,59.8% 13.3%,75% 6.7%,76.9% 23.1%,93.3% 25%,86.7% 40.2%,100% 50%,86.7% 59.8%,93.3% 75%,76.9% 76.9%,75% 93.3%,59.8% 86.7%,50% 100%,40.2% 86.7%,25% 93.3%,23.1% 76.9%,6.7% 75%,13.3% 59.8%,0 50%,13.3% 40.2%,6.7% 25%,23.1% 23.1%,25% 6.7%,40.2% 13.3%)}
+.shape-star .am-ic,.shape-burst .am-ic{width:19px;height:19px}
+.shape-diamond .am-ic,.shape-banner .am-ic{width:21px;height:21px}
+.tier-bronze{--m1:#E8A05C;--m2:#9C5A22}
+.tier-silver{--m1:#E9EEF6;--m2:#8C99AD}
+.tier-gold{--m1:#FFD86B;--m2:#C8860F}
+.tier-emerald{--m1:#6FE0A8;--m2:#157A4C}
+.tier-azure{--m1:#6FD0EA;--m2:#135F80}
+.tier-indigo{--m1:#93A7F5;--m2:#2C43B0}
+.tier-violet{--m1:#C09BF2;--m2:#5B34A6}
+.tier-coral{--m1:#FFA06B;--m2:#B23F16}
+.tier-rose{--m1:#F595C3;--m2:#A02462}
+.tier-teal{--m1:#6BD8CB;--m2:#0E6157}
+.tier-amber{--m1:#FFC978;--m2:#8F540A}
+.tier-rare{--m1:var(--acid);--m2:#8B63C9}
+.tier-rare .am-face{background:linear-gradient(120deg,var(--acid),#8B63C9 30%,#56AAC5 55%,#DF77AC 80%,var(--acid));background-size:300% 300%;animation:achFlow 7s ease-in-out infinite}
+.tier-rare.unlocked .ach-medal{filter:drop-shadow(0 4px 14px color-mix(in srgb,var(--acid) 50%,transparent))}
+@keyframes achFlow{0%,100%{background-position:0% 30%}50%{background-position:100% 70%}}
+.ach-medal .ach-spark{position:absolute;top:-5px;right:-3px;width:15px;height:15px;color:var(--acid);filter:drop-shadow(0 0 5px var(--acid));animation:sparkTw 2.4s ease-in-out infinite}
+@keyframes sparkTw{50%{transform:scale(1.25) rotate(12deg);opacity:.75}}
+.ach.locked{opacity:.6}
+.ach.locked .ach-medal{--m1:var(--border2);--m2:var(--border);filter:drop-shadow(0 3px 7px rgba(25,20,8,.14))}
+.ach.locked .am-gloss{opacity:.45}
+.ach.locked .am-ic{color:var(--muted);filter:none}
+.ach.locked b,.ach.locked .ach-date{color:var(--muted)}
 .ach.unlocked .ach-medal{animation:achPop .5s cubic-bezier(.2,1.4,.4,1) both}
-@keyframes achPop{from{transform:scale(.6)}}
+@keyframes achPop{from{transform:scale(.55)}}
+.ach-prog{flex:1;max-width:190px;margin-left:auto;display:flex;align-items:center}
+.ach-prog .bar{flex:1;height:5px}
+.ach-clip{position:relative}
+.ach-clip:not(.open) .ach-grid{display:flex;gap:12px;overflow-x:auto;padding:8px 2px 12px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.ach-clip:not(.open) .ach{flex:0 0 96px;scroll-snap-align:start}
+.ach-clip:not(.open) .ach-grid::-webkit-scrollbar{height:8px}
+.ach-clip:not(.open) .ach-grid::-webkit-scrollbar-track{background:transparent}
+.ach-clip:not(.open) .ach-grid::-webkit-scrollbar-thumb{background:var(--border2);border-radius:6px;border:2px solid var(--surface)}
+.ach-clip:not(.open) .ach-grid::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+.ach-clip:not(.open)::after{content:'';position:absolute;top:0;right:0;bottom:16px;width:42px;background:linear-gradient(90deg,transparent,var(--surface));pointer-events:none}
+.ach-clip.open .ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:18px 10px;padding:6px 2px 2px}
+.ach-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+@media(max-width:760px){
+.ach-clip:not(.open) .ach{flex-basis:88px}
+.ach-clip.open .ach-grid{grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:16px 8px}
+.ach-medal{width:56px;height:56px}
+.ach-prog{max-width:120px}
+}
 /* #endregion */
 .sec-ed{border:1px solid var(--border);border-radius:14px;background:var(--surface2);position:relative}
 .sec-ed.dragging{opacity:.4}
@@ -984,21 +1039,32 @@ body.inbox-dragging .inbox-slot{height:20px}
 body.inbox-dragging .inbox-slot span{opacity:.9}
 .fav-btn.fav-on{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:var(--warn-bg)}
 .fav-btn.fav-on svg{fill:currentColor}
-.fav-masonry{columns:4 240px;column-gap:14px}
-.fav-card{break-inside:avoid;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;box-shadow:var(--shadow);transition:.2s}
-.fav-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.fav-big{background:linear-gradient(160deg,var(--pc-bg),var(--surface) 70%);border-color:var(--pc-border)}
+.fav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:14px;align-items:start}
+.fav-card{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s}
+.fav-card:hover{border-color:var(--border2);box-shadow:var(--shadow-lg)}
+.fav-grip{display:flex;align-items:center;justify-content:center;width:22px;height:26px;margin:-2px 0 0 -6px;border-radius:7px;color:var(--muted);opacity:.55;cursor:grab;touch-action:none;flex:none;transition:.15s}
+.fav-grip:hover{opacity:1;color:var(--accent);background:var(--bg2)}
+.fav-grip:active{cursor:grabbing}
+.fav-grip svg{width:14px;height:14px}
 .fav-head{display:flex;gap:10px;align-items:flex-start}
 .fav-ic{width:36px;height:36px;border-radius:11px;background:var(--pc-bg);border:1px solid var(--pc-border);color:var(--pc-accent);display:flex;align-items:center;justify-content:center;flex:none}
-.fav-big .fav-ic{background:var(--surface)}
-.fav-head b{font-size:14px;line-height:1.3;display:block}
-.fav-big .fav-head b{font-family:var(--font-display);font-size:15px;color:var(--pc-text)}
+.fav-head b{font-size:14px;line-height:1.3;display:block;overflow-wrap:anywhere}
 .fav-sub{font-size:11.5px;color:var(--muted);display:block;margin-top:3px}
 .fav-when{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:var(--pc-text)}
 .fav-when svg{width:13px;height:13px}
 .fav-body{border-top:1px dashed var(--border);padding-top:10px;font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:10px}
 .fav-body p{white-space:pre-line}
 .fav-foot{margin-top:auto}
+.fav-card.fav-big{padding:0;overflow:hidden;border-color:var(--pc-border)}
+.fav-band{display:flex;gap:10px;align-items:flex-start;padding:13px 14px;background:linear-gradient(135deg,var(--pc-bg),color-mix(in srgb,var(--pc-bg) 55%,var(--surface)));border-bottom:1px solid var(--pc-border)}
+.fav-band .fav-ic{background:var(--surface)}
+.fav-band b{font-family:var(--font-display);font-size:14px;color:var(--pc-text);letter-spacing:-.01em;line-height:1.3;display:block;overflow-wrap:anywhere}
+.fav-band .fav-sub{color:color-mix(in srgb,var(--pc-text) 70%,var(--muted))}
+.fav-inner{display:flex;flex-direction:column;gap:10px;padding:12px 14px 14px;flex:1}
+.fav-proj{border-color:color-mix(in srgb,var(--pc-accent) 40%,var(--border));box-shadow:0 8px 24px -12px color-mix(in srgb,var(--pc-accent) 45%,transparent)}
+.fav-proj .fav-band{background:linear-gradient(135deg,color-mix(in srgb,var(--pc-accent) 22%,var(--pc-bg)),var(--pc-bg) 70%)}
+.fav-proj-flag{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px 0 6px;border-radius:6px;background:var(--pc-accent);color:var(--surface);font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;align-self:flex-start;line-height:1}
+.fav-proj-flag svg{width:11px;height:11px}
 .menu-profile{display:flex;align-items:center;gap:10px;padding:10px 12px 6px}
 .menu-profile b{display:block;font-size:13.5px}
 .menu-profile span{font-size:11px;color:var(--muted)}
@@ -1090,30 +1156,6 @@ body.inbox-dragging .inbox-slot span{opacity:.9}
 .project-head .due-chip{height:28px}
 .hero-side .icon-btn,.hero-side .fav-btn{align-self:flex-start}
 /* #endregion */
-/* #region Достижения: компактный блок, фигуры и палитра */
-.ach-clip{position:relative;overflow:hidden;max-height:254px;transition:max-height .4s cubic-bezier(.2,.7,.2,1)}
-.ach-clip::after{content:'';position:absolute;left:0;right:0;bottom:0;height:58px;background:linear-gradient(180deg,transparent,var(--surface));pointer-events:none;transition:opacity .3s}
-.ach-clip.open::after,.ach-clip.fit::after{opacity:0}
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:14px 8px;grid-auto-rows:120px}
-.ach{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;transform:rotate(var(--rot,0deg));transition:transform .18s}
-.ach:hover{transform:rotate(0deg) scale(1.06)}
-.ach b{font-size:11px;font-weight:700;line-height:1.25;max-height:28px;overflow:hidden}
-.ach-more{margin-top:12px}
-.shape-diamond{clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
-.shape-pentagon{clip-path:polygon(50% 0,100% 38%,81% 100%,19% 100%,0 38%)}
-.shape-octagon{clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
-.shape-squircle{border-radius:26%}
-.shape-banner{clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%)}
-.shape-burst{clip-path:polygon(50% 0,61% 12%,76% 6%,79% 22%,95% 24%,89% 39%,100% 50%,89% 61%,95% 76%,79% 78%,76% 94%,61% 88%,50% 100%,39% 88%,24% 94%,21% 78%,5% 76%,11% 61%,0 50%,11% 39%,5% 24%,21% 22%,24% 6%,39% 12%)}
-.tier-emerald .ach-medal{background:linear-gradient(150deg,#5BC48E,#1F7A50)}
-.tier-azure .ach-medal{background:linear-gradient(150deg,#56AAC5,#1E6A85)}
-.tier-indigo .ach-medal{background:linear-gradient(150deg,#7C94E9,#3250B3)}
-.tier-violet .ach-medal{background:linear-gradient(150deg,#A684DF,#6A45A7)}
-.tier-coral .ach-medal{background:linear-gradient(150deg,#E68150,#B2481E)}
-.tier-rose .ach-medal{background:linear-gradient(150deg,#DF77AC,#A83571)}
-.tier-teal .ach-medal{background:linear-gradient(150deg,#4DBFB2,#157068)}
-.tier-amber .ach-medal{background:linear-gradient(150deg,#E0A04C,#925A0B)}
-/* #endregion */
 /* #region Учебный план: строки и неделя в календаре */
 .pw-link{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--pc-text);font-weight:600}
 a.pw-link:hover{color:var(--pc-accent)}
@@ -1129,12 +1171,111 @@ a.pw-link:hover{color:var(--pc-accent)}
 @media(max-width:760px){
 .profile-bento{grid-template-columns:1fr}
 .pb-fields{grid-template-columns:1fr}
-.ach-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));grid-auto-rows:112px}
-.ach-clip{max-height:238px}
 .cal-plan-chip{max-width:150px}
 .ed-collapse-head{padding:14px 16px}
 .ed-collapse-body{padding:14px 16px 16px}
 }
+/* === LDZ UI v5: точечные улучшения === */
+/* Симметрия иконок в чипах и тегах */
+.chip:has(svg){padding:0 9px 0 6px}
+.tag:has(svg){padding-left:8px}
+/* Редактор курса: карточки модулей */
+.mer-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.mer-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:24px}
+.mer-chip{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px 0 6px;border-radius:7px;background:var(--surface);border:1px solid var(--border);font-family:var(--font-mono);font-size:10.5px;font-weight:700;color:var(--ink2);line-height:1}
+.mer-chip svg{width:12px;height:12px;color:var(--pc-accent,var(--accent))}
+.mer-prog{display:inline-flex;align-items:center;gap:8px;flex:1;min-width:110px;max-width:200px}
+.mer-prog .bar{flex:1;height:5px}
+.mer-prog b{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--ink2);min-width:34px;text-align:right}
+.mer-done{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--success)}
+.mer-done svg{width:14px;height:14px}
+.mer-done .letter{height:22px;min-width:22px;font-size:11px;border-radius:7px}
+.mer-done b{font-family:var(--font-mono);font-size:12.5px;color:var(--ink)}
+.mer-acts{display:flex;align-items:center;gap:3px;flex:none}
+/* Компетенции: две колонки */
+.comp-ed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.comp-ed-row .field.inline{min-width:0}
+/* Кнопки аватара */
+.pb-av .profile-av-btns{display:flex;flex-direction:column;gap:6px;width:100%}
+.pb-av .profile-av-btns .btn{width:100%;height:32px;padding:0 10px;font-size:12.5px;border-radius:9px}
+.pb-av .av-del{color:var(--danger)}
+.pb-av .av-del:hover{background:var(--danger-bg)}
+/* Паспорт: профиль студента */
+.b-pinfo{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.b-name{overflow-wrap:anywhere}
+.b-bio{font-size:13px;color:var(--ink2);line-height:1.5}
+.b-actions .btn{height:42px;border-radius:13px;font-size:13.5px}
+.b-btn-journal{box-shadow:0 8px 20px -10px color-mix(in srgb,var(--primary-bg) 65%,transparent)}
+/* Паспорт: новая сетка блоков */
+.b-ach{grid-column:span 12}
+.b-duo{grid-column:span 12;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:stretch}
+.b-duo .b-chart,.b-duo .b-mods{grid-column:auto;min-width:0}
+/* Меню: кликабельный профиль */
+button.menu-profile{width:100%;text-align:left;border-radius:14px;padding:10px 12px;transition:.14s}
+button.menu-profile:hover{background:var(--accent-soft)}
+button.menu-profile:hover b{color:var(--accent)}
+.menu-profile .mp-main{flex:1;min-width:0}
+.menu-profile .mp-main b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.menu-profile .mp-main span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.menu-profile .mp-chev{margin-left:auto;display:flex;color:var(--muted)}
+.menu-profile .mp-chev svg{width:15px;height:15px}
+/* График динамики оценок */
+.chart-frame{border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,var(--surface2),var(--surface));padding:10px 6px 2px}
+.chart-svg{width:100%;height:auto;display:block;overflow:visible}
+.cg-grid line{stroke:var(--border);stroke-dasharray:2 5;opacity:.8}
+.cg-grid line.cg-base{stroke:var(--border2);stroke-dasharray:none;opacity:1}
+.cg-num{font-family:var(--font-mono);font-size:10px;fill:var(--muted)}
+.cg-letter{font-family:var(--font-mono);font-size:9px;font-weight:700;fill:var(--muted);opacity:.7}
+.cg-avg{stroke:color-mix(in srgb,var(--accent) 45%,transparent);stroke-width:1.2;stroke-dasharray:5 6}
+.cg-avg-lbl{font-family:var(--font-mono);font-size:9.5px;font-weight:700;fill:var(--accent);opacity:.85}
+.cg-line{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cg-date{font-family:var(--font-mono);font-size:9.5px;fill:var(--muted)}
+.chart-pt{cursor:pointer}
+.cd-hit{fill:transparent}
+.cd-guide{stroke:var(--accent);stroke-dasharray:3 4;opacity:0;transition:opacity .15s}
+.cd-halo{fill:color-mix(in srgb,var(--accent) 16%,transparent);opacity:0;transition:.15s;transform-box:fill-box;transform-origin:center}
+.cd-core{fill:var(--surface);stroke:var(--accent);stroke-width:2;transition:transform .15s;transform-box:fill-box;transform-origin:center}
+.chart-pt:hover .cd-guide{opacity:.5}
+.chart-pt:hover .cd-halo{opacity:1}
+.chart-pt:hover .cd-core{transform:scale(1.3)}
+.chart-pt.last .cd-core{fill:var(--accent)}
+.chart-pt.last .cd-halo{opacity:.6;animation:cdPulse 2.6s ease-in-out infinite}
+@keyframes cdPulse{50%{transform:scale(1.5);opacity:.25}}
+.chart-empty{border:1.5px dashed var(--border2);border-radius:14px;padding:26px 18px;text-align:center;color:var(--muted)}
+.chart-empty svg{width:26px;height:26px;margin-bottom:8px;opacity:.6}
+.chart-empty p{font-size:13.5px;font-weight:600;color:var(--ink2)}
+.chart-empty span{font-size:12px}
+/* Избранное: подсказка и drag-состояния */
+.fav-hint{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.fav-card.fav-src{opacity:.35}
+.fav-card.fav-drop-before{box-shadow:-5px 0 0 0 var(--accent),var(--shadow)}
+.fav-card.fav-drop-after{box-shadow:5px 0 0 0 var(--accent),var(--shadow)}
+.fav-ghost{position:fixed;z-index:400;pointer-events:none;opacity:.96;transform:rotate(1.2deg);box-shadow:var(--shadow-lg);margin:0}
+body.fav-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
+body.fav-dragging .fav-card{transition:none}
+/* Мобильная адаптация */
+@media(max-width:760px){
+.mod-ed-row{flex-wrap:wrap;row-gap:9px;padding:12px}
+.mod-ed-row .mer-main{flex:1 1 100%;order:5}
+.mod-ed-row .mer-acts{margin-left:auto}
+.mer-prog{max-width:none}
+.b-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat-tile{padding:13px 14px}
+.stat-tile svg{width:16px;height:16px;margin-bottom:6px}
+.stat-tile b{font-size:clamp(16px,4.8vw,20px);overflow-wrap:anywhere}
+.stat-tile span{font-size:11px;line-height:1.35;display:block}
+.b-profile-top{align-items:center;gap:14px}
+.b-name{font-size:18px}
+.b-gpa{gap:11px}
+.b-gpa .gpa-big{font-size:42px}
+.b-duo{grid-template-columns:1fr;gap:12px}
+.pb-av .profile-av-btns{flex-direction:row;max-width:340px;margin:0 auto}
+.fav-grid{grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr));gap:10px}
+.fav-grid .fav-card{margin-bottom:0}
+.fav-grip{opacity:.8}
+}
+@media(max-width:640px){.comp-ed-grid{grid-template-columns:1fr}}
+@media(max-width:340px){.b-tiles{grid-template-columns:1fr}.fav-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1976,8 +2117,8 @@ const profileInner=`<p class="hint" style="margin-bottom:14px">Профиль о
 <div class="pb-av">${avatarHtml(84)}
 <input type="file" id="avatar-file" accept="image/*" hidden>
 <div class="profile-av-btns">
-<button class="btn btn-soft sm" data-action="avatar-upload"><i data-lucide="upload"></i>Фото</button>
-${state.profile.avatar?'<button class="btn btn-ghost sm" data-action="avatar-remove" style="color:var(--danger)">Убрать</button>':''}
+<button class="btn btn-soft sm" data-action="avatar-upload"><i data-lucide="upload"></i>Загрузить</button>
+${state.profile.avatar?'<button class="btn btn-ghost sm av-del" data-action="avatar-remove"><i data-lucide="trash-2"></i>Убрать</button>':''}
 </div><span class="hint">Заглушка окрашивается акцентом курса</span></div>
 <div class="pb-fields">
 <div><label class="lbl">Имя</label><input class="field" data-bind="profile.name" value="${esc(state.profile.name)}" placeholder="Как вас зовут"></div>
@@ -1989,28 +2130,36 @@ return`<div class="page">
 <a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a>
 <div class="page-head"><h1>Редактор курса</h1><span class="autosave"><i data-lucide="check"></i>Автосохранение</span></div>
 ${edCollapse('info','file-text','Основная информация',infoInner,ui.edOpen.info)}
+${edCollapse('profile','user-round','Персональный профиль',profileInner,ui.edOpen.profile)}
 <div class="panel ed-section reveal" style="--d:70ms">
 <div class="panel-title"><i data-lucide="layers"></i>Структура курса</div>
 <p class="hint" style="margin-bottom:12px">Перетаскивайте модули за ручку. Название меняется прямо в карточке, иконка — по нажатию.</p>
 <div class="sort-list" data-sortlist="modules">
-${state.modules.map((m,i)=>{const inf=moduleInfo(m);return`<div class="sort-row pc-${m.color}" data-drag="${m.id}" data-list="modules">
+${state.modules.map((m,i)=>{const inf=moduleInfo(m);return`<div class="sort-row mod-ed-row pc-${m.color}" data-drag="${m.id}" data-list="modules">
 <span class="grip" draggable="true" data-drag="${m.id}" data-list="modules" title="Перетащить"><i data-lucide="grip-vertical"></i></span>
 <button class="row-ic" data-action="open-icon" data-kind="module" data-mid="${m.id}" title="Выбрать иконку"><i data-lucide="${m.icon}"></i></button>
-<span class="grow" style="display:flex;flex-direction:column;gap:3px;min-width:0">
+<div class="mer-main">
 <input class="field inline" data-bind="module.${m.id}.name" value="${esc(m.name)}" placeholder="Название модуля">
-<span class="hint">${m.disciplines.length} ${plural(m.disciplines.length,['дисциплина','дисциплины','дисциплин'])} · ${inf.done?'завершён · '+(inf.mg?inf.mg.toFixed(1):'зачёт'):Math.round(inf.progress*100)+'%'}</span></span>
+<div class="mer-meta">
+<span class="mer-chip"><i data-lucide="library"></i>${m.disciplines.length} ${plural(m.disciplines.length,['дисциплина','дисциплины','дисциплин'])}</span>
+${inf.done
+?`<span class="mer-done">${inf.mg?`${letterChip(inf.mg)}<b>${inf.mg.toFixed(1)}</b>`:'<i data-lucide="check-check"></i>зачёт'}</span>`
+:`<span class="mer-prog"><span class="bar" style="--p:${inf.progress}"><i></i></span><b>${Math.round(inf.progress*100)}%</b></span>`}
+</div>
+</div>
+<div class="mer-acts">
 ${arrows('modules','',m.id,i,state.modules.length)}
 <a class="icon-btn plain sm" href="#/editor/module/${m.id}" title="Открыть редактор модуля"><i data-lucide="chevron-right"></i></a>
 <button class="icon-btn plain sm danger" data-action="del-module" data-id="${m.id}" title="Удалить модуль"><i data-lucide="trash-2"></i></button>
+</div>
 </div>`}).join('')}
 </div>
 <button class="add-line" data-action="add-module" style="margin-top:12px"><i data-lucide="plus"></i>Добавить модуль</button>
 </div>
-${edCollapse('profile','user-round','Персональный профиль',profileInner,ui.edOpen.profile)}
 <div class="panel ed-section reveal" style="--d:140ms">
 <div class="panel-title"><i data-lucide="gem"></i>Компетенции</div>
 <p class="hint" style="margin-bottom:12px">Навыки курса. Нажмите на иконку, чтобы выбрать иконку и цвет. Привязывайте компетенции к темам, заданиям и проектам — прогресс считается автоматически: тема +1, задание +1, проект +3.</p>
-<div class="sort-list">${state.competencies.map(c=>`<div class="sort-row pc-${c.color}">
+<div class="comp-ed-grid">${state.competencies.map(c=>`<div class="sort-row comp-ed-row pc-${c.color}">
 <button class="row-ic" data-action="comp-pick" data-id="${c.id}" title="Иконка и цвет"><i data-lucide="${c.icon||'gem'}"></i></button>
 <input class="field inline" data-bind="comp.${c.id}.name" value="${esc(c.name)}" placeholder="Название компетенции">
 <button class="icon-btn plain sm danger" data-action="del-comp" data-id="${c.id}" title="Удалить компетенцию"><i data-lucide="trash-2"></i></button>
@@ -3691,7 +3840,7 @@ function menuBtn(){return`<button class="icon-btn m-only" id="menu-btn" data-act
 function menuHtml(){
 const dark=state.theme==='dark';
 return`<nav class="menu-list" aria-label="Меню">
-<div class="menu-profile">${avatarHtml(34)}<div><b>${esc(state.profile.name)||'Студент'}</b><span>${esc(state.profile.specialization)||'Профиль не заполнен'}</span></div></div>
+<button class="menu-profile" data-action="menu-go" data-href="#/passport" title="Открыть образовательный паспорт">${avatarHtml(34)}<span class="mp-main"><b>${esc(state.profile.name)||'Студент'}</b><span>${esc(state.profile.specialization)||'Профиль не заполнен'}</span></span><span class="mp-chev"><i data-lucide="chevron-right"></i></span></button>
 <div class="menu-sep"></div>
 <button class="menu-item" data-action="search-open"><i data-lucide="search"></i><span>Поиск</span></button>
 <button class="menu-item" data-action="menu-go" data-href="#/calendar"><i data-lucide="calendar-days"></i><span>Календарь</span></button>
@@ -3855,11 +4004,11 @@ const i=byId.get(n.id);return i?{kind:'item',i}:null;
 function discItemsOrdered(d){return discEntries(d).flatMap(e=>e.kind==='item'?[e.i]:e.items)}
 function journalPage(){
 const rows=[];let maxCols=0;
-state.modules.forEach(m=>{const drows=m.disciplines.map(d=>{const tasks=discItemsOrdered(d).filter(i=>i.type==='task');maxCols=Math.max(maxCols,tasks.length);return{d,tasks}});rows.push({m,drows})});
+state.modules.forEach(m=>{const drows=m.disciplines.map(d=>{const tasks=discItemsOrdered(d).filter(i=>i.type==='task');maxCols=Math.max(maxCols,tasks.length);return{d,tasks}});rows.push({m,drows,inf:moduleInfo(m)})});
 const cols=Array.from({length:maxCols},(_,i)=>i+1);
 return`<div class="page"><a class="back-link" href="#/passport"><i data-lucide="arrow-left"></i>Образовательный паспорт</a>
-<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Наведите на ячейку — название задания. Нажмите — переход к заданию.</span></div>
-${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><span class="jr-mod-in"><i data-lucide="${m.icon}"></i>${esc(m.name)}</span></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><span class="jr-disc"><i data-lucide="${d.icon}"></i>${esc(d.name)}</span></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
+<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Нажмите на оценку — откроется задание с критериями и баллами.</span></div>
+${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows,inf})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><span class="jr-mod-in"><i data-lucide="${m.icon}"></i><b>${esc(m.name)}</b>${inf.mg?`<span class="jr-mod-grade">${letterChip(inf.mg)}${inf.mg.toFixed(1)}</span>`:''}</span></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><span class="jr-disc"><i data-lucide="${d.icon}"></i><b title="${esc(d.name)}">${esc(d.name)}</b></span></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="open-entry" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="open-entry" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
 }
 function gradeHistory(){
 const f=ui.chart,out=[];
@@ -3885,15 +4034,28 @@ const scopeLbl={course:'Весь курс',module:'Модуль',disc:'Дисц�
 const midName=f.mid?((findM(f.mid)||{}).name||'Выберите модуль'):'Выберите модуль';
 const didName=f.did?((findD(findM(f.mid),f.did)||{}).name||'Выберите дисциплину'):'Выберите дисциплину';
 const sel=`<div class="chart-filters">${selectBtnHtml('ch-scope','chart-scope','graduation-cap',scopeLbl)}${f.scope!=='course'?selectBtnHtml('ch-mid','chart-mid','book',midName):''}${f.scope==='disc'&&f.mid?selectBtnHtml('ch-did','chart-did','library',didName):''}</div>`;
-if(!hist.length)return sel+'<div class="hint" style="padding:24px;text-align:center">Оценённых заданий пока нет — график появится после первой оценки.</div>';
-const W=600,H=230,PX=36,PY=24,base=H-PY;
-const x=i=>hist.length===1?W/2:PX+i/(hist.length-1)*(W-PX*2),y=g=>PY+(5-g)/4*(H-PY*2);
+if(!hist.length)return sel+'<div class="chart-empty"><i data-lucide="chart-spline"></i><p>Оценённых заданий пока нет.</p><span>График появится после первой оценки.</span></div>';
+const W=600,H=252,PX=42,PT=18,PB=30,base=H-PB;
+const x=i=>hist.length===1?W/2:PX+i/(hist.length-1)*(W-PX*2);
+const y=g=>PT+(5-g)/4*(base-PT);
 const avg=Math.round(hist.reduce((a,p)=>a+p.g,0)/hist.length*10)/10;
-const pts=hist.map((p,i)=>({x:Math.round(x(i)*10)/10,y:Math.round(y(p.g)*10)/10}));
-const gcol={A:'var(--gA)',B:'var(--gB)',C:'var(--gC)',D:'var(--gD)',F:'var(--gF)'};
+const pts=hist.map((p,i)=>({x:+x(i).toFixed(1),y:+y(p.g).toFixed(1)}));
 const line=smoothPath(pts);
 const area=pts.length>1?`${line}L${pts[pts.length-1].x},${base}L${pts[0].x},${base}Z`:'';
-return sel+`<div class="chart-meta"><span class="chip"><i data-lucide="sigma"></i>Средний ${avg.toFixed(1)}</span>${letterChip(avg)}<span class="hint">${hist.length} ${plural(hist.length,['оценка','оценки','оценок'])} в хронологии оценивания</span></div><div class="chart-svg-wrap"><svg viewBox="0 0 ${W} ${H}" class="chart-svg" preserveAspectRatio="none"><defs><linearGradient id="chArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--accent)" stop-opacity=".22"/><stop offset="1" style="stop-color:var(--accent)" stop-opacity="0"/></linearGradient></defs>${[1,2,3,4,5].map(v=>`<line x1="${PX}" x2="${W-PX}" y1="${y(v)}" y2="${y(v)}" stroke="var(--border)" stroke-width="1" ${v===1?'':'stroke-dasharray="3 5"'}/><text x="6" y="${y(v)+4}" class="chart-ax">${v}</text>`).join('')}${area?`<path d="${area}" fill="url(#chArea)" stroke="none"/>`:''}<line x1="${PX}" x2="${W-PX}" y1="${y(avg)}" y2="${y(avg)}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 5" opacity=".5"/>${line?`<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`:''}${hist.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.g)}" r="5" fill="${gcol[p.letter]}" stroke="var(--surface)" stroke-width="2" class="chart-dot" data-tip="${esc(p.title)}<span class='tt-sub'>${p.g.toFixed(1)} ${p.letter} · ${esc(p.disc)}${p.date?' · '+fmtLong(p.date):' · дата не записана'}</span>"/>`).join('')}</svg></div>`;
+const dates=hist.filter(p=>p.date);
+const firstD=dates.length?fmtLong(dates[0].date):'',lastD=dates.length>1?fmtLong(dates[dates.length-1].date):'';
+const letters={5:'A',4:'B',3:'C',2:'D',1:'F'};
+return sel+`<div class="chart-meta"><span class="chip"><i data-lucide="sigma"></i>Средний ${avg.toFixed(1)}</span>${letterChip(avg)}<span class="hint">${hist.length} ${plural(hist.length,['оценка','оценки','оценок'])} в хронологии оценивания</span></div>
+<div class="chart-frame"><svg viewBox="0 0 ${W} ${H}" class="chart-svg" role="img" aria-label="Динамика оценок">
+<defs><linearGradient id="chArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--accent)" stop-opacity=".20"/><stop offset=".7" style="stop-color:var(--accent)" stop-opacity=".05"/><stop offset="1" style="stop-color:var(--accent)" stop-opacity="0"/></linearGradient></defs>
+${[1,2,3,4,5].map(v=>`<g class="cg-grid"><line x1="${PX}" x2="${W-PX}" y1="${y(v)}" y2="${y(v)}"${v===1?' class="cg-base"':''}/><text x="${PX-8}" y="${y(v)+3.5}" class="cg-num" text-anchor="end">${v}</text><text x="${W-PX+8}" y="${y(v)+3.5}" class="cg-letter">${letters[v]}</text></g>`).join('')}
+${area?`<path d="${area}" fill="url(#chArea)"/>`:''}
+<line class="cg-avg" x1="${PX}" x2="${W-PX}" y1="${y(avg)}" y2="${y(avg)}"/>
+<text class="cg-avg-lbl" x="${W-PX}" y="${y(avg)-6}" text-anchor="end">ср. ${avg.toFixed(1)}</text>
+${line?`<path class="cg-line" d="${line}"/>`:''}
+${hist.map((p,i)=>{const px=+x(i).toFixed(1),py=+y(p.g).toFixed(1),last=i===hist.length-1;return`<g class="chart-pt${last?' last':''}" data-tip="${esc(p.title)}<span class='tt-sub'>${p.g.toFixed(1)} ${p.letter} · ${esc(p.disc)}${p.date?' · '+fmtLong(p.date):' · дата не записана'}</span>"><line class="cd-guide" x1="${px}" x2="${px}" y1="${py}" y2="${base}"/><circle class="cd-hit" cx="${px}" cy="${py}" r="13"/><circle class="cd-halo" cx="${px}" cy="${py}" r="9"/><circle class="cd-core" cx="${px}" cy="${py}" r="${last?5:4}"/></g>`}).join('')}
+${firstD?`<text class="cg-date" x="${PX}" y="${H-8}">${firstD}</text>`:''}${lastD?`<text class="cg-date" x="${W-PX}" y="${H-8}" text-anchor="end">${lastD}</text>`:''}
+</svg></div>`;
 }
 function refreshChart(){const b=$('#chart-box');if(b){b.innerHTML=chartHtml();icons()}}
 function heatLevel(ds){const m=dayMinutes(ds);if(m>=120)return 4;if(m>=60)return 3;if(m>=30)return 2;if(m>=1)return 1;return state.studyDays.includes(ds)?1:0}
@@ -3946,30 +4108,12 @@ if(!silent){const a=fresh[0];toast('Достижение: '+a.name+(fresh.length
 }
 function achPanelHtml(){
 const got=ACH.filter(a=>state.achievements[a.id]).length;
-return`<div class="panel-title"><i data-lucide="trophy"></i>Достижения<span class="count-badge">${got}/${ACH.length}</span></div><div class="ach-clip${ui.achOpen?' open':''}" id="ach-clip"><div class="ach-grid" id="ach-grid">${ACH.map((a,i)=>{const un=state.achievements[a.id];return`<div class="ach${un?' unlocked':' locked'} tier-${a.tier}" style="--rot:${(i%5-2)*1.6}deg" data-tip="${esc(a.desc)}${un?'<span class=\'tt-sub\'>Получено '+fmtLong(un.slice(0,10))+'</span>':'<span class=\'tt-sub\'>Ещё закрыто</span>'}"><span class="ach-medal shape-${a.shape}"><i data-lucide="${un?a.icon:'lock'}"></i>${a.tier==='rare'&&un?'<i data-lucide="sparkles" class="ach-spark"></i>':''}</span><b>${esc(a.name)}</b><span class="ach-date">${un?fmtLong(un.slice(0,10)):'закрыто'}</span></div>`}).join('')}</div></div><button class="exp-btn ach-more" data-action="ach-toggle" id="ach-toggle"><i data-lucide="chevron-${ui.achOpen?'up':'down'}"></i>${ui.achOpen?'Свернуть':'Развернуть'}</button>`;
+return`<div class="panel-title"><i data-lucide="trophy"></i>Достижения<span class="count-badge">${got}/${ACH.length}</span><span class="ach-prog"><span class="bar" style="--p:${ACH.length?got/ACH.length:0}"><i></i></span></span></div>
+<div class="ach-clip${ui.achOpen?' open':''}" id="ach-clip"><div class="ach-grid" id="ach-grid">${ACH.map(a=>{const un=state.achievements[a.id];return`<div class="ach${un?' unlocked':' locked'} tier-${a.tier}" data-tip="${esc(a.desc)}${un?`<span class='tt-sub'>Получено ${fmtLong(un.slice(0,10))}</span>`:`<span class='tt-sub'>Ещё закрыто</span>`}"><span class="ach-medal shape-${a.shape}"><span class="am-rim"></span><span class="am-face"></span><span class="am-gloss"></span><i data-lucide="${un?a.icon:'lock'}" class="am-ic"></i>${a.tier==='rare'&&un?'<i data-lucide="sparkles" class="ach-spark"></i>':''}</span><b>${esc(a.name)}</b><span class="ach-date">${un?fmtLong(un.slice(0,10)):'закрыто'}</span></div>`}).join('')}</div></div>
+<div class="ach-foot"><span class="hint">${ui.achOpen?'Полная коллекция наград':'Листайте ленту вбок'}</span><button class="exp-btn" data-action="ach-toggle" id="ach-toggle"><i data-lucide="chevron-${ui.achOpen?'up':'down'}"></i>${ui.achOpen?'Свернуть':'Все награды'}</button></div>`;
 }
-// Компактная высота достижений: подстраивается под блок «Динамика оценок», минимум 2 строки
-function sizeAch(){
-const clip=$('#ach-clip'),grid=$('#ach-grid'),btn=$('#ach-toggle');if(!clip||!grid)return;
-const panel=clip.closest('.panel'),chart=$('.b-chart');
-if(ui.achOpen){clip.classList.add('open');clip.classList.remove('fit');clip.style.maxHeight=grid.scrollHeight+'px';if(btn)btn.hidden=false;return}
-clip.classList.remove('open');
-const rowH=innerWidth<=760?112:120,gap=14;
-const chrome=panel.offsetHeight-clip.offsetHeight;
-let target=(chart?chart.offsetHeight:0)-chrome;
-if(innerWidth<=1080||!chart)target=Math.max(target,2*(rowH+gap));
-const rows=Math.max(2,Math.floor((target+gap)/(rowH+gap)));
-const maxH=rows*rowH+(rows-1)*gap;
-if(grid.scrollHeight<=maxH+2){clip.classList.add('fit');clip.style.maxHeight='none';if(btn)btn.hidden=true}
-else{clip.classList.remove('fit');clip.style.maxHeight=maxH+'px';if(btn)btn.hidden=false}
-}
-function afterPassport(){
-sizeAch();
-const chart=$('.b-chart');let ro=null;
-if(typeof ResizeObserver!=='undefined'&&chart){ro=new ResizeObserver(()=>sizeAch());ro.observe(chart)}
-const onR=()=>sizeAch();addEventListener('resize',onR);
-pageCleanup=()=>{if(ro)ro.disconnect();removeEventListener('resize',onR)};
-}
+function sizeAch(){const c=$('#ach-clip');if(c)c.classList.toggle('open',ui.achOpen)}
+function afterPassport(){/* Лента достижений и график не требуют внешних наблюдателей */}
 function compPanelHtml(){
 const cs=compStats();
 if(!cs.length)return`<div class="panel-title"><i data-lucide="gem"></i>Компетенции</div><div class="empty" style="padding:22px"><i data-lucide="gem"></i><p>Создайте компетенции и привяжите их к темам и заданиям — здесь появится карта навыков.</p><a class="btn btn-soft sm" href="#/editor">Открыть редактор</a></div>`;
@@ -3990,17 +4134,22 @@ const tile=(ic,val,lab)=>`<div class="stat-tile"><i data-lucide="${ic}"></i><b>$
 const pr=state.profile;
 return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Образовательный паспорт</h1></div>
 <div class="bento">
-<div class="panel b-profile reveal"><div class="b-profile-top">${avatarHtml(64)}<div style="flex:1;min-width:0"><h2 class="b-name">${esc(pr.name)||'Студент'}</h2>${pr.specialization?`<span class="chip" style="margin-top:5px"><i data-lucide="graduation-cap"></i>${esc(pr.specialization)}</span>`:''}${pr.bio?`<p class="hint" style="margin-top:8px">${esc(pr.bio)}</p>`:''}</div></div>
+<div class="panel b-profile reveal">
+<div class="b-profile-top">${avatarHtml(64)}<div class="b-pinfo"><h2 class="b-name">${esc(pr.name)||'Студент'}</h2>${pr.specialization?`<span class="chip"><i data-lucide="graduation-cap"></i>${esc(pr.specialization)}</span>`:''}</div></div>
+${pr.bio?`<p class="b-bio">${esc(pr.bio)}</p>`:''}
 <div class="b-gpa"><span class="gpa-big">${g?g.toFixed(1):'—'}</span>${g?letterChip(g):''}<span class="hint">средний балл${allGrades.length?' · '+allGrades.length+' '+plural(allGrades.length,['оценка','оценки','оценок']):''}</span></div>
-<div class="b-actions"><a class="btn btn-primary" href="#/journal"><i data-lucide="table-2"></i>Журнал оценок</a><a class="btn btn-soft" href="#/editor"><i data-lucide="pencil"></i>Профиль</a></div></div>
+<div class="b-actions"><a class="btn btn-primary b-btn-journal" href="#/journal"><i data-lucide="notebook-pen"></i>Журнал оценок</a><a class="btn btn-soft" href="#/editor"><i data-lucide="pencil"></i>Профиль</a></div>
+</div>
 <div class="b-level reveal" style="--d:60ms">${levelCardHtml()}</div>
 <div class="b-tiles reveal" style="--d:100ms">${tile('layers',doneN+'/'+state.modules.length,'модулей завершено')}${tile('book-open',tRead+'/'+topics,'тем изучено')}${tile('clipboard-list',tGraded+'/'+tasks,'заданий выполнено')}${tile('library',discsDoneCount()+'/'+state.modules.reduce((a,m)=>a+m.disciplines.length,0),'дисциплин освоено')}${tile('flame',streak(),'дней серия')}${tile('clock',fmtMins(totalMinutes()),'времени обучения')}</div>
 <div class="panel b-comp reveal" style="--d:140ms" id="comp-panel">${compPanelHtml()}</div>
-<div class="panel b-chart reveal" style="--d:180ms"><div class="panel-title"><i data-lucide="chart-spline"></i>Динамика оценок</div><div id="chart-box">${chartHtml()}</div></div>
-<div class="panel b-ach reveal" style="--d:220ms" id="ach-panel">${achPanelHtml()}</div>
+<div class="panel b-ach reveal" style="--d:180ms" id="ach-panel">${achPanelHtml()}</div>
+<div class="b-duo reveal" style="--d:220ms">
+<div class="panel b-chart"><div class="panel-title"><i data-lucide="chart-spline"></i>Динамика оценок</div><div id="chart-box">${chartHtml()}</div></div>
+<div class="panel b-mods"><div class="panel-title"><i data-lucide="gauge"></i>Оценки модулей</div>${infos.length?infos.map(({m,inf})=>`<div class="mg-row pc-${m.color}"><span class="row-ic"><i data-lucide="${m.icon}"></i></span><span class="mg-main"><b>${esc(m.name)}</b><div class="bar" style="--p:${inf.mg?(inf.mg-1)/4:inf.progress}"><i></i></div></span>${inf.mg?`<span class="mono" style="font-weight:700;font-size:13px">${inf.mg.toFixed(1)}</span>${letterChip(inf.mg)}`:`<span class="hint">${inf.done?'зачёт':Math.round(inf.progress*100)+'%'}</span>`}</div>`).join(''):'<div class="hint">Модулей пока нет.</div>'}</div>
+</div>
 <div class="panel b-heat reveal" style="--d:260ms"><div class="panel-title"><i data-lucide="activity"></i>Активность · 12 месяцев</div><div id="heat-box">${heatYearHtml()}</div></div>
-<div class="panel b-mods reveal" style="--d:300ms"><div class="panel-title"><i data-lucide="gauge"></i>Оценки модулей</div>${infos.length?infos.map(({m,inf})=>`<div class="mg-row pc-${m.color}"><span class="row-ic"><i data-lucide="${m.icon}"></i></span><span class="mg-main"><b>${esc(m.name)}</b><div class="bar" style="--p:${inf.mg?(inf.mg-1)/4:inf.progress}"><i></i></div></span>${inf.mg?`<span class="mono" style="font-weight:700;font-size:13px">${inf.mg.toFixed(1)}</span>${letterChip(inf.mg)}`:`<span class="hint">${inf.done?'зачёт':Math.round(inf.progress*100)+'%'}</span>`}</div>`).join(''):'<div class="hint">Модулей пока нет.</div>'}</div>
-<div class="panel b-dist reveal" style="--d:340ms"><div class="panel-title"><i data-lucide="trending-up"></i>Распределение оценок</div>${allGrades.length?`<div class="dist-bar">${['A','B','C','D','F'].map(l=>dist[l]?`<i style="width:${dist[l]/total*100}%;background:${dcol[l]}" title="${l}: ${dist[l]}"></i>`:'').join('')}</div><div class="dist-legend">${['A','B','C','D','F'].map(l=>`<span><span class="dot" style="background:${dcol[l]}"></span>${l} · ${dist[l]}</span>`).join('')}</div>`:'<div class="hint">Оцените задания, чтобы увидеть распределение.</div>'}</div>
+<div class="panel b-dist reveal" style="--d:300ms"><div class="panel-title"><i data-lucide="trending-up"></i>Распределение оценок</div>${allGrades.length?`<div class="dist-bar">${['A','B','C','D','F'].map(l=>dist[l]?`<i style="width:${dist[l]/total*100}%;background:${dcol[l]}" title="${l}: ${dist[l]}"></i>`:'').join('')}</div><div class="dist-legend">${['A','B','C','D','F'].map(l=>`<span><span class="dot" style="background:${dcol[l]}"></span>${l} · ${dist[l]}</span>`).join('')}</div>`:'<div class="hint">Оцените задания, чтобы увидеть распределение.</div>'}</div>
 </div></div>`;
 }
 function sessElapsed(){return state.activeSession?Date.now()-state.activeSession.startedAt:0}
@@ -4120,16 +4269,30 @@ tree.querySelectorAll('.inbox-slot').forEach(s=>{s.ondragover=e=>{e.preventDefau
 }
 function favoritesPage(){
 const list=state.favorites.map(f=>({f,t:favTarget(f.key)})).filter(x=>x.t);
-return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Избранное</h1><span class="count-badge">${list.length}</span></div>${list.length?`<div class="fav-masonry">${list.map(({f,t},i)=>favCardHtml(f,t,i)).join('')}</div>`:`<div class="empty reveal"><i data-lucide="star"></i><p>Отмечайте звёздочкой модули, дисциплины, темы, задания, проекты и события — они соберутся здесь.</p></div>`}</div>`;
+return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Избранное</h1><span class="count-badge">${list.length}</span></div>${list.length?`<p class="hint fav-hint"><i data-lucide="move" style="width:13px;height:13px"></i>Перетаскивайте карточки за ручку — порядок сохраняется автоматически.</p><div class="fav-grid" id="fav-grid">${list.map(({f,t},i)=>favCardHtml(f,t,i)).join('')}</div>`:`<div class="empty reveal"><i data-lucide="star"></i><p>Отмечайте звёздочкой модули, дисциплины, темы, задания, проекты и события — они соберутся здесь.</p></div>`}</div>`;
 }
 function favCardHtml(f,t,i){
-const open=ui.favExpand.has(f.key),big=t.kind==='module'||t.kind==='disc';
+const open=ui.favExpand.has(f.key),big=t.kind==='module'||t.kind==='disc',proj=t.kind==='project';
 const g=t.kind==='task'&&t.criteria&&t.criteria.length?calcGrade(t.criteria,t.scores):null;
+const grip=`<button class="fav-grip" title="Перетащить, чтобы изменить порядок" aria-label="Переместить карточку"><i data-lucide="grip-vertical"></i></button>`;
 const go=t.kind==='event'?`<button class="btn btn-soft sm" data-action="fav-go-event" data-eid="${t.eid}"><i data-lucide="arrow-up-right"></i>Открыть</button>`:`<a class="btn btn-soft sm" href="${t.href}" ${t.scroll?`data-action="fav-go" data-scroll="${t.scroll}"`:''}><i data-lucide="arrow-up-right"></i>Открыть</a>`;
 const crit=(t.kind==='task'&&t.criteria&&t.criteria.length)?`<div class="crit-preview">${t.criteria.map(c=>`<span class="chip">${esc(c.text)||'Критерий'}${g?` · <b>${t.scores[c.id]}/5</b>`:''}</span>`).join('')}</div>`:'';
 const hasBody=t.desc||(t.links&&t.links.length)||crit;
-return`<article class="fav-card pc-${t.color}${big?' fav-big':''} reveal" style="--d:${Math.min(i,8)*50}ms"><div class="fav-head"><span class="fav-ic"><i data-lucide="${t.icon}"></i></span><div style="flex:1;min-width:0"><b>${esc(t.title)}</b><span class="fav-sub">${esc(t.sub)}</span></div>${favBtn(f.key,'plain')}</div>${t.kind==='event'?`<div class="fav-when"><i data-lucide="calendar"></i>${dayLabel(t.date)} · ${t.allDay?'весь день':t.start+'–'+t.end}</div>`:''}${t.kind==='project'?'<span class="kind-chip task" style="align-self:flex-start">Проект</span>':''}${hasBody?`<button class="exp-btn${open?' on':''}" data-action="fav-expand" data-key="${f.key}"><i data-lucide="chevron-${open?'up':'down'}"></i>${open?'Свернуть':'Подробнее'}</button>`:''}${open?`<div class="fav-body">${t.desc?`<p>${esc(t.desc)}</p>`:''}${crit}${t.links&&t.links.length?`<div class="links-row">${t.links.map(l=>linkChip(l)).join('')}</div>`:''}</div>`:''}<div class="fav-foot">${go}</div></article>`;
+const exp=hasBody?`<button class="exp-btn${open?' on':''}" data-action="fav-expand" data-key="${f.key}"><i data-lucide="chevron-${open?'up':'down'}"></i>${open?'Свернуть':'Подробнее'}</button>`:'';
+const body=open?`<div class="fav-body">${t.desc?`<p>${esc(t.desc)}</p>`:''}${crit}${t.links&&t.links.length?`<div class="links-row">${t.links.map(l=>linkChip(l)).join('')}</div>`:''}</div>`:'';
+const delay=`--d:${Math.min(i,8)*50}ms`;
+if(big||proj){
+return`<article class="fav-card fav-big${proj?' fav-proj':''} pc-${t.color} reveal" style="${delay}" data-fkey="${f.key}">
+<div class="fav-band">${grip}<span class="fav-ic"><i data-lucide="${t.icon}"></i></span><div style="flex:1;min-width:0"><b>${esc(t.title)}</b><span class="fav-sub">${esc(t.sub)}</span></div>${favBtn(f.key,'plain')}</div>
+<div class="fav-inner">${proj?'<span class="fav-proj-flag"><i data-lucide="flag"></i>Проект</span>':''}${exp}${body}<div class="fav-foot">${go}</div></div>
+</article>`;
 }
+const when=t.kind==='event'?`<div class="fav-when"><i data-lucide="calendar"></i>${dayLabel(t.date)} · ${t.allDay?'весь день':t.start+'–'+t.end}</div>`:'';
+return`<article class="fav-card pc-${t.color} reveal" style="${delay}" data-fkey="${f.key}">
+<div class="fav-head">${grip}<span class="fav-ic"><i data-lucide="${t.icon}"></i></span><div style="flex:1;min-width:0"><b>${esc(t.title)}</b><span class="fav-sub">${esc(t.sub)}</span></div>${favBtn(f.key,'plain')}</div>
+${when}${exp}${body}<div class="fav-foot">${go}</div>
+</article>`;
+}// #region Инициализация
 const PLAN_TYPES={module:{label:'Модуль',icon:'book',color:null},exam:{label:'Экзаменационная неделя',icon:'stamp',color:'wine'},conf:{label:'Конференц-неделя',icon:'users',color:'amber'},project:{label:'Проектная неделя',icon:'rocket',color:'azure'}};
 function planColor(p){return p.type==='module'?((findM(p.moduleId)||{}).color||'gray'):PLAN_TYPES[p.type].color}
 function planTitle(p){return p.type==='module'?((findM(p.moduleId)||{}).name||'Модуль удалён'):(p.title||PLAN_TYPES[p.type].label)}
@@ -4167,6 +4330,81 @@ if(!od.length)return'';
 od.sort((a,b)=>b.days-a.days);
 return`<div class="overdue reveal${ui.overdueOpen?' open':''}"><div class="overdue-head"><span class="overdue-ic"><i data-lucide="alarm-clock"></i></span><b>Просроченные элементы — ${od.length}</b><button class="exp-btn" data-action="overdue-toggle"><i data-lucide="chevron-${ui.overdueOpen?'up':'down'}"></i>${ui.overdueOpen?'Свернуть':'Показать все'}</button></div>${ui.overdueOpen?`<div class="overdue-list">${od.map(x=>`<button class="overdue-row" data-action="journal-go" data-mid="${x.m.id}" data-did="${x.d.id}" data-iid="${x.i.id}"><span class="kind-chip ${x.i.type}">${x.i.type==='task'?'Задание':'Тема'}</span><span class="od-name">${esc(x.i.name)}</span><span class="od-sub hide-s">${esc(x.d.name)}</span><span class="od-days">${x.days} ${plural(x.days,['день','дня','дней'])}</span><i data-lucide="arrow-up-right"></i></button>`).join('')}</div>`:''}</div>`;
 }
+// #endregion
+// #region Избранное: произвольный порядок карточек
+let favDrag=null,favSuppress=false;
+function favCleanup(){
+if(!favDrag)return;
+clearTimeout(favDrag.arm);
+if(favDrag.ghost)favDrag.ghost.remove();
+if(favDrag.card)favDrag.card.classList.remove('fav-src');
+document.querySelectorAll('.fav-drop-before,.fav-drop-after').forEach(el=>el.classList.remove('fav-drop-before','fav-drop-after'));
+document.body.classList.remove('fav-dragging');
+favDrag=null;
+}
+function favActivate(){
+const d=favDrag;if(!d||d.active)return;
+d.active=true;favSuppress=true;
+document.body.classList.add('fav-dragging');
+try{d.grip.setPointerCapture(d.pid)}catch{}
+const r=d.card.getBoundingClientRect();
+const gh=d.card.cloneNode(true);
+gh.classList.add('fav-ghost');gh.classList.remove('reveal');
+gh.style.width=r.width+'px';gh.style.left=r.left+'px';gh.style.top=r.top+'px';
+document.body.appendChild(gh);
+d.ghost=gh;d.gw=r.width;d.gh=r.height;
+d.card.classList.add('fav-src');
+if(d.touch&&navigator.vibrate)try{navigator.vibrate(15)}catch{}
+}
+function favTargetIndex(x,y){
+const cards=[...document.querySelectorAll('#fav-grid .fav-card')].filter(c=>c!==favDrag.card);
+let idx=cards.length;
+for(let i=0;i<cards.length;i++){
+const r=cards[i].getBoundingClientRect();
+if(y<r.top){idx=i;break}
+if(y<=r.bottom&&x<r.left+r.width/2){idx=i;break}
+}
+return{cards,idx};
+}
+document.addEventListener('pointerdown',e=>{
+if(route().name!=='favorites'||favDrag)return;
+const grip=e.target.closest('.fav-grip');if(!grip)return;
+const card=grip.closest('.fav-card');if(!card||!card.dataset.fkey)return;
+favDrag={key:card.dataset.fkey,card,grip,pid:e.pointerId,x0:e.clientX,y0:e.clientY,touch:e.pointerType==='touch',active:false,ghost:null,idx:-1};
+if(favDrag.touch)favDrag.arm=setTimeout(()=>{if(favDrag&&!favDrag.active)favActivate()},260);
+},true);
+document.addEventListener('pointermove',e=>{
+const d=favDrag;if(!d||e.pointerId!==d.pid)return;
+if(!d.active){
+const dist=Math.hypot(e.clientX-d.x0,e.clientY-d.y0);
+if(dist>(d.touch?8:5))favActivate();else return;
+}
+e.preventDefault();
+d.ghost.style.left=(e.clientX-d.gw/2)+'px';
+d.ghost.style.top=(e.clientY-d.gh/2)+'px';
+const{cards,idx}=favTargetIndex(e.clientX,e.clientY);
+d.idx=idx;
+document.querySelectorAll('.fav-drop-before,.fav-drop-after').forEach(el=>el.classList.remove('fav-drop-before','fav-drop-after'));
+if(!cards.length)return;
+if(idx<cards.length)cards[idx].classList.add('fav-drop-before');
+else cards[cards.length-1].classList.add('fav-drop-after');
+});
+document.addEventListener('pointerup',e=>{
+const d=favDrag;if(!d||e.pointerId!==d.pid)return;
+if(!d.active){favCleanup();return}
+const key=d.key,idx=d.idx;
+favCleanup();
+setTimeout(()=>{favSuppress=false},350);
+if(idx<0)return;
+const moved=state.favorites.find(f=>f.key===key);if(!moved)return;
+const keys=state.favorites.map(f=>f.key).filter(k=>k!==key);
+keys.splice(Math.min(idx,keys.length),0,key);
+state.favorites.sort((a,b)=>keys.indexOf(a.key)-keys.indexOf(b.key));
+save();render();
+toast('Порядок избранного сохранён',{type:'success',duration:2200});
+});
+document.addEventListener('pointercancel',()=>favCleanup());
+document.addEventListener('click',e=>{if(favSuppress){favSuppress=false;e.stopPropagation();e.preventDefault()}},true);
 // #endregion
 // #region Инициализация
 async function init(){
