@@ -1073,9 +1073,6 @@ body.inbox-dragging .inbox-slot span{opacity:.9}
 .plan-entry b{display:block;font-size:14px}
 .plan-entry>svg{width:16px;height:16px;color:var(--muted)}
 .plan-entry-ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
-.plan-edit{display:flex;padding:2px;border-radius:5px;color:inherit;opacity:.6}
-.plan-edit:hover{opacity:1;background:color-mix(in srgb,var(--pc-accent) 18%,transparent)}
-.plan-edit svg{width:11px;height:11px}
 .plan-timeline{padding:10px 0}
 .plan-week{display:flex;gap:14px;padding:9px 18px;border-bottom:1px dashed var(--border);align-items:flex-start}
 .plan-week:last-child{border-bottom:none}
@@ -1084,11 +1081,17 @@ body.inbox-dragging .inbox-slot span{opacity:.9}
 .pw-num b{font-family:var(--font-mono);font-size:13px;display:block}
 .pw-num span{font-size:10.5px;color:var(--muted)}
 .pw-bars{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
-.pw-bar{display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:10px;background:var(--pc-bg);border:1px solid var(--pc-border);border-left:3px solid var(--pc-accent);font-size:12.5px;transition:.14s}
+.pw-bar{display:flex;align-items:center;gap:9px;padding:8px 10px 8px 11px;border-radius:12px;background:var(--pc-bg);border:1px solid var(--pc-border);border-left:3px solid var(--pc-accent);font-size:12.5px;transition:.14s}
 .pw-bar:hover{border-color:var(--pc-accent)}
-.pw-bar svg{width:14px;height:14px;color:var(--pc-accent);flex:none}
-.pw-bar b{color:var(--pc-text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pw-bar span{font-size:10px;color:var(--pc-text);opacity:.7;white-space:nowrap}
+.pw-bar>i{width:15px;height:15px;color:var(--pc-accent);flex:none}
+.pw-main{flex:1;min-width:0;display:flex;align-items:center;gap:8px}
+.pw-type{font-size:10px;color:var(--pc-text);opacity:.7;white-space:nowrap;flex:none}
+.pw-acts{display:flex;gap:4px;flex:none}
+.pw-act{width:27px;height:27px;border-radius:8px;border:1px solid var(--pc-border);background:var(--surface);color:var(--pc-text);display:flex;align-items:center;justify-content:center;transition:.15s}
+.pw-act svg{width:13px;height:13px}
+.pw-act:hover{border-color:var(--pc-accent);color:var(--pc-accent);transform:translateY(-1px)}
+.pw-act:active{transform:scale(.94)}
+.pw-act.danger:hover{border-color:color-mix(in srgb,var(--danger) 45%,transparent);color:var(--danger);background:var(--danger-bg)}
 .pw-free{font-size:11.5px;color:var(--muted);padding:6px 2px}
 .overdue{border:1px solid color-mix(in srgb,var(--danger) 35%,transparent);background:linear-gradient(120deg,var(--danger-bg),var(--surface) 75%);border-radius:var(--r-lg);padding:12px 16px;margin-bottom:18px;box-shadow:var(--shadow)}
 .overdue-head{display:flex;align-items:center;gap:11px;margin-bottom:0;flex-wrap:wrap}
@@ -1276,6 +1279,85 @@ body.fav-dragging .fav-card{transition:none}
 }
 @media(max-width:640px){.comp-ed-grid{grid-template-columns:1fr}}
 @media(max-width:340px){.b-tiles{grid-template-columns:1fr}.fav-grid{grid-template-columns:1fr}}
+/* === LDZ: календарь без вложенной прокрутки, компетенции, план, журнал === */
+.foot[hidden]{display:none}
+/* Календарь: прокручивается страница, не контейнер */
+.cal-wrap{overflow:visible}
+.cal-scroll{overflow:visible;max-height:none}
+.cal-toolbar{position:sticky;top:var(--header-total-h);z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;margin-bottom:10px}
+.cal-grid{--cal-stick:calc(var(--header-total-h) + var(--cal-tb-h,56px));grid-template-columns:58px repeat(7,minmax(0,1fr));min-width:0}
+.cal-corner{top:var(--cal-stick);border-top-left-radius:var(--r-lg)}
+.cal-dayhead{top:var(--cal-stick)}
+.cal-dayhead:nth-child(8){border-top-right-radius:var(--r-lg)}
+.cal-ad-label,.cal-allday{top:calc(var(--cal-stick) + var(--cal-head-h))}
+.cal-gutter{border-bottom-left-radius:var(--r-lg)}
+.cal-col:last-child{border-bottom-right-radius:var(--r-lg)}
+/* Мобильная закреплённая шапка календаря */
+.cal-m-head{position:sticky;top:var(--header-total-h);z-index:40;margin:0 -14px;padding:0 14px 8px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--border);box-shadow:0 12px 20px -16px rgba(0,0,0,.3)}
+.cal-m-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0 2px}
+.cal-month-btn{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;transition:.15s}
+.cal-month-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cal-month-btn:active{transform:scale(.97)}
+.cal-month-btn svg{width:15px;height:15px;color:var(--muted)}
+.cal-m-acts{display:flex;gap:8px}
+.cal-sq{width:40px;height:40px;border-radius:12px}
+.cal-sq:active{transform:scale(.94)}
+.cal-sq-primary{background:var(--primary-bg);border-color:transparent;color:var(--primary-fg)}
+.cal-sq-primary:hover{color:var(--primary-fg);border-color:transparent;filter:brightness(1.07)}
+.cal-m-plan{display:flex;align-items:center;gap:7px;margin-top:6px;padding:5px 10px;border-radius:9px;background:var(--pc-bg);border:1px solid var(--pc-border);color:var(--pc-text);font-size:11.5px;min-width:0}
+.cal-m-plan svg{width:13px;height:13px;color:var(--pc-accent);flex:none}
+.cal-m-plan b{font-family:var(--font-mono);font-size:10.5px;flex:none}
+.cal-m-plan span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.cal-m-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:6px 0 2px}
+.cal-m-week .cal-strip-day{width:auto;padding:5px 0 4px;border-radius:11px;gap:1px}
+.cal-m-week .cal-strip-day .dn{font-size:15px}
+.cal-m-week .cal-strip-day .wd{font-size:8.5px}
+.cal-m-allday{display:flex;align-items:center;gap:8px;padding-top:6px}
+.cal-m-ad{position:static;flex:1;flex-direction:row;align-items:center;gap:5px;min-height:32px;max-height:none;overflow-x:auto;overflow-y:hidden;border:1px solid var(--border);border-radius:10px;background:var(--surface2);padding:4px;box-shadow:none}
+.cal-m-ad .cal-ad-item{width:auto;flex:none;max-width:200px;padding:5px 8px}
+.cal-m-ad .cal-ad-proj{max-width:170px}
+.cal-m-body{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);margin-top:10px}
+.cal-m-hint{margin-top:10px}
+/* Плавающая кнопка «Сегодня» */
+.cal-today-fab{position:fixed;left:14px;bottom:calc(14px + var(--safe-bottom));z-index:90;display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 16px;border-radius:14px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--border2);box-shadow:var(--shadow-lg);font-weight:700;font-size:13px;color:var(--accent);transition:.18s}
+.cal-today-fab svg{width:16px;height:16px}
+.cal-today-fab:hover{transform:translateY(-2px);border-color:var(--accent)}
+.cal-today-fab:active{transform:scale(.95)}
+/* Кастомный выбор месяца и года */
+.cal-month-pop{width:304px}
+.cal-mp-year{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px}
+.cal-mp-year b{font-family:var(--font-display);font-size:17px;font-weight:700}
+.cal-mp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cal-mp-m{height:38px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);font-size:12.5px;font-weight:600;color:var(--ink2);transition:.14s}
+.cal-mp-m:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.cal-mp-m.cur{border-color:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent)}
+.cal-mp-m.sel{background:var(--primary-bg);color:var(--primary-fg);border-color:transparent}
+/* Компетенции: адаптивное раскрытие */
+.comp-cut{display:none}
+.comp-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.comp-foot[hidden]{display:none}
+/* Журнал: обёртки названий */
+.jr-disc b{flex:1;min-width:0;font-weight:600;overflow-wrap:anywhere}
+.jr-mod-in b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:760px){
+.jr{min-width:0}
+.jr th{padding:8px 4px;font-size:9.5px;letter-spacing:.06em}
+.jr td{padding:4px 3px}
+.jr-name{min-width:106px;max-width:106px;width:106px}
+.jr-disc{gap:6px}
+.jr-disc svg{width:13px;height:13px}
+.jr-disc b{font-size:11.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.jr-mod td{padding:7px 8px}
+.jr-mod-in{font-size:11.5px;gap:7px}
+.jr-mod-in svg{width:14px;height:14px}
+.jr-cell{width:32px;height:30px}
+.plan-week{padding:10px 12px;gap:8px}
+.pw-bar{padding:9px 10px}
+.pw-bar>i{margin-top:2px}
+.pw-main{flex-direction:column;align-items:flex-start;gap:2px}
+.pw-link{max-width:100%}
+.pw-acts{align-self:center}
+}
 </style>
 </head>
 <body>
@@ -1584,7 +1666,7 @@ catch(e){if(!saveErrShown){toast('Не удалось сохранить: хра
 const saveSoon=debounce(()=>{if(save()){const a=$('.autosave');if(a){a.classList.remove('pulse');void a.offsetWidth;a.classList.add('pulse')}}},400);
 const ui={months:{side:curMonth()},weekAnchor:null,expanded:new Set(),viewExpanded:new Set(),focusSel:null,
 secOpen:new Set(),scrollSel:null,chart:{scope:'course',mid:'',did:''},
-inboxSort:null,favExpand:new Set(),overdueOpen:false,planDraft:null,edOpen:{info:false,profile:false},achOpen:false};
+inboxSort:null,favExpand:new Set(),overdueOpen:false,planDraft:null,edOpen:{info:false,profile:false},achOpen:false,compOpen:false,calScrollMem:null};
 const findM=id=>state.modules.find(m=>m.id===id);
 const findD=(m,id)=>m?m.disciplines.find(d=>d.id===id):null;
 const findI=(d,id)=>d?d.items.find(i=>i.id===id):null;
@@ -1796,6 +1878,7 @@ const r=route(),ed=r.name.startsWith('edit');
 const narrow=['editCourse','editModule','editDisc','disc'].includes(r.name);
 $('#topbar-bar').classList.toggle('narrow',narrow);
 $('#foot').classList.toggle('narrow',narrow);
+$('#foot').hidden=r.name==='calendar'&&matchMedia('(max-width:760px)').matches;
 const g=gpa();
 $('#bar-actions').innerHTML=ed
 ?`${sessPillHtml()}<a class="btn btn-soft" href="#/"><i data-lucide="log-out"></i><span class="hide-s">Выйти из редактора</span></a>${themeBtn('hide-s')}${menuBtn()}`
@@ -2471,30 +2554,18 @@ return`<button class="cal-event pc-${ev.color}${isItem?' is-item':''}${ev.done?'
 <span class="cal-rs bottom" data-rs="bottom"></span>
 </button>`;
 }
-function stripInner(){
-if(!ui.calDay)ui.calDay=today();
-if(!ui.stripFrom)ui.stripFrom=addD(weekStart(ui.calDay),-7);
-let n=(ui.stripWeeks||5)*7;
-const off=diffD(ui.calDay,ui.stripFrom);
-if(off<0||off>=n){ui.stripFrom=addD(weekStart(ui.calDay),-7);ui.stripWeeks=5;n=35}
-const t=today();let out='';
-for(let i=0;i<n;i++){const ds=addD(ui.stripFrom,i),d=fromISO(ds);
-out+=`<button class="cal-strip-day${ds===t?' today':''}${ds===ui.calDay?' sel':''}" data-action="cal-day-pick" data-date="${ds}"><span class="wd">${WD[(d.getDay()+6)%7]}</span><span class="dn">${d.getDate()}</span><span class="mo">${MON_S[d.getMonth()]}</span></button>`;}
+function calWeekStripHtml(){
+const anchor=ui.calDay||today(),ws=weekStart(anchor),t=today();
+let out='';
+for(let i=0;i<7;i++){const ds=addD(ws,i),d=fromISO(ds);
+out+=`<button class="cal-strip-day${ds===t?' today':''}${ds===anchor?' sel':''}" data-action="cal-day-pick" data-date="${ds}"><span class="wd">${WD[(d.getDay()+6)%7]}</span><span class="dn">${d.getDate()}</span></button>`}
 return out;
 }
-function stripSync(){
-const el=$('#cal-strip');if(!el)return;
-const sel=el.querySelector('.sel');
-if(sel)el.scrollLeft=sel.offsetLeft-el.clientWidth/2+sel.offsetWidth/2;
-}
-function stripExtend(){
-const el=$('#cal-strip');if(!el)return;
-el.addEventListener('scroll',()=>{
-const first=el.firstElementChild;if(!first)return;
-const cw=first.offsetWidth+6;
-if(el.scrollLeft<cw){const w=el.scrollWidth;ui.stripFrom=addD(ui.stripFrom,-7);ui.stripWeeks=(ui.stripWeeks||5)+1;el.innerHTML=stripInner();icons();el.scrollLeft+=el.scrollWidth-w}
-else if(el.scrollLeft+el.clientWidth>el.scrollWidth-cw){ui.stripWeeks=(ui.stripWeeks||5)+1;el.innerHTML=stripInner();icons()}
-},{passive:true});
+function calMonthPopHtml(meta){
+const t=fromISO(today());
+return`<div class="cal-mp-year"><button class="icon-btn plain sm" data-action="cal-mp-year" data-dir="-1" aria-label="Предыдущий год"><i data-lucide="chevron-left"></i></button><b>${meta.year}</b><button class="icon-btn plain sm" data-action="cal-mp-year" data-dir="1" aria-label="Следующий год"><i data-lucide="chevron-right"></i></button></div>
+<div class="cal-mp-grid">${MONTHS.map((m,i)=>`<button class="cal-mp-m${meta.year===meta.sy&&i===meta.month?' sel':''}${i===t.getMonth()&&meta.year===t.getFullYear()?' cur':''}" data-action="cal-mp-pick" data-m="${i}">${m[0].toUpperCase()+m.slice(1)}</button>`).join('')}</div>
+<div class="pop-foot"><span class="hint">Выберите месяц</span><button class="btn btn-soft sm" data-action="cal-mp-today"><i data-lucide="calendar-check"></i>Текущий</button></div>`;
 }
 function calendarPage(){
 const mob=isMobileCal();
@@ -2515,10 +2586,31 @@ const blocks=evts.map(ev=>calEventHtml(ev,pos)).join('');
 const now=ds===t?`<div class="now-line" id="now-line"></div>`:'';
 return`<div class="cal-col${ds===t?' today':''}${mob?' single':''}" data-action="cal-empty" data-date="${ds}">${blocks}${now}</div>`;
 }).join('');
-const label=mob?`${MONTHS[fromISO(ui.calDay).getMonth()]} ${fromISO(ui.calDay).getFullYear()}`:weekLabel(ui.weekAnchor);
+if(mob){
+const md=fromISO(ui.calDay),mLabel=MONTHS[md.getMonth()][0].toUpperCase()+MONTHS[md.getMonth()].slice(1);
+const cw=weekStart(ui.calDay),cp=state.plan.find(p=>diffD(cw,p.from)>=0&&diffD(p.to,cw)>=0);
+const planRow=cp?`<div class="cal-m-plan pc-${planColor(cp)}"><i data-lucide="${PLAN_TYPES[cp.type].icon}"></i><b>Н${isoWeekNum(cw)}</b><span>${esc(planTitle(cp))}</span></div>`:'';
+return`<div class="page cal-mobile">
+<div class="cal-m-head" id="cal-m-head">
+<div class="cal-m-bar">
+<button class="cal-month-btn" data-action="cal-month-open" aria-haspopup="true" title="Выбрать месяц и год"><span>${mLabel}</span><i data-lucide="chevron-down"></i></button>
+<div class="cal-m-acts">
+<button class="icon-btn cal-sq" data-action="ics-open" title="Экспорт в .ics" aria-label="Экспорт календаря"><i data-lucide="calendar-arrow-down"></i></button>
+<button class="icon-btn cal-sq cal-sq-primary" data-action="new-event" title="Новое событие" aria-label="Добавить событие"><i data-lucide="calendar-plus"></i></button>
+</div>
+</div>
+${planRow}
+<div class="cal-m-week" id="cal-m-week">${calWeekStripHtml()}</div>
+<div class="cal-m-allday"><span class="cal-ad-cap">Весь день</span><div class="cal-allday cal-m-ad" data-ad-date="${ui.calDay}">${[...ad.filter(x=>x.date===ui.calDay).map(adChipHtml),...pd.filter(x=>x.date===ui.calDay).map(projChipHtml)].join('')}</div></div>
+</div>
+<div class="cal-m-body" id="cal-day-wrap"><div class="cal-grid single" id="cal-grid">${gutter}${cols}</div></div>
+<p class="hint cal-m-hint">Свайп по сетке — другой день, по строке дней — другая неделя. Удерживайте объект, чтобы перенести; тяните за край — длительность. Удерживайте пустую сетку и тяните — новое событие.</p>
+</div>`;
+}
+const label=weekLabel(ui.weekAnchor);
 const cw=weekStart(today()),cp=state.plan.find(p=>diffD(cw,p.from)>=0&&diffD(p.to,cw)>=0);
 const planChip=`<span class="chip cal-plan-chip" title="Текущая неделя учебного плана"><i data-lucide="calendar-range"></i>Н${isoWeekNum(cw)}${cp?' · '+esc(planTitle(cp)):''}</span>`;
-const toolbar=`<div class="cal-toolbar">
+const toolbar=`<div class="cal-toolbar" id="cal-toolbar">
 <div class="cal-nav">
 <button class="btn btn-soft" data-action="cal-today">Сегодня</button>
 <button class="icon-btn" data-action="cal-prev" aria-label="Назад"><i data-lucide="chevron-left"></i></button>
@@ -2530,18 +2622,8 @@ ${planChip}
 <button class="btn btn-soft" data-action="ics-open"><i data-lucide="calendar-arrow-down"></i><span class="hide-s">Экспорт в Apple Calendar</span><span class="m-only">.ics</span></button>
 <button class="btn btn-primary" data-action="new-event"><i data-lucide="calendar-plus"></i>Событие</button>
 </div></div>`;
-if(mob){
-return`<div class="page cal-mobile">${toolbar}
-<div class="cal-strip" id="cal-strip">${stripInner()}</div>
-<div id="cal-day-wrap">
-<div class="cal-ad-single"><span class="cal-ad-cap">Весь день</span><div class="cal-allday" data-ad-date="${ui.calDay}">${[...ad.filter(x=>x.date===ui.calDay).map(adChipHtml),...pd.filter(x=>x.date===ui.calDay).map(projChipHtml)].join('')}</div></div>
-<div class="panel cal-wrap"><div class="cal-scroll" id="cal-scroll"><div class="cal-grid single">${gutter}${cols}</div></div></div>
-</div>
-<p class="hint" style="margin-top:10px">Свайп по расписанию — другой день. Удерживайте объект, чтобы перенести; тяните за край — длительность. Удерживайте пустую сетку и тяните — новое событие.</p>
-</div>`;
-}
-return`<div class="page">${toolbar}
-<div class="panel cal-wrap"><div class="cal-scroll" id="cal-scroll"><div class="cal-grid">
+return`<div class="page cal-desktop">${toolbar}
+<div class="panel cal-wrap"><div class="cal-scroll"><div class="cal-grid" id="cal-grid">
 <div class="cal-corner"></div>${heads}
 <div class="cal-ad-label">Весь день</div>${adCells}
 ${gutter}${cols}
@@ -2557,29 +2639,60 @@ el.style.display='';el.style.top=((mins-DAY_START)/60*HOUR_H)+'px';
 }
 function afterCalendar(){
 positionNowLine();
-const sc=$('#cal-scroll');
-if(sc){
-if(ui.calScrollMem!=null)sc.scrollTop=ui.calScrollMem;
-else{const n=new Date(),mins=n.getHours()*60+n.getMinutes();const showNow=isMobileCal()?ui.calDay===today():ui.weekAnchor===weekStart(today());sc.scrollTop=showNow&&mins>DAY_START+120?clamp((mins-DAY_START)/60*HOUR_H-80,0,720):0}
-sc.addEventListener('scroll',()=>{ui.calScrollMem=sc.scrollTop},{passive:true});
+const grid=$('#cal-grid'),tb=$('#cal-toolbar');
+const measure=()=>{if(grid&&tb)grid.style.setProperty('--cal-tb-h',tb.offsetHeight+'px')};
+measure();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>measure());
+if(ui.calScrollMem==null){
+requestAnimationFrame(()=>{
+if(route().name!=='calendar')return;
+const g=$('#cal-grid');if(!g)return;
+const head=$('#cal-m-head')||$('#cal-toolbar');
+const headH=head?head.offsetHeight:0;
+const top=g.getBoundingClientRect().top+scrollY;
+const n=new Date(),mins=n.getHours()*60+n.getMinutes();
+const showNow=isMobileCal()?ui.calDay===today():ui.weekAnchor===weekStart(today());
+let y=Math.max(0,top-headH-10);
+if(showNow&&mins>DAY_START+90)y=Math.max(0,top+(mins-DAY_START)/60*HOUR_H-headH-90);
+scrollTo(0,y);ui.calScrollMem=scrollY;
+});
 }
-stripSync();stripExtend();
-const wrap=$('#cal-day-wrap');
-if(wrap){
+const onScroll=()=>{ui.calScrollMem=scrollY};
+addEventListener('scroll',onScroll,{passive:true});
+let fab=null;
+if(isMobileCal()){
+fab=document.createElement('button');
+fab.className='cal-today-fab';fab.dataset.action='cal-today';
+fab.setAttribute('aria-label','Перейти к сегодняшнему дню');
+fab.innerHTML='<i data-lucide="calendar-check"></i>Сегодня';
+document.body.appendChild(fab);icons();
+}
+const swipe=(el,step)=>{
+if(!el)return;
 let sx=0,sy=0,st=0;
-wrap.addEventListener('touchstart',e=>{if(calPtr&&calPtr.active)return;const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now()},{passive:true});
-wrap.addEventListener('touchend',e=>{
+el.addEventListener('touchstart',e=>{if(calPtr&&calPtr.active)return;const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now()},{passive:true});
+el.addEventListener('touchend',e=>{
 if(calPtr&&calPtr.active)return;
 if(Date.now()-calLastDragEnd<400)return;
 const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
-if(Date.now()-st<600&&Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6){ui.calDay=addD(ui.calDay,dx<0?1:-1);render()}
+if(Date.now()-st<600&&Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6){ui.calDay=addD(ui.calDay||today(),dx<0?step:-step);ui.weekAnchor=weekStart(ui.calDay);render()}
 },{passive:true});
-}
+};
+swipe($('#cal-day-wrap'),1);
+swipe($('#cal-m-week'),7);
 const tm=setInterval(positionNowLine,60000);
 const mq=matchMedia('(max-width:760px)');
 const onMq=()=>{if(route().name==='calendar')render()};
 if(mq.addEventListener)mq.addEventListener('change',onMq);else mq.addListener(onMq);
-pageCleanup=()=>{clearInterval(tm);if(mq.removeEventListener)mq.removeEventListener('change',onMq);else mq.removeListener(onMq)};
+const onR=()=>measure();addEventListener('resize',onR);
+pageCleanup=()=>{
+clearInterval(tm);
+if(mq.removeEventListener)mq.removeEventListener('change',onMq);else mq.removeListener(onMq);
+removeEventListener('resize',onR);
+removeEventListener('scroll',onScroll);
+if(fab)fab.remove();
+if(route().name!=='calendar')ui.calScrollMem=null;
+};
 }
 // #endregion
 // #region Календарь: перетаскивание, резайз, создание выделением
@@ -2625,9 +2738,9 @@ const h=document.createElement('div');h.className='cal-drop-hint pc-'+calPtr.col
 else if(calPtr.mode==='create'){const s=document.createElement('div');s.className='cal-select';s.innerHTML='<span></span>';calPtr.col.appendChild(s);calPtr.selEl=s}
 }
 function calAutoScroll(y){
-const sc=$('#cal-scroll');if(!sc)return;
-const r=sc.getBoundingClientRect();
-if(y<r.top+48)sc.scrollTop-=10;else if(y>r.bottom-48)sc.scrollTop+=10;
+const head=isMobileCal()?$('#cal-m-head'):$('#cal-toolbar');
+const top=(head?head.getBoundingClientRect().bottom:0)+8;
+if(y<top+44)scrollBy(0,-12);else if(y>innerHeight-52)scrollBy(0,12);
 }
 document.addEventListener('pointerdown',e=>{
 if(route().name!=='calendar'||calPtr)return;
@@ -3273,8 +3386,20 @@ else{const it=findI(findD(mm,c.did),c.iid);if(it){it.scores={};it.gradedAt=null}
 save();closeModal();render();if(c.returnTo)openEntryModal(c.returnTo.ref);toast('Оценка сброшена',{type:'info'});break}
 case 'cal-prev':if(isMobileCal())ui.calDay=addD(ui.calDay||today(),-1);else ui.weekAnchor=addD(ui.weekAnchor||weekStart(today()),-7);render();break;
 case 'cal-next':if(isMobileCal())ui.calDay=addD(ui.calDay||today(),1);else ui.weekAnchor=addD(ui.weekAnchor||weekStart(today()),7);render();break;
-case 'cal-today':if(isMobileCal())ui.calDay=today();else ui.weekAnchor=weekStart(today());render();break;
-case 'cal-day-pick':ui.calDay=ds.date;render();break;
+case 'cal-today':ui.calScrollMem=null;if(isMobileCal())ui.calDay=today();else ui.weekAnchor=weekStart(today());render();break;
+case 'cal-day-pick':ui.calDay=ds.date;ui.weekAnchor=weekStart(ds.date);render();break;
+case 'cal-month-open':{
+if(pop&&pop.anchor===btn){closePopover();break}
+const base=isMobileCal()?(ui.calDay||today()):(ui.weekAnchor||weekStart(today()));
+const d=fromISO(base);
+const meta={type:'calmonth',year:d.getFullYear(),month:d.getMonth(),sy:d.getFullYear()};
+openPopover(btn,calMonthPopHtml(meta),'cal-month-pop',meta);break}
+case 'cal-mp-year':{if(!pop||pop.meta.type!=='calmonth')break;pop.meta.year+=+ds.dir;refreshPopover(calMonthPopHtml(pop.meta));break}
+case 'cal-mp-pick':{if(!pop||pop.meta.type!=='calmonth')break;
+const y=pop.meta.year,mo=+ds.m,td=fromISO(today());
+const target=(y===td.getFullYear()&&mo===td.getMonth())?today():iso(new Date(y,mo,1));
+closePopover();ui.calDay=target;ui.weekAnchor=weekStart(target);ui.calScrollMem=null;render();break}
+case 'cal-mp-today':{if(!pop||pop.meta.type!=='calmonth')break;closePopover();ui.calDay=today();ui.weekAnchor=weekStart(today());ui.calScrollMem=null;render();break}
 case 'cal-empty':{
 if(e.target.closest('.cal-event')||e.target.closest('.cal-ad-item'))break;
 const r=btn.getBoundingClientRect();
@@ -3413,6 +3538,7 @@ const p=state.plan.find(x=>x.id===ds.id);if(!p)break;
 closeModal();mutate(()=>{state.plan=state.plan.filter(x=>x.id!==p.id)},'Период удалён');break}
 case 'overdue-toggle':ui.overdueOpen=!ui.overdueOpen;render();break;
 case 'ach-toggle':ui.achOpen=!ui.achOpen;render();break;
+case 'comp-toggle':ui.compOpen=!ui.compOpen;syncCompPanel();break;
 case 'evlink-add':if(modalCtx&&modalCtx.type==='event'){modalCtx.draft.links.push({id:uid(),url:'',label:''});$('#ev-links').innerHTML=draftLinksHtml(modalCtx.draft.links,'data-evlink');icons()}break;
 case 'evlink-del':if(modalCtx&&modalCtx.type==='event'){modalCtx.draft.links=modalCtx.draft.links.filter(x=>x.id!==ds.id);$('#ev-links').innerHTML=draftLinksHtml(modalCtx.draft.links,'data-evlink');icons()}break;
 case 'modal-close':closeModal();break;
@@ -4004,11 +4130,11 @@ const i=byId.get(n.id);return i?{kind:'item',i}:null;
 function discItemsOrdered(d){return discEntries(d).flatMap(e=>e.kind==='item'?[e.i]:e.items)}
 function journalPage(){
 const rows=[];let maxCols=0;
-state.modules.forEach(m=>{const drows=m.disciplines.map(d=>{const tasks=discItemsOrdered(d).filter(i=>i.type==='task');maxCols=Math.max(maxCols,tasks.length);return{d,tasks}});rows.push({m,drows,inf:moduleInfo(m)})});
+state.modules.forEach(m=>{const drows=m.disciplines.map(d=>{const tasks=discItemsOrdered(d).filter(i=>i.type==='task');maxCols=Math.max(maxCols,tasks.length);return{d,tasks}});rows.push({m,drows})});
 const cols=Array.from({length:maxCols},(_,i)=>i+1);
 return`<div class="page"><a class="back-link" href="#/passport"><i data-lucide="arrow-left"></i>Образовательный паспорт</a>
-<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Нажмите на оценку — откроется задание с критериями и баллами.</span></div>
-${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows,inf})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><span class="jr-mod-in"><i data-lucide="${m.icon}"></i><b>${esc(m.name)}</b>${inf.mg?`<span class="jr-mod-grade">${letterChip(inf.mg)}${inf.mg.toFixed(1)}</span>`:''}</span></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><span class="jr-disc"><i data-lucide="${d.icon}"></i><b title="${esc(d.name)}">${esc(d.name)}</b></span></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="open-entry" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="open-entry" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
+<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Наведите на ячейку — название задания. Нажмите — переход к заданию.</span></div>
+${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><span class="jr-mod-in"><i data-lucide="${m.icon}"></i><b title="${esc(m.name)}">${esc(m.name)}</b></span></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><span class="jr-disc"><i data-lucide="${d.icon}"></i><b title="${esc(d.name)}">${esc(d.name)}</b></span></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
 }
 function gradeHistory(){
 const f=ui.chart,out=[];
@@ -4113,11 +4239,31 @@ return`<div class="panel-title"><i data-lucide="trophy"></i>Достижения
 <div class="ach-foot"><span class="hint">${ui.achOpen?'Полная коллекция наград':'Листайте ленту вбок'}</span><button class="exp-btn" data-action="ach-toggle" id="ach-toggle"><i data-lucide="chevron-${ui.achOpen?'up':'down'}"></i>${ui.achOpen?'Свернуть':'Все награды'}</button></div>`;
 }
 function sizeAch(){const c=$('#ach-clip');if(c)c.classList.toggle('open',ui.achOpen)}
-function afterPassport(){/* Лента достижений и график не требуют внешних наблюдателей */}
+function afterPassport(){
+sizeAch();syncCompPanel();
+const chart=$('.b-chart');let ro=null;
+if(typeof ResizeObserver!=='undefined'&&chart){ro=new ResizeObserver(()=>sizeAch());ro.observe(chart)}
+const onR=()=>{sizeAch();syncCompPanel()};addEventListener('resize',onR);
+pageCleanup=()=>{if(ro)ro.disconnect();removeEventListener('resize',onR)};
+}
 function compPanelHtml(){
 const cs=compStats();
 if(!cs.length)return`<div class="panel-title"><i data-lucide="gem"></i>Компетенции</div><div class="empty" style="padding:22px"><i data-lucide="gem"></i><p>Создайте компетенции и привяжите их к темам и заданиям — здесь появится карта навыков.</p><a class="btn btn-soft sm" href="#/editor">Открыть редактор</a></div>`;
-return`<div class="panel-title"><i data-lucide="gem"></i>Компетенции<span class="count-badge">${cs.length}</span></div><div class="comp-grid">${cs.map(s=>`<div class="comp-card pc-${s.c.color}"><div class="comp-head"><span class="row-ic"><i data-lucide="${s.c.icon||'gem'}"></i></span><b>${esc(s.c.name)}</b><span class="chip comp-lv">${LEVELS[s.level]}</span></div><div class="comp-pct">${s.pct}<em>%</em></div><div class="bar" style="--p:${s.pct/100}"><i></i></div><div class="comp-meta"><span>${s.earned} / ${s.max} ${plural(s.max,['очко','очка','очков'])}</span><span>${s.topicsDone} тем · ${s.tasksDone} зад. · ${s.projectsDone} пр.</span></div></div>`).join('')}</div>`;
+return`<div class="panel-title"><i data-lucide="gem"></i>Компетенции<span class="count-badge">${cs.length}</span></div><div class="comp-grid" id="comp-grid">${cs.map(s=>`<div class="comp-card pc-${s.c.color}"><div class="comp-head"><span class="row-ic"><i data-lucide="${s.c.icon||'gem'}"></i></span><b>${esc(s.c.name)}</b><span class="chip comp-lv">${LEVELS[s.level]}</span></div><div class="comp-pct">${s.pct}<em>%</em></div><div class="bar" style="--p:${s.pct/100}"><i></i></div><div class="comp-meta"><span>${s.earned} / ${s.max} ${plural(s.max,['очко','очка','очков'])}</span><span>${s.topicsDone} тем · ${s.tasksDone} зад. · ${s.projectsDone} пр.</span></div></div>`).join('')}</div><div class="comp-foot" id="comp-foot" hidden><span class="hint" id="comp-more"></span><button class="exp-btn" data-action="comp-toggle" id="comp-toggle" aria-expanded="false"><i data-lucide="chevron-down"></i>Раскрыть</button></div>`;
+}
+function syncCompPanel(){
+const grid=document.getElementById('comp-grid');if(!grid)return;
+const cards=[...grid.children],n=cards.length;
+const mob=matchMedia('(max-width:760px)').matches;
+const cols=Math.max(1,getComputedStyle(grid).gridTemplateColumns.split(' ').length);
+const needCut=mob?n>3:Math.ceil(n/cols)>2;
+const limit=mob?3:cols*2;
+const show=ui.compOpen||!needCut?n:limit;
+cards.forEach((c,i)=>c.classList.toggle('comp-cut',i>=show));
+const foot=document.getElementById('comp-foot');if(foot)foot.hidden=!needCut;
+const more=document.getElementById('comp-more');if(more)more.textContent=!ui.compOpen&&needCut?`скрыто ещё ${n-limit}`:'';
+const btn=document.getElementById('comp-toggle');
+if(btn){btn.innerHTML=`<i data-lucide="chevron-${ui.compOpen?'up':'down'}"></i>${ui.compOpen?'Свернуть':'Раскрыть'}`;btn.setAttribute('aria-expanded',String(ui.compOpen));icons()}
 }
 function levelCardHtml(){
 const e=eduLevel();
@@ -4314,7 +4460,7 @@ if(periods.length){
 const from=periods[0].from,to=periods.reduce((a,p)=>p.to>a?p.to:a,periods[0].to),curW=weekStart(today());
 for(let w=from;diffD(w,to)<=0;w=addD(w,7)){
 const covering=periods.filter(p=>diffD(w,p.from)>=0&&diffD(p.to,w)>=0),a=fromISO(w),b=fromISO(addD(w,6));
-weeks+=`<div class="plan-week${w===curW?' now':''}"><div class="pw-num"><b>Н${isoWeekNum(w)}</b><span>${a.getDate()} ${MON_S[a.getMonth()]} – ${b.getDate()} ${MON_S[b.getMonth()]}</span></div><div class="pw-bars">${covering.length?covering.map(p=>{const m=p.type==='module'?findM(p.moduleId):null;const title=esc(planTitle(p));const link=m?`<a class="pw-link" href="#/module/${m.id}"><b>${title}</b></a>`:`<b class="pw-link">${title}</b>`;return`<div class="pw-bar pc-${planColor(p)}"><i data-lucide="${PLAN_TYPES[p.type].icon}"></i>${link}<span>${PLAN_TYPES[p.type].label}</span><button class="plan-edit" data-action="plan-edit" data-id="${p.id}" title="Изменить"><i data-lucide="pencil"></i></button><button class="plan-edit" data-action="plan-del" data-id="${p.id}" title="Удалить"><i data-lucide="x"></i></button></div>`}).join(''):'<span class="pw-free">свободная неделя</span>'}</div></div>`;
+weeks+=`<div class="plan-week${w===curW?' now':''}"><div class="pw-num"><b>Н${isoWeekNum(w)}</b><span>${a.getDate()} ${MON_S[a.getMonth()]} – ${b.getDate()} ${MON_S[b.getMonth()]}</span></div><div class="pw-bars">${covering.length?covering.map(p=>{const m=p.type==='module'?findM(p.moduleId):null;const title=esc(planTitle(p));const link=m?`<a class="pw-link" href="#/module/${m.id}">${title}</a>`:`<b class="pw-link">${title}</b>`;return`<div class="pw-bar pc-${planColor(p)}"><i data-lucide="${PLAN_TYPES[p.type].icon}"></i><div class="pw-main">${link}<span class="pw-type">${PLAN_TYPES[p.type].label}</span></div><span class="pw-acts"><button class="pw-act" data-action="plan-edit" data-id="${p.id}" title="Изменить период" aria-label="Изменить период"><i data-lucide="pencil"></i></button><button class="pw-act danger" data-action="plan-del" data-id="${p.id}" title="Удалить период" aria-label="Удалить период"><i data-lucide="trash-2"></i></button></span></div>`}).join(''):'<span class="pw-free">свободная неделя</span>'}</div></div>`;
 }}
 return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Учебный план</h1><button class="btn btn-primary" data-action="plan-add"><i data-lucide="plus"></i>Период</button></div>${periods.length?`<div class="panel plan-timeline reveal">${weeks}</div><p class="hint" style="margin-top:10px">Конференц-неделя — сдача задолженностей и экзаменов. Проектная — работа над проектами и защита. План не создаёт событий календаря.</p>`:`<div class="empty reveal"><i data-lucide="calendar-range"></i><p>Спланируйте семестр: модули, экзаменационные, конференц- и проектные недели.</p><button class="btn btn-primary" data-action="plan-add"><i data-lucide="plus"></i>Создать период</button></div>`}</div>`;
 }
