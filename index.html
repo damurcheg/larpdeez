@@ -371,8 +371,6 @@ a.it-name:hover{color:var(--pc-accent)}
 .dv-card.topic:hover h3{color:var(--pc-accent)}
 .dv-desc{color:var(--ink2);font-size:14px;margin:12px 0 0;white-space:pre-line}
 .dv-card .links-row{margin-top:12px}
-.dv-foot{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
-.dv-foot .spacer{flex:1}
 .read-toggle{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border-radius:10px;font-size:13px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--ink2);transition:.15s;line-height:1}
 .read-toggle:hover{border-color:var(--pc-accent);color:var(--pc-accent)}
 .read-toggle.on{background:var(--success-bg);border-color:color-mix(in srgb,var(--success) 35%,transparent);color:var(--success)}
@@ -387,7 +385,7 @@ a.it-name:hover{color:var(--pc-accent)}
 .icon-pick svg{width:25px;height:25px}
 .icon-pick::after{content:'';position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.4'%3E%3Cpath d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/%3E%3C/svg%3E");background-size:9px;background-repeat:no-repeat;background-position:center}
 .swatches{display:flex;gap:7px;flex-wrap:wrap}
-.swatch{width:30px;height:30px;border-radius:10px;background:var(--pc-accent);border:2px solid transparent;transition:.14s;position:relative;box-shadow:inset 0 0 0 2px var(--surface)}
+.swatch{background:var(--pc-accent);border:2px solid transparent;transition:.14s;position:relative;box-shadow:inset 0 0 0 2px var(--surface)}
 .swatch:hover{transform:scale(1.14)}
 .swatch.sel{border-color:var(--ink);transform:scale(1.1)}
 .swatch.sel::after{content:'';position:absolute;inset:0;margin:auto;width:8px;height:8px;border-radius:50%;background:var(--surface)}
@@ -470,7 +468,7 @@ button.row-ic:hover{border-color:var(--pc-accent)}
 #icon-grid svg{width:17px;height:17px}
 .modal-overlay{position:fixed;inset:0;z-index:200;background:color-mix(in srgb,var(--bg) 55%,rgba(10,10,5,.5));backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;transition:.18s;overflow-y:auto}
 .modal-overlay.open{opacity:1}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);width:460px;max-width:100%;max-height:calc(100vh - 40px);overflow-y:auto;transform:scale(.95) translateY(10px);transition:.2s cubic-bezier(.2,.9,.3,1.15)}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);width:460px;max-width:100%;overflow-y:auto;transform:scale(.95) translateY(10px);transition:.2s cubic-bezier(.2,.9,.3,1.15)}
 .modal.wide{width:560px}
 .modal-overlay.open .modal{transform:none}
 .modal-head{padding:20px 22px 0;display:flex;align-items:flex-start;gap:12px}
@@ -525,7 +523,6 @@ button.row-ic:hover{border-color:var(--pc-accent)}
 .ics-check-input:focus-visible+.ics-check{outline:2px solid var(--accent);outline-offset:2px}
 .ics-row.on{background:color-mix(in srgb,var(--pc-bg) 55%,var(--surface))}
 .ics-row:hover{background:var(--surface)}
-.ics-row .dot{width:10px;height:10px;border-radius:4px;background:var(--pc-accent);flex:none}
 .ics-row .t{flex:1;min-width:0}
 .ics-row .t b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ics-row .t span{font-size:11px;color:var(--muted)}
@@ -665,8 +662,6 @@ canvas.confetti{position:fixed;inset:0;z-index:500;pointer-events:none}
 .mod-hero{padding:18px}
 .hero-side{margin-left:0;width:100%}
 .mod-progress{flex:1;width:auto}
-.sub-row{flex-wrap:wrap}
-.sub-row .sub-num{min-width:100%}
 #toasts{right:12px;left:12px;bottom:calc(12px + var(--safe-bottom));max-width:none}
 .cal-scroll{max-height:calc(100vh - var(--header-total-h) - 200px)}
 .modal{border-radius:var(--r-lg)}
@@ -824,18 +819,13 @@ body{overflow-x:clip}
 .profile-av{display:flex;flex-direction:column;align-items:center;gap:10px}
 .profile-av-btns{display:flex;gap:6px}
 .bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
-.b-profile{grid-column:span 8;display:flex;flex-direction:column;gap:16px}
+.b-profile{grid-column:span 8;display:flex;flex-direction:column}
 .b-level{grid-column:span 4}
 .b-tiles{grid-column:span 12;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,100%),1fr));gap:12px}
 .b-comp,.b-heat,.b-mods,.b-dist{grid-column:span 12}
 .b-chart{grid-column:span 7}
 .b-ach{grid-column:span 5}
-.b-profile-top{display:flex;gap:16px;align-items:flex-start}
-.b-name{font-family:var(--font-display);font-weight:900;font-size:22px;letter-spacing:-.02em;line-height:1.2}
-.b-gpa{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.b-gpa .gpa-big{font-family:var(--font-display);font-weight:900;font-size:clamp(40px,6vw,58px);line-height:1}
-.b-gpa .letter{height:36px;min-width:36px;font-size:19px;border-radius:11px}
-.b-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto}
+
 /* #endregion */
 .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:12px}
 .comp-card{border:1px solid var(--pc-border);background:var(--pc-bg);border-radius:var(--r-md);padding:14px}
@@ -869,7 +859,7 @@ body{overflow-x:clip}
 .comp-pick-row svg{width:14px;height:14px;color:var(--pc-accent)}
 .jr-wrap{padding:0;overflow:hidden}
 .jr-scroll{overflow:auto;max-height:calc(100vh - var(--header-total-h) - 180px);-webkit-overflow-scrolling:touch}
-.jr{border-collapse:separate;border-spacing:0;width:100%;min-width:520px}
+.jr{border-collapse:separate;border-spacing:0}
 .jr th{position:sticky;top:0;z-index:3;background:var(--surface2);font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--muted);padding:11px 6px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
 .jr th.jr-name{text-align:left;padding-left:16px}
 .jr td{padding:6px;border-bottom:1px solid var(--border);text-align:center}
@@ -883,7 +873,6 @@ thead .jr-name{z-index:4;background:var(--surface2)}
 .jr-mod-in{display:flex;align-items:center;gap:9px;padding:9px 14px;font-family:var(--font-display);font-weight:700;font-size:12.5px;color:var(--pc-text)}
 .jr-mod-in svg{width:15px;height:15px;color:var(--pc-accent);flex:none}
 .jr-mod-in b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.jr-mod-grade{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:var(--pc-text)}
 .jr-cell{display:inline-flex;align-items:center;justify-content:center;width:36px;height:30px;border-radius:9px;font-family:var(--font-mono);font-weight:700;font-size:13px;transition:transform .14s,box-shadow .14s,border-color .14s,color .14s;border:1px solid transparent}
 button.jr-cell:hover{transform:translateY(-1px) scale(1.08);box-shadow:var(--shadow)}
 .jr-cell.empty{background:transparent;border:none}
@@ -909,7 +898,7 @@ button.jr-cell:hover{transform:translateY(-1px) scale(1.08);box-shadow:var(--sha
 #sess-note button:hover{color:var(--ink)}
 #sess-note button svg{width:13px;height:13px}
 .hero-cta{display:flex;gap:10px;align-items:stretch}
-.btn-inbox{position:relative;display:flex;align-items:center;justify-content:center;width:56px;border-radius:18px;background:var(--surface);border:1px solid var(--border);color:var(--ink2);transition:.18s;flex:none}
+.btn-inbox{position:relative;display:flex;align-items:center;justify-content:center;border-radius:18px;background:var(--surface);border:1px solid var(--border);color:var(--ink2);transition:.18s;flex:none}
 .btn-inbox:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 .btn-inbox svg{width:22px;height:22px}
 .inbox-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--danger);color:#fff;font-family:var(--font-mono);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface)}
@@ -1010,7 +999,6 @@ button.hy-cell:hover{outline:2px solid var(--accent);outline-offset:1px}
 .sec-mini svg{width:15px;height:15px;color:var(--muted)}
 .sec-mini b{flex:1;min-width:0}
 .repeat-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px dashed var(--border2);border-radius:12px;flex-wrap:wrap}
-.inbox-list{display:flex;flex-direction:column;gap:12px}
 .inbox-card{display:flex;align-items:center;gap:13px;padding:16px 18px;flex-wrap:wrap}
 .inbox-card .it-ic{display:flex}
 .inbox-card .it-ic svg{width:20px;height:20px}
@@ -1108,14 +1096,12 @@ body.inbox-dragging .inbox-slot span{opacity:.9}
 @media(max-width:1080px){.b-profile,.b-level,.b-chart,.b-ach{grid-column:span 12}}
 @media(max-width:760px){
 .bento{gap:12px}
-.b-actions .btn{flex:1}
 .sess-pill{padding:0 9px;height:36px}
 .sess-pill b{font-size:12.5px}
 .hero-cta{width:100%}
 .hero-cta .btn-continue{flex:1;width:auto}
 .btn-inbox{width:52px;border-radius:16px}
 #sess-note{right:12px;left:12px}
-.jr-name{min-width:150px}
 .jr-scroll{max-height:none}
 .fav-masonry{columns:2 150px;column-gap:10px}
 .fav-card{padding:13px;margin-bottom:10px}
@@ -1142,7 +1128,6 @@ body.inbox-dragging .inbox-slot span{opacity:.9}
 /* #endregion */
 /* #region Кастомные селекты */
 .ldz-select{display:flex;align-items:center;gap:8px;width:100%;text-align:left;cursor:pointer}
-.ldz-select>svg:first-child{width:15px;height:15px;color:var(--muted);flex:none}
 .ldz-select .lbl-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .ldz-select .chev{width:14px;height:14px;color:var(--muted);flex:none}
 .sel-pop{width:280px}
@@ -1157,7 +1142,6 @@ body.inbox-dragging .inbox-slot span{opacity:.9}
 .icon-btn.fav-28{width:28px;height:28px;border-radius:8px}
 .icon-btn.fav-28 svg{width:14px;height:14px}
 .project-head .due-chip{height:28px}
-.hero-side .icon-btn,.hero-side .fav-btn{align-self:flex-start}
 /* #endregion */
 /* #region Учебный план: строки и неделя в календаре */
 .pw-link{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--pc-text);font-weight:600}
@@ -1203,12 +1187,6 @@ a.pw-link:hover{color:var(--pc-accent)}
 .pb-av .profile-av-btns .btn{width:100%;height:32px;padding:0 10px;font-size:12.5px;border-radius:9px}
 .pb-av .av-del{color:var(--danger)}
 .pb-av .av-del:hover{background:var(--danger-bg)}
-/* Паспорт: профиль студента */
-.b-pinfo{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:7px}
-.b-name{overflow-wrap:anywhere}
-.b-bio{font-size:13px;color:var(--ink2);line-height:1.5}
-.b-actions .btn{height:42px;border-radius:13px;font-size:13.5px}
-.b-btn-journal{box-shadow:0 8px 20px -10px color-mix(in srgb,var(--primary-bg) 65%,transparent)}
 /* Паспорт: новая сетка блоков */
 .b-ach{grid-column:span 12}
 .b-duo{grid-column:span 12;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:stretch}
@@ -1258,19 +1236,12 @@ body.fav-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
 body.fav-dragging .fav-card{transition:none}
 /* Мобильная адаптация */
 @media(max-width:760px){
-.mod-ed-row{flex-wrap:wrap;row-gap:9px;padding:12px}
-.mod-ed-row .mer-main{flex:1 1 100%;order:5}
-.mod-ed-row .mer-acts{margin-left:auto}
 .mer-prog{max-width:none}
 .b-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .stat-tile{padding:13px 14px}
 .stat-tile svg{width:16px;height:16px;margin-bottom:6px}
 .stat-tile b{font-size:clamp(16px,4.8vw,20px);overflow-wrap:anywhere}
 .stat-tile span{font-size:11px;line-height:1.35;display:block}
-.b-profile-top{align-items:center;gap:14px}
-.b-name{font-size:18px}
-.b-gpa{gap:11px}
-.b-gpa .gpa-big{font-size:42px}
 .b-duo{grid-template-columns:1fr;gap:12px}
 .pb-av .profile-av-btns{flex-direction:row;max-width:340px;margin:0 auto}
 .fav-grid{grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr));gap:10px}
@@ -1340,23 +1311,282 @@ body.fav-dragging .fav-card{transition:none}
 .jr-disc b{flex:1;min-width:0;font-weight:600;overflow-wrap:anywhere}
 .jr-mod-in b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:760px){
-.jr{min-width:0}
 .jr th{padding:8px 4px;font-size:9.5px;letter-spacing:.06em}
-.jr td{padding:4px 3px}
-.jr-name{min-width:106px;max-width:106px;width:106px}
 .jr-disc{gap:6px}
 .jr-disc svg{width:13px;height:13px}
-.jr-disc b{font-size:11.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.jr-mod td{padding:7px 8px}
 .jr-mod-in{font-size:11.5px;gap:7px}
 .jr-mod-in svg{width:14px;height:14px}
-.jr-cell{width:32px;height:30px}
 .plan-week{padding:10px 12px;gap:8px}
 .pw-bar{padding:9px 10px}
 .pw-bar>i{margin-top:2px}
 .pw-main{flex-direction:column;align-items:flex-start;gap:2px}
 .pw-link{max-width:100%}
 .pw-acts{align-self:center}
+}
+
+/* Паспорт: ID-карта */
+.psh{padding:0;overflow:hidden;border-color:var(--border2)}
+.psh-cover{height:86px;position:relative;background:linear-gradient(115deg,color-mix(in srgb,var(--primary-bg) 90%,#000) 0%,var(--primary-bg) 38%,color-mix(in srgb,var(--acid) 65%,var(--primary-bg)) 78%,var(--acid) 100%)}
+.psh-cover::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 160% at 85% -20%,rgba(255,255,255,.35),transparent 55%),repeating-linear-gradient(115deg,transparent 0 14px,rgba(255,255,255,.06) 14px 15px)}
+.psh-tag{position:absolute;top:14px;left:20px;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--primary-fg);opacity:.85}
+.psh-tag svg{width:13px;height:13px}
+.psh-body{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;padding:0 22px 20px;position:relative}
+.psh-id{display:flex;gap:16px;align-items:flex-end;min-width:0;margin-top:-30px}
+.psh-av{position:relative;flex:none;padding:4px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow)}
+.psh-av::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--acid) calc(var(--gp,0)*1%),var(--border) 0);z-index:-1}
+.psh-av{isolation:isolate}
+.psh-gpa::after{pointer-events:none}
+.psh-foot .btn{height:42px;border-radius:13px}
+@media(max-width:760px){.psh-body{padding:0 16px 16px}}
+.psh-meta{min-width:0;padding-bottom:4px}
+.psh-name{font-family:var(--font-display);font-weight:900;font-size:clamp(19px,2.6vw,24px);letter-spacing:-.02em;line-height:1.15;overflow-wrap:anywhere}
+.psh-sub{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+.psh-bio{font-size:13px;color:var(--ink2);margin-top:8px;max-width:420px}
+.psh-gpa{align-self:end;display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;padding:14px 16px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(160deg,var(--surface2),var(--surface));box-shadow:var(--shadow);position:relative;overflow:hidden}
+.psh-gpa::after{content:'';position:absolute;right:-24px;top:-24px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acid) 30%,transparent),transparent 70%)}
+.psh-gpa .lbl{margin:0}
+.psh-gpa-row{display:flex;align-items:center;gap:10px}
+.psh-gpa b{font-family:var(--font-display);font-weight:900;font-size:clamp(34px,5vw,46px);line-height:1}
+.psh-gpa .letter{height:30px;min-width:30px;font-size:16px;border-radius:9px}
+.psh-gpa small{font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+.psh-foot{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px dashed var(--border);padding-top:16px}
+.psh-code{margin-left:auto;height:26px;width:110px;opacity:.45;border-radius:3px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 10px)}
+@media(max-width:760px){
+.psh-body{grid-template-columns:1fr}
+.psh-id{margin-top:-26px}
+.psh-gpa{align-items:flex-start;text-align:left}
+.psh-foot .btn{flex:1}
+.psh-code{display:none}
+.page{padding-bottom:calc(72px + var(--safe-bottom))}
+.data-btns{margin-bottom:6px}
+}
+/* Журнал */
+.jr{width:auto;min-width:0}
+.jr th{padding:10px 4px}
+.jr td{padding:6px 4px}
+.jr th.jr-name,.jr td.jr-name{padding-left:14px!important}
+.jr-cell{width:34px;height:30px}
+.jr-mod-in{position:sticky;left:0;width:max-content;max-width:calc(100vw - 48px)}
+.jr-mod-in:hover b{color:var(--pc-accent)}
+.jr-mod-in .jr-go{width:12px;height:12px;opacity:.5}
+a.jr-disc:hover b{color:var(--pc-accent)}
+@media(max-width:760px){
+.jr td{padding:5px 3px}
+.jr-cell{width:31px;height:29px}
+.jr-name{min-width:118px;max-width:132px;width:132px}
+.jr-disc b{display:block;white-space:normal;-webkit-line-clamp:unset;-webkit-box-orient:unset;overflow:visible;line-height:1.3;font-size:11.5px;overflow-wrap:anywhere}
+.jr-mod-in{max-width:calc(100vw - 40px)}
+}
+/* Модуль: bento шапки, разделы, объединённые карточки, избранное в цвете дисциплины */
+.mod-bento{display:flex;gap:8px;align-items:stretch}
+.hs-btns{display:flex;flex-direction:column;gap:8px}
+.hero-side .hs-btn{width:38px;height:38px;border-radius:12px}
+.hero-side .hs-btn svg{width:18px;height:18px}
+.hero-side .fav-btn.hs-btn{border-color:var(--border);background:var(--surface)}
+.hero-side .fav-btn.hs-btn.fav-on{color:var(--pc-accent);border-color:color-mix(in srgb,var(--pc-accent) 45%,transparent);background:var(--surface)}
+.mod-bento .mod-progress{width:190px;justify-content:center}
+.sec-scope{border-radius:12px}
+.sec-scope.open{background:color-mix(in srgb,var(--pc-bg) 40%,var(--surface));border:1px solid var(--pc-border);padding:4px;margin:4px 0}
+.sec-scope.open .sec-mini{margin:0;background:transparent;border-color:transparent}
+.sec-scope-body{padding:2px 4px 4px;border-left:2px solid color-mix(in srgb,var(--pc-accent) 45%,transparent);margin-left:12px}
+.sec-scope-end{display:flex;align-items:center;gap:8px;padding:6px 2px 2px}
+.sec-scope-end span{flex:1;height:1px;background:var(--pc-border)}
+.sec-scope-end em{font-style:normal;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pc-text);opacity:.6;white-space:nowrap}
+.item-unit{border-radius:12px}
+.item-unit.open .item-row{background:var(--pc-bg);border:1px solid var(--pc-border);border-bottom:none;border-radius:12px 12px 0 0;margin:6px 0 0;padding-bottom:8px}
+.item-unit.open .item-row.task{border-left:3px solid var(--pc-accent)}
+.item-unit.open .item-view{margin:0 0 8px;border:1px solid var(--pc-border);border-top:1px dashed var(--pc-border);border-left:1px solid var(--pc-border);border-radius:0 0 12px 12px;background:var(--pc-bg)}
+.item-unit.open .item-row.task+.item-view{border-left:3px solid var(--pc-accent)}
+.disc-col .fav-btn:hover,.disc-view-items .fav-btn:hover{color:var(--pc-accent);border-color:var(--pc-accent)}
+.disc-col .fav-btn.fav-on,.disc-view-items .fav-btn.fav-on{color:var(--pc-accent);background:color-mix(in srgb,var(--pc-accent) 12%,transparent);border-color:color-mix(in srgb,var(--pc-accent) 40%,transparent)}
+.disc-col .fav-btn.fav-mini.fav-on{background:transparent;border-color:transparent}
+.project-head{gap:9px}
+.project-head .fav-btn{margin-right:-2px}
+@media(max-width:760px){
+.hero-side{width:100%}
+.mod-bento{width:100%}
+.mod-bento .mod-progress{flex:1;width:auto}
+}
+/* Дисциплина: контент слева, управление справа */
+.dv-layout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:start}
+.dv-main{min-width:0}
+.dv-side{display:flex;flex-direction:column;gap:8px;align-items:stretch;width:150px}
+.dv-side .dv-ctrl{height:36px;width:100%;justify-content:center}
+.dv-side .grade-chip{height:36px;width:100%;justify-content:center;border-radius:10px;padding:0 10px}
+.dv-side .grade-chip .letter{height:24px;min-width:24px;font-size:12px}
+.dv-when{display:grid;grid-template-columns:1fr;gap:6px}
+.dv-when .due-chip,.dv-when .time-chip{width:100%;justify-content:center;height:32px}
+@media(max-width:760px){
+.dv-layout{grid-template-columns:minmax(0,1fr) 122px;gap:12px}
+.dv-side{width:122px}
+.dv-card{padding:16px 14px}
+.dv-head .it-ic{width:32px;height:32px;border-radius:10px}
+.dv-head h3{font-size:14.5px}
+.dv-when .due-chip,.dv-when .time-chip{font-size:10px;padding:0 6px}
+}
+@media(max-width:360px){
+.dv-layout{grid-template-columns:1fr}
+.dv-side{width:100%;flex-direction:row;flex-wrap:wrap}
+.dv-side .dv-ctrl{flex:1;width:auto}
+.dv-when{flex:1;grid-template-columns:1fr 1fr}
+}
+/* План: селекты, недели, week-picker */
+.ldz-select{height:46px;padding:0 12px 0 8px;gap:10px;border-radius:13px;background:linear-gradient(160deg,var(--surface2),var(--surface));box-shadow:var(--shadow)}
+.ldz-select:hover{border-color:var(--accent)}
+.ldz-select .sel-ic{width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
+.ldz-select .sel-ic svg{width:15px;height:15px}
+.chart-filters .ldz-select{height:38px}
+.chart-filters .sel-ic{width:24px;height:24px;border-radius:7px}
+.wp-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wp-btn{display:flex;align-items:center;gap:8px;height:46px;padding:0 12px;text-align:left}
+.wp-btn>svg:first-child{width:15px;height:15px;color:var(--accent);flex:none}
+.wp-btn span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font-mono);font-size:11.5px;font-weight:700}
+.wp-btn .chev{width:14px;color:var(--muted);flex:none}
+.wp-pop{width:312px}
+.wp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.wp-list{display:flex;flex-direction:column;gap:5px;max-height:284px;overflow-y:auto;padding:2px}
+.wp-row{display:flex;align-items:center;gap:10px;height:42px;padding:0 11px;border-radius:11px;border:1px solid var(--border);background:var(--surface2);text-align:left;transition:.14s}
+.wp-row:hover{border-color:var(--accent);transform:translateY(-1px)}
+.wp-row b{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:7px;padding:4px 7px;flex:none}
+.wp-row span{flex:1;min-width:0;font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wp-row svg{width:15px;height:15px;color:var(--primary-fg);flex:none}
+.wp-row em{font-style:normal;font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase}
+.wp-row.cur{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.wp-row.sel{background:var(--primary-bg);border-color:transparent;color:var(--primary-fg)}
+.wp-row.sel b{background:color-mix(in srgb,var(--primary-fg) 18%,transparent);color:var(--primary-fg)}
+.wp-row.sel em{color:var(--primary-fg);opacity:.7}
+@media(max-width:760px){
+.wp-fields{grid-template-columns:1fr}
+.plan-timeline{overflow:hidden}
+.plan-week{width:100%;min-width:0}
+.pw-num{min-width:0}
+.pw-bars{width:100%;min-width:0}
+.pw-bar{width:100%;min-width:0}
+.pw-main{width:100%;min-width:0}
+.pw-link{display:block;width:100%;max-width:100%}
+}
+/* Входящие: разделы и drag */
+.inb-grip{display:flex;align-items:center;justify-content:center;width:22px;height:30px;margin-left:-6px;border-radius:7px;color:var(--muted);opacity:.55;cursor:grab;touch-action:none;flex:none}
+.inb-grip:hover{opacity:1;color:var(--accent);background:var(--bg2)}
+.inb-grip svg{width:14px;height:14px}
+.inb-root{margin-bottom:14px}
+.inb-sec{padding:0;overflow:hidden;margin-bottom:14px}
+.inb-sec-head{display:flex;align-items:center;gap:10px;padding:13px 16px;background:linear-gradient(135deg,var(--accent-soft),var(--surface2));border-bottom:1px dashed var(--border);flex-wrap:wrap}
+.inb-sec-head b{font-size:14.5px;flex:1;min-width:120px;overflow-wrap:anywhere}
+.inb-sec-ic{width:32px;height:32px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
+.inb-sec-ic svg{width:16px;height:16px}
+.inb-sec-acts{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.inb-sec-body{padding:8px 12px 12px}
+.inb-sec-body .inbox-card{box-shadow:none;padding:12px 14px}
+.inb-empty{padding:10px;text-align:center;border:1.5px dashed var(--border2);border-radius:10px}
+.inb-slot{height:8px;display:flex;align-items:center;padding:0 4px;transition:height .12s}
+.inb-slot span{flex:1;height:2px;border-radius:2px;background:var(--border2);opacity:0;transition:.12s}
+body.inb-dragging .inb-slot{height:22px}
+body.inb-dragging .inb-slot span{opacity:.5}
+.inb-slot.hover span{height:4px;background:var(--accent);opacity:1}
+.inb-sec-head.drop-on{outline:2px dashed var(--accent);outline-offset:-2px}
+.inb-src{opacity:.35}
+.inb-ghost{position:fixed;z-index:400;pointer-events:none;opacity:.96;transform:rotate(1deg);box-shadow:var(--shadow-lg);margin:0}
+body.inb-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
+.inb-dest-list{max-height:46vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.inb-dest-mod{border:1px solid var(--pc-border);border-radius:12px;padding:6px;background:var(--pc-bg)}
+@media(max-width:760px){
+.inb-sec-acts{width:100%;justify-content:flex-end}
+.inb-sec-acts .btn{flex:1}
+.inbox-card .inb-grip{opacity:.85}
+}
+/* Модалки: не уходят за верх экрана, учёт клавиатуры и safe areas */
+.modal-overlay{align-items:flex-start;padding:calc(12px + var(--safe-top)) 12px calc(12px + var(--safe-bottom));overscroll-behavior:contain}
+.modal{margin:auto;max-height:calc(var(--vvh,100dvh) - var(--safe-top) - var(--safe-bottom) - 24px)}
+@supports not (height:100dvh){.modal{max-height:calc(var(--vvh,100vh) - var(--safe-top) - var(--safe-bottom) - 24px)}}
+/* Главная: CTA, проект в трекере, дедлайн */
+.btn-inbox{width:auto;padding:0 18px;gap:9px}
+.btn-inbox .bi-label{font-size:14px;font-weight:600}
+.tr-proj{background:linear-gradient(120deg,var(--pc-bg),transparent 70%);border:1px solid var(--pc-border);border-left:3px solid var(--pc-accent);margin:4px 0}
+.tr-proj .tr-main b{color:var(--pc-text)}
+.tr-proj:hover{border-color:var(--pc-accent)}
+.proj-deadline{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--r-lg);border:1px solid var(--border);border-left:4px solid var(--pc-accent);background:var(--surface);box-shadow:var(--shadow);transition:.18s}
+.proj-deadline:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.pd-ic{width:38px;height:38px;border-radius:12px;background:var(--pc-bg);border:1px solid var(--pc-border);color:var(--pc-accent);display:flex;align-items:center;justify-content:center;flex:none}
+.pd-ic svg{width:18px;height:18px}
+.pd-main{flex:1;min-width:0}
+.pd-main b{display:block;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pd-main span{font-size:11px;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pd-side{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:none}
+.pd-date{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--ink2)}
+.pd-date svg{width:12px;height:12px}
+.pd-urg{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;line-height:1}
+.pd-urg svg{width:11px;height:11px}
+.pd-over .pd-urg,.pd-now .pd-urg{background:var(--danger-bg);color:var(--danger)}
+.pd-now .pd-urg{animation:odPulse 2s ease-in-out infinite}
+.pd-soon .pd-urg{background:var(--warn-bg);color:var(--warn)}
+.pd-week .pd-urg{background:var(--info-bg);color:var(--info)}
+.pd-calm .pd-urg{background:var(--success-bg);color:var(--success)}
+.pd-over,.pd-now{border-left-color:var(--danger)}
+.pd-soon{border-left-color:var(--warn)}
+@media(max-width:760px){
+.btn-inbox{width:52px;padding:0}
+.btn-inbox .bi-label{display:none}
+.proj-deadline{flex-wrap:wrap}
+.pd-side{align-items:flex-start}
+}
+/* Редактор: единая сетка и удаление справа от поля */
+@media(max-width:760px){
+.mod-ed-row{display:grid;grid-template-columns:auto auto minmax(0,1fr);grid-template-areas:"grip icon acts" "main main main";row-gap:10px;column-gap:9px;padding:12px;align-items:center}
+.mod-ed-row>.grip{grid-area:grip}
+.mod-ed-row>.row-ic{grid-area:icon}
+.mod-ed-row>.mer-acts{grid-area:acts;justify-self:end;margin-left:0}
+.mod-ed-row>.mer-main{grid-area:main;order:0;width:100%}
+.mod-ed-row .field.inline{width:100%;min-width:0}
+.mer-meta{min-width:0}
+.mer-prog{max-width:none;min-width:0}
+.sub-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.sub-row .sub-num{grid-column:1/-1;grid-row:1;min-width:0}
+.sub-row .field{grid-column:1;grid-row:2;width:100%;min-width:0}
+.sub-row>.icon-btn{grid-column:2;grid-row:2}
+.sub-row.two .field:nth-of-type(1){grid-column:1;grid-row:2}
+.sub-row.two .field:nth-of-type(2){grid-column:1/-1;grid-row:3}
+.item-ed-head .field.inline{min-width:0;flex:1 1 140px}
+.sort-row .field.inline{min-width:0}
+.links-row .link-chip{max-width:100%}
+}
+/* Симметрия буквенной оценки в GPA-пилюле */
+@media(min-width:761px){
+.gpa-pill:has(.letter){padding-right:6px}
+.gpa-pill:has(.letter) b{margin-right:2px}
+}
+/* Палитра: новые цвета */
+.pc-slate{--pc-bg:#EAEDF1;--pc-border:#CBD2DB;--pc-text:#46525F;--pc-accent:#5C6B7C}
+.pc-brown{--pc-bg:#F2EAE1;--pc-border:#DECBB4;--pc-text:#7A4E22;--pc-accent:#96622E}
+.pc-rose{--pc-bg:#FBE9EE;--pc-border:#F0C6D2;--pc-text:#B03A5B;--pc-accent:#D95F82}
+.pc-lime{--pc-bg:#EEF4D9;--pc-border:#D5E3A8;--pc-text:#5C7A0E;--pc-accent:#7FA31B}
+.pc-indigo{--pc-bg:#E9E9F9;--pc-border:#CBCBF0;--pc-text:#3F3FB5;--pc-accent:#5558D6}
+.pc-magenta{--pc-bg:#F8E7F6;--pc-border:#E8C2E4;--pc-text:#A02C96;--pc-accent:#C148B5}
+[data-theme="dark"] .pc-slate{--pc-bg:#262B31;--pc-border:#3E4750;--pc-text:#AEB9C6;--pc-accent:#8B9AAB}
+[data-theme="dark"] .pc-brown{--pc-bg:#31271C;--pc-border:#57432C;--pc-text:#D9B58C;--pc-accent:#B98A54}
+[data-theme="dark"] .pc-rose{--pc-bg:#362129;--pc-border:#613343;--pc-text:#F0A9BE;--pc-accent:#E27D9B}
+[data-theme="dark"] .pc-lime{--pc-bg:#2A3115;--pc-border:#4A5726;--pc-text:#C8DE8A;--pc-accent:#A4C24A}
+[data-theme="dark"] .pc-indigo{--pc-bg:#23233C;--pc-border:#3C3C68;--pc-text:#B3B3F2;--pc-accent:#8A8CE8}
+[data-theme="dark"] .pc-magenta{--pc-bg:#331F32;--pc-border:#5E335A;--pc-text:#EBA9E4;--pc-accent:#D573CA}
+:root[data-ctx="slate"]{--accent:#46525F;--accent-soft:#EAEDF1;--primary-bg:#46525F;--primary-fg:#FFFFFF}
+:root[data-ctx="brown"]{--accent:#7A4E22;--accent-soft:#F2EAE1;--primary-bg:#7A4E22;--primary-fg:#FFFFFF}
+:root[data-ctx="rose"]{--accent:#B03A5B;--accent-soft:#FBE9EE;--primary-bg:#B03A5B;--primary-fg:#FFFFFF}
+:root[data-ctx="lime"]{--accent:#5C7A0E;--accent-soft:#EEF4D9;--primary-bg:#5C7A0E;--primary-fg:#FFFFFF}
+:root[data-ctx="indigo"]{--accent:#3F3FB5;--accent-soft:#E9E9F9;--primary-bg:#3F3FB5;--primary-fg:#FFFFFF}
+:root[data-ctx="magenta"]{--accent:#A02C96;--accent-soft:#F8E7F6;--primary-bg:#A02C96;--primary-fg:#FFFFFF}
+[data-theme="dark"][data-ctx="slate"]{--accent:#AEB9C6;--accent-soft:#262B31;--primary-bg:#8B9AAB;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="brown"]{--accent:#D9B58C;--accent-soft:#31271C;--primary-bg:#B98A54;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="rose"]{--accent:#F0A9BE;--accent-soft:#362129;--primary-bg:#E27D9B;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="lime"]{--accent:#C8DE8A;--accent-soft:#2A3115;--primary-bg:#A4C24A;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="indigo"]{--accent:#B3B3F2;--accent-soft:#23233C;--primary-bg:#8A8CE8;--primary-fg:#141310}
+[data-theme="dark"][data-ctx="magenta"]{--accent:#EBA9E4;--accent-soft:#331F32;--primary-bg:#D573CA;--primary-fg:#141310}
+/* Свотчи: адаптивная сетка на всю ширину контейнера */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(26px,1fr));gap:6px;width:100%}
+.swatch{width:100%;height:auto;aspect-ratio:1;border-radius:9px}
+#evt-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(26px,1fr));gap:6px;padding:2px}
+#evt-swatches .swatch{width:100%;height:auto;aspect-ratio:1}
+@media(max-width:760px){
+.swatches,#evt-swatches{grid-template-columns:repeat(auto-fill,minmax(32px,1fr))}
 }
 </style>
 </head>
@@ -1388,8 +1618,8 @@ body.fav-dragging .fav-card{transition:none}
 // #region Константы и палитра
 const KEY='larpdeez-data';
 const LEGACY_KEYS=['studyspace-data','studyspace','larpdeez','larpdeez-state','course-app-data'];
-const COLORS={gray:'серый',wine:'бордовый',scarlet:'алый',coral:'коралловый',amber:'янтарный',yellow:'жёлтый',green:'зелёный',mint:'мятный',turquoise:'бирюзовый',azure:'лазурный',blue:'синий',purple:'фиолетовый',pink:'розовый'};
-const LEGACY_COLOR={orange:'coral',brown:'wine',red:'wine',teal:'azure',magenta:'pink',violet:'purple',lime:'green',default:'gray'};
+const COLORS={gray:'серый',slate:'графитовый',brown:'коричневый',wine:'бордовый',scarlet:'алый',rose:'розовый',coral:'коралловый',amber:'янтарный',yellow:'жёлтый',lime:'лаймовый',green:'зелёный',mint:'мятный',turquoise:'бирюзовый',azure:'лазурный',blue:'синий',indigo:'индиго',purple:'фиолетовый',magenta:'фуксия',pink:'ярко-розовый'};
+const LEGACY_COLOR={orange:'coral',red:'wine',teal:'azure',violet:'purple'};
 const ACCENTS={
 violet:{name:'фиолетовый',a:'#C4A3FF',b:'#9A6CF0',ink:'#241046'},
 yellow:{name:'жёлтый',a:'#C9F158',b:'#A8D93A',ink:'#22300A'},
@@ -1530,8 +1760,8 @@ if(hm2min(end)<=hm2min(start))end=min2hm(Math.min(hm2min(start)+60,1439));
 }
 return{id:str(e.id,uid()),title:str(e.title||e.name,'Событие'),description:str(e.description||e.desc,''),date:validISO(e.date)?e.date:today(),start,end,allDay,color:mapColor(e.color||'blue'),links:normLinks(e.links),sourceItemId:str(e.sourceItemId,null)}}
 function normProfile(p){p=(p&&typeof p==='object')?p:{};return{name:str(p.name,'').slice(0,40),avatar:str(p.avatar,''),avatarColor:mapColor(p.avatarColor||'yellow'),specialization:str(p.specialization,'').slice(0,60),bio:str(p.bio,'').slice(0,200)}}
-function normComps(a){if(!Array.isArray(a))return[];const seen=new Set();return a.map((c,i)=>{if(!c||typeof c!=='object')return null;const id=str(c.id,uid());if(seen.has(id))return null;seen.add(id);return{id,name:str(c.name||c.title,'Компетенция').slice(0,40),icon:ICON_NAMES.has(c.icon)?c.icon:'gem',color:mapColor(c.color||Object.keys(COLORS)[i%13])}}).filter(Boolean)}
-function normInbox(x){if(!x||typeof x!=='object')return null;return{id:str(x.id,uid()),type:x.type==='task'?'task':'topic',name:str(x.name||x.title,'Без названия'),description:str(x.description,''),links:normLinks(x.links),criteria:normTextArr(x.criteria),createdAt:+x.createdAt||Date.now()}}
+function normComps(a){if(!Array.isArray(a))return[];const seen=new Set(),keys=Object.keys(COLORS);return a.map((c,i)=>{if(!c||typeof c!=='object')return null;const id=str(c.id,uid());if(seen.has(id))return null;seen.add(id);return{id,name:str(c.name||c.title,'Компетенция').slice(0,40),icon:ICON_NAMES.has(c.icon)?c.icon:'gem',color:mapColor(c.color||keys[i%keys.length])}}).filter(Boolean)}
+function normInbox(x){if(!x||typeof x!=='object')return null;return{id:str(x.id,uid()),type:x.type==='task'?'task':'topic',name:str(x.name||x.title,'Без названия'),description:str(x.description,''),links:normLinks(x.links),criteria:normTextArr(x.criteria),createdAt:+x.createdAt||Date.now(),sectionId:str(x.sectionId,null)}}
 function normPlan(p){if(!p||typeof p!=='object')return null;
 const type=['module','exam','conf','project'].includes(p.type)?p.type:'exam';
 if(!validISO(p.from)||!validISO(p.to))return null;
@@ -1969,10 +2199,10 @@ const out=[],t=today();
 state.modules.forEach(m=>{
 m.disciplines.forEach(d=>d.items.forEach(i=>{
 if(!i.dueDate||itemDone(i))return;
-out.push({kind:i.type,title:i.name,date:i.dueDate,time:i.dueTime||null,href:`#/module/${m.id}/discipline/${d.id}`,color:d.color,sub:m.name});
+out.push({kind:i.type,title:i.name,date:i.dueDate,time:i.dueTime||null,mid:m.id,did:d.id,iid:i.id,color:d.color,sub:m.name});
 }));
 const p=m.project;
-if(p.enabled&&p.dueDate&&!calcGrade(p.criteria,p.scores))out.push({kind:'project',title:p.name,date:p.dueDate,time:null,href:`#/module/${m.id}`,color:m.color,sub:m.name});
+if(p.enabled&&p.dueDate&&!calcGrade(p.criteria,p.scores))out.push({kind:'project',title:p.name,date:p.dueDate,time:null,href:`#/module/${m.id}`,color:m.color,sub:'финальный проект · '+m.name});
 });
 state.events.forEach(ev=>{if(diffD(ev.date,t)>=0)out.push({kind:'event',title:ev.title,date:ev.date,time:ev.start,color:ev.color,sub:'событие'})});
 out.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:String(a.time||'').localeCompare(String(b.time||'')));
@@ -1982,9 +2212,9 @@ function trackerRow(x){
 const over=diffD(x.date,today())<0,isToday=x.date===today();
 const ic=x.kind==='topic'?'book-open':x.kind==='task'?'clipboard-list':x.kind==='project'?'flag':'calendar';
 const inner=`<span class="tr-ic pc-${x.color}"><i data-lucide="${ic}"></i></span><span class="tr-main"><b>${esc(x.title)}</b><span>${esc(x.sub)}${x.time?' · '+x.time:''}</span></span><span class="tr-date${over?' over':isToday?' today':''}">${over?'просрочено · ':''}${dayLabel(x.date)}</span>`;
-return x.kind==='event'
-?`<button class="tr-row" data-action="goto-event" data-date="${x.date}" style="width:100%;text-align:left">${inner}</button>`
-:`<a class="tr-row" href="${x.href}">${inner}</a>`;
+if(x.kind==='event')return`<button class="tr-row" data-action="goto-event" data-date="${x.date}" style="width:100%;text-align:left">${inner}</button>`;
+if(x.kind==='project')return`<a class="tr-row tr-proj pc-${x.color}" href="${x.href}">${inner}</a>`;
+return`<button class="tr-row" data-action="open-entry" data-mid="${x.mid}" data-did="${x.did}" data-iid="${x.iid}" style="width:100%;text-align:left">${inner}</button>`;
 }
 function moduleCard(m,idx){
 const inf=moduleInfo(m),pct=Math.round(inf.progress*100);
@@ -1998,6 +2228,18 @@ ${(m.tags.length||m.compTags.length)?`<div class="mod-tags">${modTagsHtml(m)}</d
 :`<div class="bar" style="--p:${inf.progress}"><i></i></div><div class="mod-progress-row"><span>${inf.topics.length?`${inf.tDone}/${inf.topics.length} тем`:`${inf.grades.length}/${inf.tasks.length} заданий`}</span><span>${pct}%</span></div>`}
 </div>
 </div></a>`;
+}
+function projDeadlineHtml(){
+const t=today();let best=null;
+state.modules.forEach(m=>{const p=m.project;if(!p.enabled||!p.dueDate||calcGrade(p.criteria,p.scores))return;const days=diffD(p.dueDate,t);if(!best||days<best.days)best={m,p,days}});
+if(!best)return'';
+const{m,p,days}=best;
+const urg=days<0?{cls:'over',lbl:'просрочено на '+(-days)+' '+plural(-days,['день','дня','дней']),ic:'alarm-clock'}:days===0?{cls:'now',lbl:'сдача сегодня',ic:'zap'}:days<=3?{cls:'soon',lbl:'осталось '+days+' '+plural(days,['день','дня','дней']),ic:'flame'}:days<=7?{cls:'week',lbl:'осталось '+days+' '+plural(days,['день','дня','дней']),ic:'clock'}:{cls:'calm',lbl:'в запасе '+days+' '+plural(days,['день','дня','дней']),ic:'calendar-check'};
+return`<a class="proj-deadline pd-${urg.cls} pc-${m.color} reveal" style="--d:240ms" href="#/module/${m.id}">
+<span class="pd-ic"><i data-lucide="flag"></i></span>
+<span class="pd-main"><b>${esc(p.name)}</b><span>финальный проект · ${esc(m.name)}</span></span>
+<span class="pd-side"><span class="pd-date"><i data-lucide="calendar"></i>${dayLabel(p.dueDate)}</span><span class="pd-urg"><i data-lucide="${urg.ic}"></i>${urg.lbl}</span></span>
+</a>`;
 }
 function homePage(){
 const infos=state.modules.map(m=>({m,inf:moduleInfo(m)}));
@@ -2022,12 +2264,12 @@ ${st?`<span class="chip hot"><i data-lucide="flame"></i>серия ${st} ${plura
 </div>
 </div>
 <div class="hero-cta">
-<a class="btn-inbox" href="#/inbox" title="Входящие материалы" aria-label="Входящие"><i data-lucide="inbox"></i>${state.inbox.length?`<span class="inbox-count">${state.inbox.length}</span>`:''}</a>
 ${state.activeSession
 ?`<button class="btn-continue sess-live" data-action="sess-open"><span class="mono" id="home-sess-time" style="font-size:19px">${fmtClock(sessElapsed())}</span><span class="bc-arrow"><i data-lucide="square"></i></span></button>`
 :cont
 ?`<button class="btn-continue" data-action="sess-ask" data-mid="${cont.m.id}"><span>Продолжить</span><span class="bc-arrow"><i data-lucide="arrow-right"></i></span></button>`
 :`<a class="btn-continue" href="#/editor"><span>Настроить курс</span><span class="bc-arrow"><i data-lucide="settings-2"></i></span></a>`}
+<a class="btn-inbox" href="#/inbox" title="Входящие материалы" aria-label="Входящие"><i data-lucide="inbox"></i><span class="bi-label">Входящие</span>${state.inbox.length?`<span class="inbox-count">${state.inbox.length}</span>`:''}</a>
 </div>
 </div>
 </div>
@@ -2057,6 +2299,7 @@ ${done.length?`<div class="sec-head"><h2>Завершённые</h2><span class=
 <div class="panel-title"><i data-lucide="list-checks"></i>Ближайшие планы</div>
 ${up.length?`<div class="tracker">${up.slice(0,7).map(trackerRow).join('')}</div>${up.length>7?`<div class="hint" style="margin-top:8px;text-align:center">и ещё ${up.length-7}…</div>`:''}`:`<div class="hint">Пока пусто. Назначайте даты темам и заданиям на страницах просмотра — они появятся здесь.</div>`}
 </div>
+${projDeadlineHtml()}
 </aside>
 </div></div>`;
 }
@@ -2076,19 +2319,22 @@ const ids=`data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}"`;
 const g=i.type==='task'?calcGrade(i.criteria,i.scores):null;
 const open=ui.viewExpanded.has(i.id);
 const exp=`<button class="exp-btn${open?' on':''}" data-action="expand-view" ${ids} aria-expanded="${open}" aria-controls="iv-${i.id}"><i data-lucide="chevron-${open?'up':'down'}"></i>${open?'Свернуть':'Раскрыть'}</button>`;
+const fav=favBtn('i:'+m.id+':'+d.id+':'+i.id,'fav-mini');
 if(i.type==='topic'){
-return`<div class="item-row topic${i.read?' read':''}">
-<span class="it-col"><span class="it-ic"><i data-lucide="book-open"></i></span>${favBtn('i:'+m.id+':'+d.id+':'+i.id,'fav-mini')}</span>
+return`<div class="item-unit${open?' open':''}">
+<div class="item-row topic${i.read?' read':''}">
+<span class="it-col"><span class="it-ic"><i data-lucide="book-open"></i></span>${fav}</span>
 <span class="it-main"><span class="it-name">${esc(i.name)}</span>
 <span class="it-meta">${exp}${dueChip('item',ids,i.dueDate,i.read)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</span></span>
 <button class="read-btn${i.read?' on':''}" data-action="toggle-read" ${ids} title="${i.read?'Прочитано — снять отметку':'Отметить прочитанной'}" aria-label="Отметить прочитанной"><i data-lucide="${i.read?'circle-check':'circle'}"></i></button>
-</div>${open?itemViewPanel(m,d,i):''}`;
+</div>${open?itemViewPanel(m,d,i):''}</div>`;
 }
-return`<div class="item-row task">
-<span class="it-col"><span class="it-ic"><i data-lucide="clipboard-list"></i></span>${favBtn('i:'+m.id+':'+d.id+':'+i.id,'fav-mini')}</span>
+return`<div class="item-unit${open?' open':''}">
+<div class="item-row task">
+<span class="it-col"><span class="it-ic"><i data-lucide="clipboard-list"></i></span>${fav}</span>
 <span class="it-main"><span class="it-name">${esc(i.name)}</span>
 <span class="it-meta">${exp}${g?gradeChipBtn(g,'item',ids):`<button class="btn btn-soft sm" data-action="open-grade" data-kind="item" ${ids} style="height:26px;font-size:11.5px;padding:0 10px">Оценить</button>`}${dueChip('item',ids,i.dueDate,!!g)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</span></span>
-</div>${open?itemViewPanel(m,d,i):''}`;
+</div>${open?itemViewPanel(m,d,i):''}</div>`;
 }
 function projectBlock(m){
 const p=m.project;if(!p.enabled)return'';
@@ -2119,6 +2365,11 @@ ${g?`<div class="grade-display">${letterChip(g.g)}<b>${g.g.toFixed(1)}</b><span>
 function modulePage(m){
 const inf=moduleInfo(m),pct=Math.round(inf.progress*100);
 const progressLabel=inf.topics.length?`${inf.tDone} из ${inf.topics.length} тем прочитано`:`${inf.grades.length} из ${inf.tasks.length} заданий оценено`;
+const plate=inf.done&&inf.mg
+?`<div class="mod-progress"><div class="mod-done-badge">${letterChip(inf.mg)}<div><b style="font-size:22px">${inf.mg.toFixed(1)}</b><div class="hint">итог модуля</div></div></div></div>`
+:inf.done
+?`<div class="mod-progress"><div class="mp-top"><b>100%</b><span>пройдено</span></div><span class="hint" style="color:var(--success)"><i data-lucide="check-check" style="width:12px;height:12px"></i> Модуль завершён</span></div>`
+:`<div class="mod-progress"><div class="mp-top"><b>${pct}%</b><span>прогресс</span></div><div class="bar" style="--p:${inf.progress}"><i></i></div><span class="hint">${progressLabel}</span></div>`;
 return`<div class="page">
 <a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a>
 <div class="mod-hero pc-${m.color} reveal">
@@ -2129,12 +2380,10 @@ return`<div class="page">
 ${m.description?`<p class="desc">${esc(m.description)}</p>`:''}
 ${(m.tags.length||m.compTags.length)?`<div class="mod-tags">${modTagsHtml(m)}</div>`:''}
 </div>
-<div class="hero-side">
-${favBtn('m:'+m.id)}
-<a class="icon-btn" href="#/editor/module/${m.id}" title="Настроить модуль" aria-label="Настроить модуль"><i data-lucide="settings-2"></i></a>
-${inf.done&&inf.mg?`<div class="mod-progress"><div class="mod-done-badge">${letterChip(inf.mg)}<div><b style="font-size:22px">${inf.mg.toFixed(1)}</b><div class="hint">итог модуля</div></div></div></div>`
-:`<div class="mod-progress"><div class="mp-top"><b>${pct}%</b><span>прогресс</span></div><div class="bar" style="--p:${inf.progress}"><i></i></div><span class="hint">${progressLabel}</span></div>`}
-</div>
+<div class="hero-side"><div class="mod-bento">
+<div class="hs-btns">${favBtn('m:'+m.id,'hs-btn')}<a class="icon-btn hs-btn" href="#/editor/module/${m.id}" title="Настроить модуль" aria-label="Настроить модуль"><i data-lucide="settings-2"></i></a></div>
+${plate}
+</div></div>
 </div>
 </div>
 ${m.disciplines.length?`<div class="disc-cols">${m.disciplines.map((d,ci)=>{
@@ -2145,7 +2394,7 @@ return`<div class="disc-col pc-${d.color} reveal" style="--d:${ci*80}ms">
 <div class="disc-items">${d.items.length?discEntries(d).map(e=>{
 if(e.kind==='item')return itemRow(m,d,e.i);
 const open=ui.secOpen.has(e.s.id),sd=e.items.filter(itemDone).length;
-return`<button class="sec-mini" data-action="sec-toggle" data-id="${e.s.id}"><i data-lucide="folder${open?'-open':''}"></i><b>${esc(e.s.name)}</b><span class="mono hint">${sd}/${e.items.length}</span><i data-lucide="chevron-${open?'up':'down'}"></i></button>${open?e.items.map(i=>itemRow(m,d,i)).join(''):''}`;
+return`<div class="sec-scope${open?' open':''}"><button class="sec-mini" data-action="sec-toggle" data-id="${e.s.id}"><i data-lucide="folder${open?'-open':''}"></i><b>${esc(e.s.name)}</b><span class="mono hint">${sd}/${e.items.length}</span><i data-lucide="chevron-${open?'up':'down'}"></i></button>${open?`<div class="sec-scope-body">${e.items.map(i=>itemRow(m,d,i)).join('')}<div class="sec-scope-end"><span></span><em>конец раздела</em><span></span></div></div>`:''}</div>`;
 }).join(''):'<div class="hint" style="padding:14px;text-align:center">Пока пусто</div>'}</div>
 </div>`}).join('')}</div>`
 :`<div class="empty"><i data-lucide="layers"></i><p>В модуле пока нет дисциплин.</p><a class="btn btn-primary" href="#/editor/module/${m.id}"><i data-lucide="plus"></i>Добавить дисциплину</a></div>`}
@@ -2564,8 +2813,7 @@ return out;
 function calMonthPopHtml(meta){
 const t=fromISO(today());
 return`<div class="cal-mp-year"><button class="icon-btn plain sm" data-action="cal-mp-year" data-dir="-1" aria-label="Предыдущий год"><i data-lucide="chevron-left"></i></button><b>${meta.year}</b><button class="icon-btn plain sm" data-action="cal-mp-year" data-dir="1" aria-label="Следующий год"><i data-lucide="chevron-right"></i></button></div>
-<div class="cal-mp-grid">${MONTHS.map((m,i)=>`<button class="cal-mp-m${meta.year===meta.sy&&i===meta.month?' sel':''}${i===t.getMonth()&&meta.year===t.getFullYear()?' cur':''}" data-action="cal-mp-pick" data-m="${i}">${m[0].toUpperCase()+m.slice(1)}</button>`).join('')}</div>
-<div class="pop-foot"><span class="hint">Выберите месяц</span><button class="btn btn-soft sm" data-action="cal-mp-today"><i data-lucide="calendar-check"></i>Текущий</button></div>`;
+<div class="cal-mp-grid">${MONTHS.map((m,i)=>`<button class="cal-mp-m${meta.year===meta.sy&&i===meta.month?' sel':''}${i===t.getMonth()&&meta.year===t.getFullYear()?' cur':''}" data-action="cal-mp-pick" data-m="${i}">${m[0].toUpperCase()+m.slice(1)}</button>`).join('')}</div>`;
 }
 function calendarPage(){
 const mob=isMobileCal();
@@ -2601,7 +2849,7 @@ return`<div class="page cal-mobile">
 </div>
 ${planRow}
 <div class="cal-m-week" id="cal-m-week">${calWeekStripHtml()}</div>
-<div class="cal-m-allday"><span class="cal-ad-cap">Весь день</span><div class="cal-allday cal-m-ad" data-ad-date="${ui.calDay}">${[...ad.filter(x=>x.date===ui.calDay).map(adChipHtml),...pd.filter(x=>x.date===ui.calDay).map(projChipHtml)].join('')}</div></div>
+${(ad.some(x=>x.date===ui.calDay)||pd.some(x=>x.date===ui.calDay))?`<div class="cal-m-allday"><span class="cal-ad-cap">Весь день</span><div class="cal-allday cal-m-ad" data-ad-date="${ui.calDay}">${[...ad.filter(x=>x.date===ui.calDay).map(adChipHtml),...pd.filter(x=>x.date===ui.calDay).map(projChipHtml)].join('')}</div></div>`:''}
 </div>
 <div class="cal-m-body" id="cal-day-wrap"><div class="cal-grid single" id="cal-grid">${gutter}${cols}</div></div>
 <p class="hint cal-m-hint">Свайп по сетке — другой день, по строке дней — другая неделя. Удерживайте объект, чтобы перенести; тяните за край — длительность. Удерживайте пустую сетку и тяните — новое событие.</p>
@@ -2933,7 +3181,7 @@ return out;
 function icsListHtml(){
 const c=modalCtx.draft,list=icsCandidates();
 if(!list.length)return'<div class="hint" style="padding:14px;text-align:center">В выбранном диапазоне нет элементов с датой.</div>';
-return list.map(x=>{const on=!c.excluded.has(x.id);return`<label class="ics-row pc-${x.color}${on?' on':''}"><input class="ics-check-input" type="checkbox" data-ics-id="${x.id}" ${on?'checked':''}><span class="ics-check" aria-hidden="true"><i data-lucide="check"></i></span><span class="dot"></span><span class="t"><b>${esc(x.title)}</b><span>${x.kind==='event'?'событие':x.kind==='task'?'задание':'тема'}</span></span><span class="when">${dayLabel(x.date)} · ${x.allDay?'весь день':x.start}</span></label>`}).join('');
+return list.map(x=>{const on=!c.excluded.has(x.id);return`<label class="ics-row pc-${x.color}${on?' on':''}"><input class="ics-check-input" type="checkbox" data-ics-id="${x.id}" ${on?'checked':''}><span class="ics-check" aria-hidden="true"><i data-lucide="check"></i></span><span class="t"><b>${esc(x.title)}</b><span>${x.kind==='event'?'событие':x.kind==='task'?'задание':'тема'}</span></span><span class="when">${dayLabel(x.date)} · ${x.allDay?'весь день':x.start}</span></label>`}).join('');
 }
 function downloadIcs(){
 const sel=icsSelected();
@@ -3193,7 +3441,7 @@ save();refreshPopover(compLinkPopHtml(meta));refreshCompLinksBox(meta);break}
 case 'comp-link-done':closePopover();break;
 case 'comp-unlink':{const ent=ds.kind==='proj'?(m?m.project:null):i;if(!ent)break;
 ent.compIds=ent.compIds.filter(x=>x!==ds.cid);save();render();break}
-case 'add-comp':{const c={id:uid(),name:'Новая компетенция',icon:'gem',color:Object.keys(COLORS)[state.competencies.length%13]};
+case 'add-comp':{const c={id:uid(),name:'Новая компетенция',icon:'gem',color:Object.keys(COLORS)[state.competencies.length%Object.keys(COLORS).length]};
 state.competencies.push(c);save();ui.focusSel=`[data-bind="comp.${c.id}.name"]`;render();break}
 case 'comp-pick':{
 if(pop&&pop.anchor===btn){closePopover();break}
@@ -3271,8 +3519,7 @@ case 'pp-prev':case 'pp-next':{if(!pop)break;const mo=pop.meta.month;mo.m+=a==='
 case 'pp-pick':case 'pp-today':case 'pp-tomorrow':{
 if(!pop)break;const meta=pop.meta,date=a==='pp-today'?today():a==='pp-tomorrow'?addD(today(),1):ds.date;
 closePopover();
-if(meta.type==='planweek'){const w=weekStart(date);modalCtx.draft[meta.field]=w;const lbl=$(meta.field==='from'?'#plan-from-lbl':'#plan-to-lbl');if(lbl)lbl.textContent=icsDateLabel(meta.field==='from'?w:addD(w,6))}
-else if(meta.type==='evtdate'){modalCtx.draft.date=date;const b=$('#evt-date-btn .lbl-txt');if(b)b.textContent=fmtLong(date)}
+if(meta.type==='evtdate'){modalCtx.draft.date=date;const b=$('#evt-date-btn .lbl-txt');if(b)b.textContent=fmtLong(date)}
 else if(meta.type==='ics'){modalCtx.draft[meta.field]=date;refreshIcs()}
 else{
 if(meta.kind==='event'){const ev=state.events.find(x=>x.id===meta.eid);if(ev)ev.date=date}
@@ -3399,7 +3646,6 @@ case 'cal-mp-pick':{if(!pop||pop.meta.type!=='calmonth')break;
 const y=pop.meta.year,mo=+ds.m,td=fromISO(today());
 const target=(y===td.getFullYear()&&mo===td.getMonth())?today():iso(new Date(y,mo,1));
 closePopover();ui.calDay=target;ui.weekAnchor=weekStart(target);ui.calScrollMem=null;render();break}
-case 'cal-mp-today':{if(!pop||pop.meta.type!=='calmonth')break;closePopover();ui.calDay=today();ui.weekAnchor=weekStart(today());ui.calScrollMem=null;render();break}
 case 'cal-empty':{
 if(e.target.closest('.cal-event')||e.target.closest('.cal-ad-item'))break;
 const r=btn.getBoundingClientRect();
@@ -3522,10 +3768,6 @@ case 'fav-go':ui.scrollSel=ds.scroll;break;
 case 'fav-go-event':{const ev=state.events.find(x=>x.id===ds.eid);if(!ev)break;ui.weekAnchor=weekStart(ev.date);ui.calDay=ev.date;goHash('#/calendar');break}
 case 'plan-add':openPlanModal();break;
 case 'plan-edit':openPlanModal(ds.id);break;
-case 'plan-week':{
-if(pop&&pop.anchor===btn){closePopover();break}
-const v=modalCtx.draft[ds.field],mo=validISO(v)?{y:fromISO(v).getFullYear(),m:fromISO(v).getMonth()}:curMonth();
-openPopover(btn,datePopHtml({month:mo,value:v,type:'planweek'}),'',{type:'planweek',field:ds.field,month:mo,value:v});break}
 case 'plan-save':{
 const c=modalCtx;if(!c||c.type!=='plan')break;const dr=c.draft;
 if(dr.type==='module'&&!findM(dr.moduleId)){const er=$('#plan-err');er.textContent='Выберите модуль';er.classList.add('show');break}
@@ -4133,8 +4375,8 @@ const rows=[];let maxCols=0;
 state.modules.forEach(m=>{const drows=m.disciplines.map(d=>{const tasks=discItemsOrdered(d).filter(i=>i.type==='task');maxCols=Math.max(maxCols,tasks.length);return{d,tasks}});rows.push({m,drows})});
 const cols=Array.from({length:maxCols},(_,i)=>i+1);
 return`<div class="page"><a class="back-link" href="#/passport"><i data-lucide="arrow-left"></i>Образовательный паспорт</a>
-<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Наведите на ячейку — название задания. Нажмите — переход к заданию.</span></div>
-${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><span class="jr-mod-in"><i data-lucide="${m.icon}"></i><b title="${esc(m.name)}">${esc(m.name)}</b></span></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><span class="jr-disc"><i data-lucide="${d.icon}"></i><b title="${esc(d.name)}">${esc(d.name)}</b></span></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
+<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Оценка открывает карточку задания. Названия модулей и дисциплин — их страницы.</span></div>
+${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><a class="jr-mod-in" href="#/module/${m.id}" title="Открыть модуль"><i data-lucide="${m.icon}"></i><b>${esc(m.name)}</b><i data-lucide="arrow-up-right" class="jr-go"></i></a></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><a class="jr-disc" href="#/module/${m.id}/discipline/${d.id}" title="Открыть дисциплину"><i data-lucide="${d.icon}"></i><b>${esc(d.name)}</b></a></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="jr-open" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="jr-open" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
 }
 function gradeHistory(){
 const f=ui.chart,out=[];
@@ -4270,6 +4512,19 @@ const e=eduLevel();
 if(!e)return`<div class="level-card level-empty"><i data-lucide="compass"></i><b>Уровень не определён</b><span>Добавьте компетенции, чтобы появился образовательный уровень</span></div>`;
 return`<div class="level-card"><div class="level-ring" style="--p:${e.pct}"><span>${e.pct}<em>%</em></span></div><div class="level-name"><i data-lucide="${LEVEL_IC[e.level]}"></i>${LEVELS[e.level]}</div><span class="hint">образовательный уровень · среднее по ${e.n} ${plural(e.n,['компетенции','компетенциям','компетенциям'])}</span></div>`;
 }
+function passportHeroHtml(g,allGrades,pr){
+const gp=g?Math.round(g/5*100):0;
+return`<div class="panel b-profile psh reveal">
+<div class="psh-cover"><span class="psh-tag"><i data-lucide="graduation-cap"></i>Образовательный паспорт · larpdeez</span></div>
+<div class="psh-body">
+<div class="psh-id"><span class="psh-av" style="--gp:${gp}">${avatarHtml(76)}</span>
+<div class="psh-meta"><h2 class="psh-name">${esc(pr.name)||'Студент'}</h2>
+<div class="psh-sub">${pr.specialization?`<span class="chip"><i data-lucide="sparkles"></i>${esc(pr.specialization)}</span>`:''}<span class="chip"><i data-lucide="layers"></i>${state.modules.length} ${plural(state.modules.length,['модуль','модуля','модулей'])}</span></div>
+${pr.bio?`<p class="psh-bio">${esc(pr.bio)}</p>`:''}</div></div>
+<div class="psh-gpa"><span class="lbl">GPA · средний балл</span><span class="psh-gpa-row"><b>${g?g.toFixed(1):'—'}</b>${g?letterChip(g):''}</span><small>${allGrades.length?allGrades.length+' '+plural(allGrades.length,['оценка','оценки','оценок']):'оценок пока нет'}</small></div>
+<div class="psh-foot"><a class="btn btn-primary b-btn-journal" href="#/journal"><i data-lucide="notebook-pen"></i>Журнал оценок</a><a class="btn btn-soft" href="#/editor"><i data-lucide="pencil"></i>Профиль</a><span class="psh-code" aria-hidden="true"></span></div>
+</div></div>`;
+}
 function passportPage(){
 const g=gpa(),infos=state.modules.map(m=>({m,inf:moduleInfo(m)})),doneN=infos.filter(x=>x.inf.done).length;
 const topics=infos.reduce((a,x)=>a+x.inf.topics.length,0),tRead=infos.reduce((a,x)=>a+x.inf.tDone,0);
@@ -4280,12 +4535,7 @@ const tile=(ic,val,lab)=>`<div class="stat-tile"><i data-lucide="${ic}"></i><b>$
 const pr=state.profile;
 return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Образовательный паспорт</h1></div>
 <div class="bento">
-<div class="panel b-profile reveal">
-<div class="b-profile-top">${avatarHtml(64)}<div class="b-pinfo"><h2 class="b-name">${esc(pr.name)||'Студент'}</h2>${pr.specialization?`<span class="chip"><i data-lucide="graduation-cap"></i>${esc(pr.specialization)}</span>`:''}</div></div>
-${pr.bio?`<p class="b-bio">${esc(pr.bio)}</p>`:''}
-<div class="b-gpa"><span class="gpa-big">${g?g.toFixed(1):'—'}</span>${g?letterChip(g):''}<span class="hint">средний балл${allGrades.length?' · '+allGrades.length+' '+plural(allGrades.length,['оценка','оценки','оценок']):''}</span></div>
-<div class="b-actions"><a class="btn btn-primary b-btn-journal" href="#/journal"><i data-lucide="notebook-pen"></i>Журнал оценок</a><a class="btn btn-soft" href="#/editor"><i data-lucide="pencil"></i>Профиль</a></div>
-</div>
+${passportHeroHtml(g,allGrades,pr)}
 <div class="b-level reveal" style="--d:60ms">${levelCardHtml()}</div>
 <div class="b-tiles reveal" style="--d:100ms">${tile('layers',doneN+'/'+state.modules.length,'модулей завершено')}${tile('book-open',tRead+'/'+topics,'тем изучено')}${tile('clipboard-list',tGraded+'/'+tasks,'заданий выполнено')}${tile('library',discsDoneCount()+'/'+state.modules.reduce((a,m)=>a+m.disciplines.length,0),'дисциплин освоено')}${tile('flame',streak(),'дней серия')}${tile('clock',fmtMins(totalMinutes()),'времени обучения')}</div>
 <div class="panel b-comp reveal" style="--d:140ms" id="comp-panel">${compPanelHtml()}</div>
@@ -4365,8 +4615,13 @@ ${!e.items.length?'<div class="hint sec-empty">Перетащите сюда т�
 }
 function itemDvCard(m,d,i,idx){
 const ids=`data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}"`,g=i.type==='task'?calcGrade(i.criteria,i.scores):null;
-if(i.type==='topic')return`<article class="dv-card topic reveal" id="item-${i.id}" style="--d:${idx*60}ms"><div class="dv-head"><span class="it-ic"><i data-lucide="book-open"></i></span><div style="flex:1;min-width:0"><h3>${esc(i.name)}</h3></div>${favBtn('i:'+m.id+':'+d.id+':'+i.id)}<span class="kind-chip topic">Тема</span></div>${i.description?`<p class="dv-desc">${esc(i.description)}</p>`:''}${i.links.length?`<div class="links-row">${i.links.map(l=>linkChip(l)).join('')}</div>`:''}<div class="dv-foot"><button class="read-toggle${i.read?' on':''}" data-action="toggle-read" ${ids}><i data-lucide="${i.read?'check-check':'circle'}"></i>${i.read?'Прочитано':'Отметить прочитанной'}</button><span class="spacer"></span>${dueChip('item',ids,i.dueDate,i.read)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</div></article>`;
-return`<article class="dv-card task reveal" id="item-${i.id}" style="--d:${idx*60}ms"><div class="dv-head"><span class="it-ic"><i data-lucide="clipboard-list"></i></span><div style="flex:1;min-width:0"><h3>${esc(i.name)}</h3></div>${favBtn('i:'+m.id+':'+d.id+':'+i.id)}<span class="kind-chip task">Задание</span></div>${i.description?`<p class="dv-desc">${esc(i.description)}</p>`:''}${i.criteria.length?`<div class="crit-preview">${i.criteria.map(c=>`<span class="chip">${esc(c.text)||'Критерий'}${g?` · <b>${i.scores[c.id]}/5</b>`:''}</span>`).join('')}</div>`:'<div class="hint" style="margin-top:10px">Критерии оценивания ещё не заданы.</div>'}${i.links.length?`<div class="links-row">${i.links.map(l=>linkChip(l)).join('')}</div>`:''}<div class="dv-foot">${g?gradeChipBtn(g,'item',ids):`<button class="btn btn-primary sm" data-action="open-grade" data-kind="item" ${ids}><i data-lucide="gauge"></i>Оценить</button>`}<span class="spacer"></span>${dueChip('item',ids,i.dueDate,!!g)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</div></article>`;
+const when=`<div class="dv-when">${dueChip('item',ids,i.dueDate,i.type==='topic'?i.read:!!g)}${timeChip(ids,i.dueDate,i.dueTime,i.dueTimeEnd)}</div>`;
+const ctrl=i.type==='topic'
+?`<button class="read-toggle dv-ctrl${i.read?' on':''}" data-action="toggle-read" ${ids}><i data-lucide="${i.read?'check-check':'circle'}"></i>Прочитано</button>`
+:(g?gradeChipBtn(g,'item',ids):`<button class="btn btn-primary dv-ctrl" data-action="open-grade" data-kind="item" ${ids}>Оценить</button>`);
+const links=i.links.length?`<div class="links-row">${i.links.map(l=>linkChip(l)).join('')}</div>`:'';
+if(i.type==='topic')return`<article class="dv-card topic reveal" id="item-${i.id}" style="--d:${idx*60}ms"><div class="dv-layout"><div class="dv-main"><div class="dv-head"><span class="it-ic"><i data-lucide="book-open"></i></span><div style="flex:1;min-width:0"><h3>${esc(i.name)}</h3></div>${favBtn('i:'+m.id+':'+d.id+':'+i.id)}</div>${i.description?`<p class="dv-desc">${esc(i.description)}</p>`:''}${links}</div><div class="dv-side">${ctrl}${when}</div></div></article>`;
+return`<article class="dv-card task reveal" id="item-${i.id}" style="--d:${idx*60}ms"><div class="dv-layout"><div class="dv-main"><div class="dv-head"><span class="it-ic"><i data-lucide="clipboard-list"></i></span><div style="flex:1;min-width:0"><h3>${esc(i.name)}</h3></div>${favBtn('i:'+m.id+':'+d.id+':'+i.id)}</div>${i.description?`<p class="dv-desc">${esc(i.description)}</p>`:''}${i.criteria.length?`<div class="crit-preview">${i.criteria.map(c=>`<span class="chip">${esc(c.text)||'Критерий'}${g?` · <b>${i.scores[c.id]}/5</b>`:''}</span>`).join('')}</div>`:'<div class="hint" style="margin-top:10px">Критерии оценивания ещё не заданы.</div>'}${links}</div><div class="dv-side">${ctrl}${when}</div></div></article>`;
 }
 function secViewHtml(m,d,e,idx){
 const open=ui.secOpen.has(e.s.id),done=e.items.filter(itemDone).length;
@@ -4375,9 +4630,87 @@ return`<section class="sec-view${open?' open':''}" id="sec-${e.s.id}"><button cl
 function draftLinksHtml(links,attr){
 return links.map(l=>`<div class="sub-row two" style="margin-bottom:8px"><input class="field" ${attr}="${l.id}.url" value="${esc(l.url)}" placeholder="https://…" inputmode="url"><input class="field" ${attr}="${l.id}.label" value="${esc(l.label)}" placeholder="Подпись"><button class="icon-btn plain sm danger" data-action="${attr==='data-evlink'?'evlink-del':'inb-link-del'}" data-id="${l.id}"><i data-lucide="trash-2"></i></button></div>`).join('');
 }
+function inboxCardHtml(x){
+return`<div class="panel inbox-card" data-inbid="${x.id}">
+<span class="inb-grip" data-inbid="${x.id}" title="Перетащить"><i data-lucide="grip-vertical"></i></span>
+<span class="it-ic" style="color:var(--accent)"><i data-lucide="${x.type==='task'?'clipboard-list':'book-open'}"></i></span>
+<div style="flex:1;min-width:0"><b class="inbox-name">${esc(x.name)}</b><span class="hint">${x.type==='task'?'Задание':'Тема'} · ${x.links.length} ${plural(x.links.length,['ссылка','ссылки','ссылок'])}${x.type==='task'&&x.criteria&&x.criteria.length?' · '+x.criteria.length+' '+plural(x.criteria.length,['критерий','критерия','критериев']):''}</span></div>
+<div class="inbox-acts"><button class="icon-btn sm" data-action="inbox-edit" data-id="${x.id}" title="Редактировать"><i data-lucide="pencil"></i></button><button class="icon-btn sm danger" data-action="inbox-del" data-id="${x.id}" title="Удалить"><i data-lucide="trash-2"></i></button><button class="btn btn-soft sm" data-action="inbox-sort" data-id="${x.id}"><i data-lucide="folder-input"></i>В модуль</button></div>
+</div>`;
+}
+function inbSlot(secId,beforeId){return`<div class="inb-slot" data-inbsec="${secId||''}" data-inbbefore="${beforeId||''}"><span></span></div>`}
 function inboxPage(){
-return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Входящие</h1><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>
-${state.inbox.length?`<div class="inbox-list">${state.inbox.map(x=>`<div class="panel inbox-card reveal"><span class="it-ic" style="color:var(--accent)"><i data-lucide="${x.type==='task'?'clipboard-list':'book-open'}"></i></span><div style="flex:1;min-width:0"><b class="inbox-name">${esc(x.name)}</b><span class="hint">${x.type==='task'?'Задание':'Тема'} · ${x.links.length} ${plural(x.links.length,['ссылка','ссылки','ссылок'])}${x.type==='task'&&x.criteria&&x.criteria.length?' · '+x.criteria.length+' '+plural(x.criteria.length,['критерий','критерия','критериев']):''}</span></div><div class="inbox-acts"><button class="icon-btn sm" data-action="inbox-edit" data-id="${x.id}" title="Редактировать"><i data-lucide="pencil"></i></button><button class="icon-btn sm danger" data-action="inbox-del" data-id="${x.id}" title="Удалить"><i data-lucide="trash-2"></i></button><button class="btn btn-soft sm" data-action="inbox-sort" data-id="${x.id}"><i data-lucide="folder-input"></i>Рассортировать</button></div></div>`).join('')}</div>`:`<div class="empty reveal"><i data-lucide="inbox"></i><p>Входящие пусты. Складывайте сюда материалы, чтобы рассортировать позже.</p><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>`}</div>`;
+ensureInbox();
+const root=state.inbox.filter(x=>!x.sectionId);
+const secHtml=state.inboxSections.map((s,si)=>{
+const items=state.inbox.filter(x=>x.sectionId===s.id);
+return`<section class="panel inb-sec" data-inbsecid="${s.id}">
+<div class="inb-sec-head" data-inbsec="${s.id}">
+<span class="inb-sec-ic"><i data-lucide="folder"></i></span>
+<b>${esc(s.name)}</b><span class="count-badge">${items.length}</span>
+<span class="inb-sec-acts">
+<button class="icon-btn plain sm" data-action="inbsec-up" data-id="${s.id}" ${si===0?'disabled':''} title="Выше"><i data-lucide="chevron-up"></i></button>
+<button class="icon-btn plain sm" data-action="inbsec-down" data-id="${s.id}" ${si===state.inboxSections.length-1?'disabled':''} title="Ниже"><i data-lucide="chevron-down"></i></button>
+<button class="icon-btn plain sm" data-action="inbsec-edit" data-id="${s.id}" title="Переименовать"><i data-lucide="pencil"></i></button>
+<button class="btn btn-soft sm" data-action="inbsec-move" data-id="${s.id}"><i data-lucide="folder-input"></i>Перенести в дисциплину</button>
+<button class="icon-btn plain sm danger" data-action="inbsec-del" data-id="${s.id}" title="Удалить раздел"><i data-lucide="trash-2"></i></button>
+</span></div>
+<div class="inb-sec-body">
+${items.map(x=>inbSlot(s.id,x.id)+inboxCardHtml(x)).join('')}
+${inbSlot(s.id,'')}
+${!items.length?'<div class="hint inb-empty">Перетащите сюда темы и задания</div>':''}
+</div></section>`;
+}).join('');
+return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a>
+<div class="page-head"><h1>Входящие</h1><span class="count-badge">${state.inbox.length}</span><span style="flex:1"></span><button class="btn btn-soft" data-action="inbsec-add"><i data-lucide="folder-plus"></i>Раздел</button><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>
+<p class="hint fav-hint"><i data-lucide="move" style="width:13px;height:13px"></i>Перетаскивайте карточки за ручку — в разделы, между ними и обратно. «В модуль» переносит элемент в дисциплину курса.</p>
+<div class="inb-root" id="inb-root">
+${root.map(x=>inbSlot('',x.id)+inboxCardHtml(x)).join('')}
+${inbSlot('','')}
+${!root.length&&!state.inboxSections.length?'<div class="empty reveal"><i data-lucide="inbox"></i><p>Входящие пусты. Складывайте сюда материалы, чтобы рассортировать позже.</p><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>':''}
+</div>
+${secHtml}
+</div>`;
+}
+function ensureInbox(){if(!Array.isArray(state.inboxSections))state.inboxSections=[];const ids=new Set(state.inboxSections.map(s=>s.id));state.inbox.forEach(x=>{if(!x.sectionId||!ids.has(x.sectionId))x.sectionId=null})}
+function inboxMove(id,secId,beforeId){
+ensureInbox();
+const it=state.inbox.find(x=>x.id===id);if(!it)return;
+it.sectionId=secId||null;
+state.inbox=state.inbox.filter(x=>x.id!==id);
+let ix=-1;
+if(beforeId)ix=state.inbox.findIndex(x=>x.id===beforeId);
+if(ix<0){let last=-1;state.inbox.forEach((x,i)=>{if((x.sectionId||null)===(secId||null))last=i});ix=last+1}
+state.inbox.splice(ix,0,it);
+save();render();
+}
+function openInboxSectionModal(id){
+const s=id?state.inboxSections.find(x=>x.id===id):null;
+openModal(`<div class="modal-head"><h3>${s?'Переименовать раздел':'Новый раздел'}</h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div>
+<div class="modal-body"><label class="lbl">Название раздела</label><input class="field" id="inbsec-name" value="${esc(s?s.name:'')}" placeholder="Например: Материалы к сессии" maxlength="60" data-autofocus><div class="err-line" id="inbsec-err" style="margin-top:10px"></div></div>
+<div class="modal-foot"><button class="btn btn-ghost" data-action="modal-close">Отмена</button><button class="btn btn-primary" data-action="inbsec-save" data-id="${s?s.id:''}"><i data-lucide="check"></i>Сохранить</button></div>`,{type:'inbsec'});
+}
+function openInboxSectionMove(id){
+const s=state.inboxSections.find(x=>x.id===id);if(!s)return;
+const items=state.inbox.filter(x=>x.sectionId===id);
+openModal(`<div class="modal-head"><h3>Перенести раздел<div style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--muted);margin-top:4px">«${esc(s.name)}» · ${items.length} ${plural(items.length,['элемент','элемента','элементов'])}</div></h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div>
+<div class="modal-body"><p class="hint" style="margin-bottom:10px">Выберите дисциплину — в ней появится раздел «${esc(s.name)}» со всеми элементами в текущем порядке.</p>
+<div class="inb-dest-list">${state.modules.map(m=>`<div class="inb-dest-mod pc-${m.color}"><div class="it-course" style="padding:6px 6px 4px"><i data-lucide="${m.icon}"></i>${esc(m.name)}</div>${m.disciplines.length?m.disciplines.map(d=>`<button class="comp-pick-row pc-${d.color}" data-action="inbsec-dest" data-id="${s.id}" data-mid="${m.id}" data-did="${d.id}"><span class="dot" style="background:var(--pc-accent)"></span><span>${esc(d.name)}</span><i data-lucide="arrow-right"></i></button>`).join(''):'<div class="hint" style="padding:4px 8px">Нет дисциплин</div>'}</div>`).join('')||'<div class="hint">В курсе нет модулей.</div>'}</div></div>
+<div class="modal-foot"><button class="btn btn-ghost" data-action="modal-close">Отмена</button></div>`,{type:'inbsecmove'},true);
+}
+function inboxSectionTransfer(secId,mid,did){
+const s=state.inboxSections.find(x=>x.id===secId),d=findD(findM(mid),did);if(!s||!d)return;
+const items=state.inbox.filter(x=>x.sectionId===secId);
+mutate(()=>{
+const ns={id:uid(),name:s.name,items:[]};
+items.forEach(x=>{
+const ni=normItem({id:uid(),type:x.type,name:x.name,description:x.description,links:x.links.map(l=>({id:uid(),url:l.url,label:l.label})),criteria:(x.criteria||[]).map(c=>({id:uid(),text:c.text}))});
+d.items.push(ni);ns.items.push(ni.id);
+});
+d.sections.push(ns);d.layout.push({kind:'section',id:ns.id});
+state.inbox=state.inbox.filter(x=>x.sectionId!==secId);
+state.inboxSections=state.inboxSections.filter(x=>x.id!==secId);
+},`Раздел «${s.name}» перенесён в «${d.name}»`);
 }
 function inbCritsHtml(cr){return (cr||[]).map((c,i)=>`<div class="sub-row"><span class="sub-num">Критерий ${i+1}</span><input class="field" data-inb-crit="${c.id}.text" value="${esc(c.text)}" placeholder="Формулировка…"><button class="icon-btn plain sm danger" data-action="inb-crit-del" data-id="${c.id}" aria-label="Удалить"><i data-lucide="trash-2"></i></button></div>`).join('')}
 function openInboxModal(id){
@@ -4443,8 +4776,8 @@ const PLAN_TYPES={module:{label:'Модуль',icon:'book',color:null},exam:{lab
 function planColor(p){return p.type==='module'?((findM(p.moduleId)||{}).color||'gray'):PLAN_TYPES[p.type].color}
 function planTitle(p){return p.type==='module'?((findM(p.moduleId)||{}).name||'Модуль удалён'):(p.title||PLAN_TYPES[p.type].label)}
 // Кастомные селекты в стиле Larpdeez (учебный план и график оценок)
-function selectBtnHtml(id,sel,icon,label){return`<button type="button" class="field ldz-select" id="${id}" data-action="sel-open" data-sel="${sel}"><i data-lucide="${icon}"></i><span class="lbl-txt">${esc(label)}</span><i data-lucide="chevron-down" class="chev"></i></button>`}
-function selSetLabel(id,icon,label){const el=document.getElementById(id);if(el){el.innerHTML=`<i data-lucide="${icon}"></i><span class="lbl-txt">${esc(label)}</span><i data-lucide="chevron-down" class="chev"></i>`;icons()}}
+function selectBtnHtml(id,sel,icon,label){return`<button type="button" class="field ldz-select" id="${id}" data-action="sel-open" data-sel="${sel}"><span class="sel-ic"><i data-lucide="${icon}"></i></span><span class="lbl-txt">${esc(label)}</span><i data-lucide="chevron-down" class="chev"></i></button>`}
+function selSetLabel(id,icon,label){const el=document.getElementById(id);if(el){el.innerHTML=`<span class="sel-ic"><i data-lucide="${icon}"></i></span><span class="lbl-txt">${esc(label)}</span><i data-lucide="chevron-down" class="chev"></i>`;icons()}}
 function selOptions(sel){
 if(sel==='plan-type')return{title:'Тип периода',cur:modalCtx.draft.type,opts:Object.entries(PLAN_TYPES).map(([k,v])=>({v:k,label:v.label,icon:v.icon,color:v.color}))};
 if(sel==='plan-module')return{title:'Модуль',cur:modalCtx.draft.moduleId,opts:state.modules.map(m=>({v:m.id,label:m.name,icon:m.icon,color:m.color}))};
@@ -4464,11 +4797,25 @@ weeks+=`<div class="plan-week${w===curW?' now':''}"><div class="pw-num"><b>Н${i
 }}
 return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Учебный план</h1><button class="btn btn-primary" data-action="plan-add"><i data-lucide="plus"></i>Период</button></div>${periods.length?`<div class="panel plan-timeline reveal">${weeks}</div><p class="hint" style="margin-top:10px">Конференц-неделя — сдача задолженностей и экзаменов. Проектная — работа над проектами и защита. План не создаёт событий календаря.</p>`:`<div class="empty reveal"><i data-lucide="calendar-range"></i><p>Спланируйте семестр: модули, экзаменационные, конференц- и проектные недели.</p><button class="btn btn-primary" data-action="plan-add"><i data-lucide="plus"></i>Создать период</button></div>`}</div>`;
 }
+function weekRangeText(w){const a=fromISO(w),b=fromISO(addD(w,6));return`${a.getDate()} ${MONTHS_R[a.getMonth()]} — ${b.getDate()} ${MONTHS_R[b.getMonth()]}`}
+function weekRangeLabel(w){return`Н${isoWeekNum(w)} ${weekRangeText(w)}`}
+function weekPickHtml(meta){
+const last=iso(new Date(meta.month.y,meta.month.m+1,0));
+let w=weekStart(iso(new Date(meta.month.y,meta.month.m,1))),rows='';const tw=weekStart(today());
+while(diffD(w,last)<=0){
+const sel=w===meta.value,cur=w===tw;
+rows+=`<button class="wp-row${sel?' sel':''}${cur?' cur':''}" data-action="wp-pick" data-week="${w}"><b>Н${isoWeekNum(w)}</b><span>${weekRangeText(w)}</span>${sel?'<i data-lucide="check"></i>':cur?'<em>тек.</em>':''}</button>`;
+w=addD(w,7);
+}
+return`<div class="wp-head"><button class="icon-btn plain sm" data-action="wp-prev" aria-label="Предыдущий месяц"><i data-lucide="chevron-left"></i></button><span class="mc-title">${MONTHS[meta.month.m]} <em>${meta.month.y}</em></span><button class="icon-btn plain sm" data-action="wp-next" aria-label="Следующий месяц"><i data-lucide="chevron-right"></i></button></div>
+<div class="wp-list">${rows}</div>
+<div class="pop-foot"><span class="hint">Неделя · пн — вс</span><button class="btn btn-soft sm" data-action="wp-today">Текущая неделя</button></div>`;
+}
 function openPlanModal(id){
 const p=id?state.plan.find(x=>x.id===id):null;
 const draft=p?Object.assign({},p):{id:null,type:'module',moduleId:state.modules[0]?state.modules[0].id:'',title:'',from:weekStart(today()),to:weekStart(today())};
 const pm=findM(draft.moduleId);
-openModal(`<div class="modal-head"><h3>${p?'Изменить период':'Новый период'}</h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div><div class="modal-body"><div class="form-stack"><div><label class="lbl">Тип периода</label>${selectBtnHtml('plan-type-btn','plan-type',PLAN_TYPES[draft.type].icon,PLAN_TYPES[draft.type].label)}</div><div id="plan-mod-wrap" ${draft.type!=='module'?'hidden':''}><label class="lbl">Модуль</label>${selectBtnHtml('plan-mod-btn','plan-module',pm?pm.icon:'book',pm?pm.name:'Выберите модуль')}<p class="hint" style="margin-top:6px">Название подставится автоматически.</p></div><div id="plan-title-wrap" ${draft.type==='module'?'hidden':''}><label class="lbl">Название</label><input class="field" data-plan="title" value="${esc(draft.title)}" placeholder="Например: Защита проектов"></div><div class="ics-dates"><div><label class="lbl">Начальная неделя · пн</label><button class="field ics-date-btn" data-action="plan-week" data-field="from"><i data-lucide="calendar"></i><span id="plan-from-lbl">${icsDateLabel(weekStart(draft.from))}</span><i data-lucide="chevron-down" class="chev"></i></button></div><div><label class="lbl">Конечная неделя · вс</label><button class="field ics-date-btn" data-action="plan-week" data-field="to"><i data-lucide="calendar"></i><span id="plan-to-lbl">${icsDateLabel(addD(weekStart(draft.to),6))}</span><i data-lucide="chevron-down" class="chev"></i></button></div></div><p class="hint">Начало — понедельник выбранной недели, конец — воскресенье.</p><div class="err-line" id="plan-err"></div></div></div><div class="modal-foot">${p?`<button class="btn btn-danger left" data-action="plan-del" data-id="${p.id}"><i data-lucide="trash-2"></i></button>`:''}<button class="btn btn-ghost" data-action="modal-close">Отмена</button><button class="btn btn-primary" data-action="plan-save"><i data-lucide="check"></i>Сохранить</button></div>`,{type:'plan',draft});
+openModal(`<div class="modal-head"><h3>${p?'Изменить период':'Новый период'}</h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div><div class="modal-body"><div class="form-stack"><div><label class="lbl">Тип периода</label>${selectBtnHtml('plan-type-btn','plan-type',PLAN_TYPES[draft.type].icon,PLAN_TYPES[draft.type].label)}</div><div id="plan-mod-wrap" ${draft.type!=='module'?'hidden':''}><label class="lbl">Модуль</label>${selectBtnHtml('plan-mod-btn','plan-module',pm?pm.icon:'book',pm?pm.name:'Выберите модуль')}<p class="hint" style="margin-top:6px">Название подставится автоматически.</p></div><div id="plan-title-wrap" ${draft.type==='module'?'hidden':''}><label class="lbl">Название</label><input class="field" data-plan="title" value="${esc(draft.title)}" placeholder="Например: Защита проектов"></div><div class="wp-fields"><div><label class="lbl">Начальная неделя</label><button class="field wp-btn" data-action="wp-open" data-field="from"><i data-lucide="calendar-range"></i><span id="plan-from-lbl">${weekRangeLabel(weekStart(draft.from))}</span><i data-lucide="chevron-down" class="chev"></i></button></div><div><label class="lbl">Конечная неделя</label><button class="field wp-btn" data-action="wp-open" data-field="to"><i data-lucide="calendar-check"></i><span id="plan-to-lbl">${weekRangeLabel(weekStart(draft.to))}</span><i data-lucide="chevron-down" class="chev"></i></button></div></div><p class="hint">Начало — понедельник выбранной недели, конец — воскресенье.</p><div class="err-line" id="plan-err"></div></div></div><div class="modal-foot">${p?`<button class="btn btn-danger left" data-action="plan-del" data-id="${p.id}"><i data-lucide="trash-2"></i></button>`:''}<button class="btn btn-ghost" data-action="modal-close">Отмена</button><button class="btn btn-primary" data-action="plan-save"><i data-lucide="check"></i>Сохранить</button></div>`,{type:'plan',draft});
 }
 function overdueHtml(){
 const od=[];state.modules.forEach(m=>m.disciplines.forEach(d=>d.items.forEach(i=>{if(i.dueDate&&diffD(i.dueDate,today())<0&&!itemDone(i))od.push({i,d,m,days:-diffD(i.dueDate,today())})})));
@@ -4551,6 +4898,120 @@ toast('Порядок избранного сохранён',{type:'success',dur
 });
 document.addEventListener('pointercancel',()=>favCleanup());
 document.addEventListener('click',e=>{if(favSuppress){favSuppress=false;e.stopPropagation();e.preventDefault()}},true);
+// #endregion
+// #region Доработки: normalize-обёртка, обработчики, drag входящих, viewport
+const ldzNormalizeBase=normalize;
+normalize=function(r){
+const s=ldzNormalizeBase(r);
+const seen=new Set();
+s.inboxSections=(r&&Array.isArray(r.inboxSections)?r.inboxSections:[]).map(x=>(x&&typeof x==='object'&&x.id&&!seen.has(String(x.id))&&seen.add(String(x.id)))?{id:String(x.id),name:str(x.name,'Раздел').slice(0,60)}:null).filter(Boolean);
+const secIds=new Set(s.inboxSections.map(x=>x.id));
+s.inbox.forEach(x=>{if(!x.sectionId||!secIds.has(x.sectionId))x.sectionId=null});
+return s;
+};
+// Модалки: реальная высота viewport (клавиатура iOS)
+function ldzVV(){const h=window.visualViewport?Math.round(visualViewport.height):innerHeight;document.documentElement.style.setProperty('--vvh',h+'px')}
+if(window.visualViewport){visualViewport.addEventListener('resize',ldzVV);visualViewport.addEventListener('scroll',ldzVV)}
+addEventListener('resize',ldzVV);ldzVV();
+// Новые действия (журнал, week-picker, разделы входящих)
+document.addEventListener('click',e=>{
+const btn=e.target.closest('[data-action]');if(!btn)return;
+const a=btn.dataset.action,ds=btn.dataset;
+switch(a){
+case 'jr-open':openEntryModal({mid:ds.mid,did:ds.did,iid:ds.iid});break;
+case 'wp-open':{
+if(pop&&pop.anchor===btn){closePopover();break}
+if(!modalCtx||modalCtx.type!=='plan')break;
+const v=modalCtx.draft[ds.field],w=weekStart(validISO(v)?v:today());
+const mo={y:fromISO(w).getFullYear(),m:fromISO(w).getMonth()};
+openPopover(btn,weekPickHtml({month:mo,value:w}),'wp-pop',{type:'weekpick',field:ds.field,month:mo,value:w});break}
+case 'wp-prev':case 'wp-next':{
+if(!pop||pop.meta.type!=='weekpick')break;
+const mo=pop.meta.month;mo.m+=a==='wp-next'?1:-1;if(mo.m<0){mo.m=11;mo.y--}if(mo.m>11){mo.m=0;mo.y++}
+refreshPopover(weekPickHtml(pop.meta));break}
+case 'wp-pick':case 'wp-today':{
+if(!pop||pop.meta.type!=='weekpick')break;
+const meta=pop.meta,w=a==='wp-today'?weekStart(today()):ds.week;
+closePopover();
+if(modalCtx&&modalCtx.type==='plan'){modalCtx.draft[meta.field]=w;const lbl=$(meta.field==='from'?'#plan-from-lbl':'#plan-to-lbl');if(lbl)lbl.textContent=weekRangeLabel(w)}
+break}
+case 'inbsec-add':openInboxSectionModal();break;
+case 'inbsec-edit':openInboxSectionModal(ds.id);break;
+case 'inbsec-save':{
+ensureInbox();
+const inp=$('#inbsec-name'),v=inp?inp.value.trim():'';
+if(!v){const er=$('#inbsec-err');if(er){er.textContent='Введите название';er.classList.add('show')}break}
+if(ds.id){const s=state.inboxSections.find(x=>x.id===ds.id);if(s)s.name=v}
+else state.inboxSections.push({id:uid(),name:v});
+save();closeModal();render();break}
+case 'inbsec-del':{
+const s=state.inboxSections.find(x=>x.id===ds.id);if(!s)break;
+openConfirm('Удалить раздел?',`Раздел «${s.name}» будет удалён. Его элементы вернутся в общий список входящих.`,()=>{
+mutate(()=>{state.inbox.forEach(x=>{if(x.sectionId===s.id)x.sectionId=null});state.inboxSections=state.inboxSections.filter(x=>x.id!==s.id)},'Раздел удалён')});break}
+case 'inbsec-up':case 'inbsec-down':{
+const i=state.inboxSections.findIndex(x=>x.id===ds.id),to=i+(a==='inbsec-down'?1:-1);
+if(i<0||to<0||to>=state.inboxSections.length)break;
+const[t]=state.inboxSections.splice(i,1);state.inboxSections.splice(to,0,t);save();render();break}
+case 'inbsec-move':openInboxSectionMove(ds.id);break;
+case 'inbsec-dest':closeModal();inboxSectionTransfer(ds.id,ds.mid,ds.did);break;
+}
+});
+// Drag входящих: карточки между разделами и общим списком
+let inbDrag=null;
+function inbCleanup(){
+if(!inbDrag)return;
+clearTimeout(inbDrag.arm);
+if(inbDrag.ghost)inbDrag.ghost.remove();
+if(inbDrag.card)inbDrag.card.classList.remove('inb-src');
+document.querySelectorAll('.inb-slot.hover').forEach(el=>el.classList.remove('hover'));
+document.querySelectorAll('.inb-sec-head.drop-on').forEach(el=>el.classList.remove('drop-on'));
+document.body.classList.remove('inb-dragging');
+inbDrag=null;
+}
+function inbActivate(){
+const d=inbDrag;if(!d||d.active)return;
+d.active=true;document.body.classList.add('inb-dragging');
+try{d.grip.setPointerCapture(d.pid)}catch{}
+const r=d.card.getBoundingClientRect();
+const g=d.card.cloneNode(true);g.classList.add('inb-ghost');g.style.width=Math.min(r.width,340)+'px';
+document.body.appendChild(g);d.ghost=g;d.gw=Math.min(r.width,340);
+d.card.classList.add('inb-src');
+if(d.touch&&navigator.vibrate)try{navigator.vibrate(15)}catch{}
+}
+document.addEventListener('pointerdown',e=>{
+if(route().name!=='inbox'||inbDrag)return;
+const grip=e.target.closest('.inb-grip');if(!grip)return;
+const card=grip.closest('.inbox-card');if(!card)return;
+inbDrag={id:grip.dataset.inbid,card,grip,pid:e.pointerId,x0:e.clientX,y0:e.clientY,touch:e.pointerType==='touch',active:false,dest:null};
+if(inbDrag.touch)inbDrag.arm=setTimeout(()=>{if(inbDrag&&!inbDrag.active)inbActivate()},260);
+},true);
+document.addEventListener('pointermove',e=>{
+const d=inbDrag;if(!d||e.pointerId!==d.pid)return;
+if(!d.active){
+const dist=Math.hypot(e.clientX-d.x0,e.clientY-d.y0);
+if(d.touch){if(dist>10)inbCleanup();return}
+if(dist>5)inbActivate();else return;
+}
+e.preventDefault();
+d.ghost.style.left=(e.clientX-d.gw/2)+'px';
+d.ghost.style.top=(e.clientY-24)+'px';
+if(e.clientY<90)scrollBy(0,-10);else if(e.clientY>innerHeight-70)scrollBy(0,10);
+document.querySelectorAll('.inb-slot.hover').forEach(el=>el.classList.remove('hover'));
+document.querySelectorAll('.inb-sec-head.drop-on').forEach(el=>el.classList.remove('drop-on'));
+d.dest=null;
+const els=document.elementsFromPoint(e.clientX,e.clientY);
+const slot=els.find(el=>el.classList&&el.classList.contains('inb-slot'));
+if(slot){slot.classList.add('hover');d.dest={sec:slot.dataset.inbsec||null,before:slot.dataset.inbbefore||null};return}
+const head=els.find(el=>el.classList&&el.classList.contains('inb-sec-head'));
+if(head){head.classList.add('drop-on');d.dest={sec:head.dataset.inbsec||null,before:null}}
+});
+document.addEventListener('pointerup',e=>{
+const d=inbDrag;if(!d||e.pointerId!==d.pid)return;
+const dest=d.active?d.dest:null,id=d.id;
+inbCleanup();
+if(dest)inboxMove(id,dest.sec,dest.before);
+});
+document.addEventListener('pointercancel',()=>inbCleanup());
 // #endregion
 // #region Инициализация
 async function init(){
