@@ -259,6 +259,10 @@ section[id]{scroll-margin-top:calc(var(--header-total-h) + 16px)}
 button.mc-cell:hover{background:var(--bg2);color:var(--ink)}
 .mc-cell.today{border-color:var(--accent);color:var(--accent);font-weight:800}
 .mc-cell.sel{background:var(--primary-bg);color:var(--primary-fg);font-weight:700}
+.mc-dot{position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%}
+.mc-dot.study{background:var(--warn);left:calc(50% - 5px)}
+.mc-dot.due{background:var(--info);left:calc(50% + 1px)}
+.mc-dot.study:only-of-type{left:calc(50% - 2px)}
 .streak-row{display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
 .streak-flame{width:42px;height:42px;border-radius:13px;background:var(--warn-bg);color:var(--warn);display:flex;align-items:center;justify-content:center;flex:none}
 .streak-flame svg{width:21px;height:21px}
@@ -1584,89 +1588,6 @@ body.inb-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
 @media(max-width:760px){
 .swatches,#evt-swatches{grid-template-columns:repeat(auto-fill,minmax(32px,1fr))}
 }
-/* === LDZ UX v2: iOS-шапка, модалки, паспорт, журнал, план, поиск, теги === */
-/* Шапка: стабильный compositing-слой против скрытия при скролле в iOS Safari */
-#topbar{transform:translateZ(0);-webkit-transform:translateZ(0);will-change:transform}
-/* Модалки: динамическая высота viewport + safe area */
-.modal-overlay{padding:calc(14px + var(--safe-top)) 14px calc(14px + var(--safe-bottom));overscroll-behavior:contain}
-.modal{max-height:calc(100vh - 40px);max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 28px);-webkit-overflow-scrolling:touch}
-/* Заголовок + счётчик на одной линии */
-.page-head.ph-inline{align-items:center;gap:10px}
-.page-head.ph-inline h1{line-height:1.1}
-.page-head.ph-inline .count-badge{position:relative;top:1px}
-/* Паспорт: профильный блок с цветной полосой курса и выровненным GPA */
-.b-profile{grid-column:span 8;display:flex;flex-direction:column;padding:0;overflow:hidden;gap:0}
-.b-profile-band{height:8px;flex:none;background:linear-gradient(90deg,var(--course-accent),color-mix(in srgb,var(--course-accent) 40%,var(--acid)))}
-.b-profile-main{padding:20px 22px 22px;display:flex;flex-direction:column;gap:18px;flex:1}
-.b-profile-top{display:flex;gap:14px;align-items:center}
-.b-pinfo{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
-.b-name{font-size:20px;overflow-wrap:anywhere}
-.b-bio{font-size:13px;color:var(--ink2);line-height:1.5}
-.b-gpa{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid var(--border);border-radius:16px;background:var(--surface2)}
-.b-gpa .gpa-big{font-size:clamp(34px,5vw,46px)}
-.b-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto}
-.b-actions .btn{height:42px;border-radius:13px}
-/* Журнал: фиксированная сетка, заполнение до правого края */
-.jr{table-layout:fixed;min-width:0}
-.jr-name{min-width:0;max-width:none}
-.jr-disc b{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.jr-mod-in b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-/* Учебный план: вертикальные поля недель + модальный пикер */
-.plan-dates{display:flex;flex-direction:column;gap:12px}
-.plan-dates>div{width:100%;min-width:0}
-.plan-dates .ics-date-btn{width:100%}
-.week-picker{display:flex;justify-content:center}
-.week-picker .mini-cal{width:min(300px,100%)}
-/* Главная: индикатор дедлайна проекта в баннере */
-.hero-cover::before,.hero-cover::after{pointer-events:none}
-.proj-due{position:absolute;left:16px;bottom:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:11px;background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid color-mix(in srgb,var(--pc-accent) 35%,var(--border));box-shadow:var(--shadow);font-family:var(--font-mono);font-weight:700;font-size:12.5px;color:var(--pc-text);transition:.16s;line-height:1}
-.proj-due:hover{transform:translateY(-2px);border-color:var(--pc-accent)}
-.proj-due:active{transform:scale(.96)}
-.proj-due svg{width:13px;height:13px;color:var(--pc-accent)}
-.proj-due.over{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent)}
-.proj-due.over svg{color:var(--danger)}
-.proj-due-pop{width:302px}
-.pd-head{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.pd-head b{display:block;font-size:14px;line-height:1.3}
-.pd-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.pd-over{background:var(--danger-bg);color:var(--danger);border-color:transparent}
-.pd-discs{display:flex;gap:6px;flex-wrap:wrap}
-.home-more{margin-top:12px}
-/* Календарный виджет: точки событий и подложка серии */
-.mc-cell{flex-direction:column;gap:2px;padding:2px 0}
-.mc-num{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;border-radius:6px;line-height:1;font-size:12.5px}
-.mc-num.streak{background:#FFE0A8;color:#7A4A08;font-weight:700}
-[data-theme="dark"] .mc-num.streak{background:#46320F;color:#F2C879}
-.mc-cell.sel .mc-num.streak{background:color-mix(in srgb,var(--primary-fg) 24%,transparent);color:var(--primary-fg)}
-.mc-ev{display:flex;align-items:center;gap:2px;height:5px;line-height:1}
-.mc-ev i{width:4px;height:4px;border-radius:50%;background:var(--course-accent)}
-.mc-ev em{font-style:normal;font-size:7.5px;font-weight:800;color:var(--course-accent);line-height:1;margin-left:1px}
-.mc-cell.sel .mc-ev i{background:var(--primary-fg)}
-.mc-cell.sel .mc-ev em{color:var(--primary-fg)}
-/* Плашки типа — в цвете дисциплины, не курса */
-.s-item .kind-chip.task,.item-ed .kind-chip.task{background:var(--pc-accent);color:var(--surface)}
-/* Мобильные правки */
-@media(max-width:760px){
-.modal-overlay{align-items:flex-start;padding-top:calc(12px + var(--safe-top))}
-.modal{max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px)}
-.grade-row{flex-direction:column;align-items:stretch;gap:9px;padding:12px 0}
-.grade-row .g-name{line-height:1.4}
-.grade-row .seg-group{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%}
-.grade-row .seg{width:100%;height:38px}
-.jr th{padding:8px 4px;font-size:9.5px}
-.jr td{padding:4px 3px}
-.jr-disc{gap:6px}
-.jr-disc svg{width:13px;height:13px}
-.jr-disc b{font-size:11.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:normal;overflow-wrap:anywhere}
-.jr-mod td{padding:7px 9px}
-.jr-mod-in{font-size:11.5px;gap:7px}
-.jr-cell{width:32px;height:30px}
-.sort-row.disc-ed{flex-wrap:wrap;row-gap:8px}
-.sort-row.disc-ed .field.inline{order:9;flex:1 1 100%;min-width:0}
-.b-profile-main{padding:16px}
-.b-profile-top{gap:12px}
-.proj-due{left:12px;bottom:10px;height:30px;font-size:12px}
-}
 </style>
 </head>
 <body>
@@ -1975,8 +1896,7 @@ catch(e){if(!saveErrShown){toast('Не удалось сохранить: хра
 const saveSoon=debounce(()=>{if(save()){const a=$('.autosave');if(a){a.classList.remove('pulse');void a.offsetWidth;a.classList.add('pulse')}}},400);
 const ui={months:{side:curMonth()},weekAnchor:null,expanded:new Set(),viewExpanded:new Set(),focusSel:null,
 secOpen:new Set(),scrollSel:null,chart:{scope:'course',mid:'',did:''},
-inboxSort:null,favExpand:new Set(),overdueOpen:false,edOpen:{info:false,profile:false},achOpen:false,
-homeModsOpen:false,homeDoneOpen:false,tagDraft:null};
+inboxSort:null,favExpand:new Set(),overdueOpen:false,planDraft:null,edOpen:{info:false,profile:false},achOpen:false,compOpen:false,calScrollMem:null};
 const findM=id=>state.modules.find(m=>m.id===id);
 const findD=(m,id)=>m?m.disciplines.find(d=>d.id===id):null;
 const findI=(d,id)=>d?d.items.find(i=>i.id===id):null;
@@ -2072,12 +1992,10 @@ icons();positionPopover();requestAnimationFrame(()=>el.classList.add('open'));
 }
 function positionPopover(){
 if(!pop)return;
-const vv=window.visualViewport;
-const vw=vv?vv.width:innerWidth,vh=vv?vv.height:innerHeight;
 const r=pop.anchor.getBoundingClientRect(),el=pop.el;
 const w=el.offsetWidth,h=el.offsetHeight;
-let x=clamp(r.left,10,Math.max(10,vw-w-10)),y=r.bottom+8;
-if(y+h>vh-10)y=Math.max(10,r.top-h-8);
+let x=clamp(r.left,10,innerWidth-w-10),y=r.bottom+8;
+if(y+h>innerHeight-10)y=Math.max(10,r.top-h-8);
 el.style.left=x+'px';el.style.top=y+'px';
 }
 function refreshPopover(html){if(!pop)return;pop.el.innerHTML=html;icons();positionPopover()}
@@ -2146,17 +2064,16 @@ const list=ICONS.filter(([n,l])=>!q||n.includes(q)||l.toLowerCase().includes(q))
 if(!list.length)return`<div class="hint" style="grid-column:1/-1;padding:12px;text-align:center">Ничего не найдено</div>`;
 return list.map(([n,l])=>`<button data-action="pp-icon" data-icon="${n}" class="${n===current?'sel':''}" title="${l}" aria-label="${l}"><i data-lucide="${n}"></i></button>`).join('');
 }
-function miniCal(month,{sel,prefix,events,streak}){
+function miniCal(month,{marks,due,sel,prefix}){
+marks=marks||new Set();due=due||new Set();
 const first=new Date(month.y,month.m,1),start=(first.getDay()+6)%7,days=new Date(month.y,month.m+1,0).getDate(),t=today();
 let cells='';
 for(let i=0;i<start;i++)cells+='<span class="mc-cell"></span>';
 for(let d=1;d<=days;d++){
 const ds=iso(new Date(month.y,month.m,d));
 const cls=['mc-cell'];if(ds===t)cls.push('today');if(ds===sel)cls.push('sel');
-const num=`<span class="mc-num${streak&&streak.has(ds)?' streak':''}">${d}</span>`;
-let dots='';
-if(events){const n=events.get(ds)||0;if(n>0)dots=`<span class="mc-ev">${'<i></i>'.repeat(Math.min(n,3))}${n>3?'<em>+</em>':''}</span>`}
-cells+=`<button class="${cls.join(' ')}" data-action="${prefix}-pick" data-date="${ds}">${num}${dots}</button>`;
+const dots=(marks.has(ds)?'<span class="mc-dot study"></span>':'')+(due.has(ds)?'<span class="mc-dot due"></span>':'');
+cells+=`<button class="${cls.join(' ')}" data-action="${prefix}-pick" data-date="${ds}">${d}${dots}</button>`;
 }
 return`<div class="mini-cal"><div class="mc-head"><button class="icon-btn plain sm" data-action="${prefix}-prev" aria-label="Предыдущий месяц"><i data-lucide="chevron-left"></i></button><span class="mc-title">${MONTHS[month.m]} <em>${month.y}</em></span><button class="icon-btn plain sm" data-action="${prefix}-next" aria-label="Следующий месяц"><i data-lucide="chevron-right"></i></button></div><div class="mc-grid mc-wd">${WD.map(w=>`<span>${w}</span>`).join('')}</div><div class="mc-grid">${cells}</div></div>`;
 }
@@ -2260,8 +2177,6 @@ bindCloudPanel();
 if(r.name==='calendar')afterCalendar();
 if(r.name==='search')afterSearch();
 if(r.name==='passport')afterPassport();
-if(r.name==='journal')afterJournal();
-if(r.name==='home')afterHome();
 const ctxM=r.mid?findM(r.mid):null;
 const ctxColor=r.name==='module'&&ctxM?ctxM.color:(r.name==='disc'&&ctxM?(findD(ctxM,r.did)||{}).color:null);
 if(ctxColor)document.documentElement.dataset.ctx=ctxColor;else delete document.documentElement.dataset.ctx;
@@ -2273,13 +2188,21 @@ document.title=r.name==='home'?`larpdeez — ${state.course.name||'учебно�
 function notFound(){return`<div class="page"><div class="empty" style="margin-top:30px"><i data-lucide="compass"></i><p>Страница не найдена — возможно, элемент был удалён.</p><a class="btn btn-primary" href="#/">На главную</a></div></div>`}
 // #endregion
 // #region Главная страница
+function dueMarks(){
+const s=new Set();
+state.modules.forEach(m=>{m.disciplines.forEach(d=>d.items.forEach(i=>{if(i.dueDate&&!itemDone(i))s.add(i.dueDate)}));if(m.project.enabled&&m.project.dueDate&&!calcGrade(m.project.criteria,m.project.scores))s.add(m.project.dueDate)});
+state.events.forEach(e=>s.add(e.date));
+return s;
+}
 function upcoming(){
 const out=[],t=today();
 state.modules.forEach(m=>{
 m.disciplines.forEach(d=>d.items.forEach(i=>{
 if(!i.dueDate||itemDone(i))return;
-out.push({kind:i.type,title:i.name,date:i.dueDate,time:i.dueTime||null,href:`#/module/${m.id}/discipline/${d.id}`,color:d.color,sub:m.name});
+out.push({kind:i.type,title:i.name,date:i.dueDate,time:i.dueTime||null,mid:m.id,did:d.id,iid:i.id,color:d.color,sub:m.name});
 }));
+const p=m.project;
+if(p.enabled&&p.dueDate&&!calcGrade(p.criteria,p.scores))out.push({kind:'project',title:p.name,date:p.dueDate,time:null,href:`#/module/${m.id}`,color:m.color,sub:'финальный проект · '+m.name});
 });
 state.events.forEach(ev=>{if(diffD(ev.date,t)>=0)out.push({kind:'event',title:ev.title,date:ev.date,time:ev.start,color:ev.color,sub:'событие'})});
 out.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:String(a.time||'').localeCompare(String(b.time||'')));
@@ -2325,17 +2248,9 @@ const topics=infos.reduce((a,x)=>a+x.inf.topics.length,0),tRead=infos.reduce((a,
 const tasks=infos.reduce((a,x)=>a+x.inf.tasks.length,0),tGraded=infos.reduce((a,x)=>a+x.inf.grades.length,0);
 const st=streak(),marked=activityDays().has(today()),up=upcoming(),cont=active[0];
 const curPlan=state.plan.find(p=>diffD(weekStart(today()),p.from)>=0&&diffD(p.to,weekStart(today()))>=0);
-const mob=isMobileCal();
-let dueProj=null;
-state.modules.forEach(m=>{const p=m.project;if(p.enabled&&p.dueDate&&!calcGrade(p.criteria,p.scores)){if(!dueProj||p.dueDate<dueProj.date)dueProj={m,date:p.dueDate}}});
-const dueDays=dueProj?diffD(dueProj.date,today()):0;
-const dueBadge=dueProj?`<button class="proj-due${dueDays<0?' over':''}" id="proj-due-btn" data-action="proj-due-open" data-mid="${dueProj.m.id}" title="Ближайший финальный проект"><i data-lucide="flag"></i><b>D ${dueDays}</b></button>`:'';
-const actShown=mob&&!ui.homeModsOpen?active.slice(0,1):active;
-const actMore=mob&&active.length>1?`<button class="exp-btn home-more" data-action="home-mods-toggle"><i data-lucide="chevron-${ui.homeModsOpen?'up':'down'}"></i>${ui.homeModsOpen?'Свернуть':'Раскрыть'}</button>`:'';
-const doneShow=!mob||ui.homeDoneOpen;
 return`<div class="page">
 <div class="hero reveal">
-<div class="hero-cover pc-${state.course.coverColor}">${dueBadge}</div>
+<div class="hero-cover pc-${state.course.coverColor}" aria-hidden="true"></div>
 <div class="hero-body">
 <div class="hero-row">
 <div style="min-width:0">
@@ -2349,12 +2264,12 @@ ${st?`<span class="chip hot"><i data-lucide="flame"></i>серия ${st} ${plura
 </div>
 </div>
 <div class="hero-cta">
-<a class="btn-inbox" href="#/inbox" title="Входящие материалы" aria-label="Входящие"><i data-lucide="inbox"></i>${state.inbox.length?`<span class="inbox-count">${state.inbox.length}</span>`:''}</a>
 ${state.activeSession
 ?`<button class="btn-continue sess-live" data-action="sess-open"><span class="mono" id="home-sess-time" style="font-size:19px">${fmtClock(sessElapsed())}</span><span class="bc-arrow"><i data-lucide="square"></i></span></button>`
 :cont
 ?`<button class="btn-continue" data-action="sess-ask" data-mid="${cont.m.id}"><span>Продолжить</span><span class="bc-arrow"><i data-lucide="arrow-right"></i></span></button>`
 :`<a class="btn-continue" href="#/editor"><span>Настроить курс</span><span class="bc-arrow"><i data-lucide="settings-2"></i></span></a>`}
+<a class="btn-inbox" href="#/inbox" title="Входящие материалы" aria-label="Входящие"><i data-lucide="inbox"></i><span class="bi-label">Входящие</span>${state.inbox.length?`<span class="inbox-count">${state.inbox.length}</span>`:''}</a>
 </div>
 </div>
 </div>
@@ -2363,17 +2278,18 @@ ${overdueHtml()}
 <div class="home-grid">
 <div>
 <div class="sec-head"><h2>Активные модули</h2><span class="count-badge">${active.length}</span></div>
-${active.length?`<div class="mod-grid">${actShown.map((x,i)=>moduleCard(x.m,i)).join('')}</div>${actMore}`:`<div class="empty reveal"><i data-lucide="sparkles"></i><p>${state.modules.length?'Все модули завершены — отличная работа!':'Пока нет модулей. Создайте первый в редакторе курса.'}</p><a class="btn btn-primary" href="#/editor"><i data-lucide="plus"></i>Создать модуль</a></div>`}
-${done.length?`<div class="sec-head"><h2>Завершённые</h2><span class="count-badge">${done.length}</span>${mob?`<button class="exp-btn" data-action="home-done-toggle" style="margin-left:auto"><i data-lucide="chevron-${ui.homeDoneOpen?'up':'down'}"></i>${ui.homeDoneOpen?'Свернуть':'Раскрыть'}</button>`:''}</div>${doneShow?`<div class="mod-grid">${done.map((x,i)=>moduleCard(x.m,i+active.length)).join('')}</div>`:''}`:''}
+${active.length?`<div class="mod-grid">${active.map((x,i)=>moduleCard(x.m,i)).join('')}</div>`:`<div class="empty reveal"><i data-lucide="sparkles"></i><p>${state.modules.length?'Все модули завершены — отличная работа!':'Пока нет модулей. Создайте первый в редакторе курса.'}</p><a class="btn btn-primary" href="#/editor"><i data-lucide="plus"></i>Создать модуль</a></div>`}
+${done.length?`<div class="sec-head"><h2>Завершённые</h2><span class="count-badge">${done.length}</span></div><div class="mod-grid">${done.map((x,i)=>moduleCard(x.m,i+active.length)).join('')}</div>`:''}
 </div>
 <aside class="sidebar">
 <div class="panel reveal" style="--d:120ms">
 <div class="panel-title"><i data-lucide="calendar"></i>Календарь</div>
-<div id="side-cal">${miniCal(ui.months.side,{prefix:'side',events:eventCounts(),streak:activityDays()})}</div>
+<div id="side-cal">${miniCal(ui.months.side,{marks:activityDays(),due:dueMarks(),prefix:'side'})}</div>
 <div class="streak-row">
 <span class="streak-flame${marked?' lit':''}"><i data-lucide="flame"></i></span>
 <span class="streak-info"><b>${st} ${plural(st,['день','дня','дней'])} подряд</b><span>учебная серия</span></span>
 </div>
+<p class="hint" style="margin-top:12px">Серия продлевается автоматически: день засчитывается при ≥1 минуты завершённых учебных сессий.</p>
 </div>
 <a class="panel plan-entry reveal" style="--d:160ms" href="#/plan">
 <span class="plan-entry-ic"><i data-lucide="calendar-range"></i></span>
@@ -2383,10 +2299,11 @@ ${done.length?`<div class="sec-head"><h2>Завершённые</h2><span class=
 <div class="panel-title"><i data-lucide="list-checks"></i>Ближайшие планы</div>
 ${up.length?`<div class="tracker">${up.slice(0,7).map(trackerRow).join('')}</div>${up.length>7?`<div class="hint" style="margin-top:8px;text-align:center">и ещё ${up.length-7}…</div>`:''}`:`<div class="hint">Пока пусто. Назначайте даты темам и заданиям на страницах просмотра — они появятся здесь.</div>`}
 </div>
+${projDeadlineHtml()}
 </aside>
 </div></div>`;
 }
-function renderSideCal(){const el=$('#side-cal');if(el){el.innerHTML=miniCal(ui.months.side,{prefix:'side',events:eventCounts(),streak:activityDays()});icons()}}
+function renderSideCal(){const el=$('#side-cal');if(el){el.innerHTML=miniCal(ui.months.side,{marks:activityDays(),due:dueMarks(),prefix:'side'});icons()}}
 // #endregion
 // #region Просмотр модуля
 function itemViewPanel(m,d,i){
@@ -2614,13 +2531,11 @@ ${storageMeter()}
 function tagsBoxHtml(m){
 const total=m.tags.length+m.compTags.length,full=total>=6;
 const comps=m.compTags.map(id=>state.competencies.find(c=>c.id===id)).filter(Boolean);
-const drafting=ui.tagDraft===m.id&&!full;
 return`<div class="tag-box" id="tags-box">
 ${comps.map(c=>`<span class="tag pc-${c.color}"><i data-lucide="${c.icon||'gem'}" style="width:12px;height:12px"></i>${esc(c.name)}<button data-action="ctag-del" data-mid="${m.id}" data-cid="${c.id}" aria-label="Убрать"><i data-lucide="x"></i></button></span>`).join('')}
 ${m.tags.map((t,i)=>`<span class="tag">${esc(t)}<button data-action="tag-del" data-mid="${m.id}" data-idx="${i}" aria-label="Удалить тег"><i data-lucide="x"></i></button></span>`).join('')}
-${drafting
-?`<input id="tag-input" class="field" data-mid="${m.id}" maxlength="16" placeholder="тег + Enter" autocomplete="off"><button class="icon-btn plain sm" data-action="tag-cancel" data-mid="${m.id}" title="Отмена"><i data-lucide="x"></i></button>`
-:(full?'<span class="hint">лимит 6 тегов</span>':`<button class="add-line" data-action="tag-custom" data-mid="${m.id}" style="height:28px;padding:0 10px"><i data-lucide="plus"></i>Свой тег</button><button class="add-line" data-action="ctag-open" data-mid="${m.id}" style="height:28px;padding:0 10px"><i data-lucide="gem"></i>Компетенция</button>`)}
+<input id="tag-input" class="field" data-mid="${m.id}" maxlength="16" placeholder="${full?'Лимит 6 тегов':'свой тег + Enter'}" ${full?'disabled':''}>
+${!full?`<button class="add-line" data-action="tag-custom" data-mid="${m.id}" style="height:28px;padding:0 10px"><i data-lucide="plus"></i>Свой тег</button><button class="add-line" data-action="ctag-open" data-mid="${m.id}" style="height:28px;padding:0 10px"><i data-lucide="gem"></i>Компетенция</button>`:''}
 </div>`;
 }
 // compLinksHtml/compLinkPopHtml/compLinkEntity — единые определения в регионе «Расширения платформы»
@@ -2645,7 +2560,7 @@ ${swatchRow('module',`data-mid="${m.id}"`,m.color)}
 <div class="panel-title"><i data-lucide="library"></i>Дисциплины · максимум 5</div>
 <p class="hint" style="margin-bottom:12px">Перетаскивайте для порядка. Название можно менять прямо здесь.</p>
 <div class="sort-list" data-sortlist="discs" data-mid="${m.id}">
-${m.disciplines.map((d,i)=>`<div class="sort-row disc-ed pc-${d.color}" data-drag="${d.id}" data-list="discs">
+${m.disciplines.map((d,i)=>`<div class="sort-row pc-${d.color}" data-drag="${d.id}" data-list="discs">
 <span class="grip" draggable="true" data-drag="${d.id}" data-list="discs" title="Перетащить"><i data-lucide="grip-vertical"></i></span>
 <button class="row-ic" data-action="open-icon" data-kind="disc" data-mid="${m.id}" data-did="${d.id}" title="Иконка дисциплины"><i data-lucide="${d.icon}"></i></button>
 <input class="field inline" data-bind="disc.${m.id}.${d.id}.name" value="${esc(d.name)}" placeholder="Название дисциплины">
@@ -3478,9 +3393,7 @@ const c=$('#ics-count');if(c)c.textContent=icsSelected().length}
 // #endregion
 // #region Клавиатура
 document.addEventListener('keydown',e=>{
-if(e.key==='Escape'){
-if(e.target.id==='tag-input'){const m=findM(e.target.dataset.mid);ui.tagDraft=null;if(m)refreshTagsBox(m);return}
-if(pop)closePopover();else if(modalCtx)requestCloseModal();return}
+if(e.key==='Escape'){if(pop)closePopover();else if(modalCtx)closeModal();return}
 if(e.target.id==='tag-input'){
 const m=findM(e.target.dataset.mid);if(!m)return;
 if(e.key==='Enter'||e.key===','){
@@ -3489,9 +3402,11 @@ const v=e.target.value.trim().replace(/^#/,'').slice(0,16);
 if(!v)return;
 if(m.tags.length+m.compTags.length>=6){toast('Максимум 6 тегов',{type:'info'});return}
 if(m.tags.includes(v)){e.target.value='';return}
-m.tags.push(v);ui.tagDraft=null;save();refreshTagsBox(m);
+m.tags.push(v);save();
+const box=$('#tags-box');if(box){box.outerHTML=tagsBoxHtml(m);icons();const inp=$('#tag-input');if(inp)inp.focus()}
 }else if(e.key==='Backspace'&&!e.target.value&&m.tags.length){
-m.tags.pop();save();refreshTagsBox(m);
+m.tags.pop();save();
+const box=$('#tags-box');if(box){box.outerHTML=tagsBoxHtml(m);icons();const inp=$('#tag-input');if(inp)inp.focus()}
 }
 }
 });
@@ -3548,12 +3463,6 @@ case 'ed-toggle':{const b=ds.block;if(b&&ui.edOpen[b]!==undefined){ui.edOpen[b]=
 case 'side-prev':case 'side-next':{const mo=ui.months.side;mo.m+=a==='side-next'?1:-1;if(mo.m<0){mo.m=11;mo.y--}if(mo.m>11){mo.m=0;mo.y++}renderSideCal();break}
 case 'side-pick':ui.weekAnchor=weekStart(ds.date);ui.calDay=ds.date;if(route().name==='calendar')render();else location.hash='#/calendar';break;
 case 'goto-event':ui.weekAnchor=weekStart(ds.date);ui.calDay=ds.date;if(route().name==='calendar')render();else location.hash='#/calendar';break;
-case 'home-mods-toggle':ui.homeModsOpen=!ui.homeModsOpen;render();break;
-case 'home-done-toggle':ui.homeDoneOpen=!ui.homeDoneOpen;render();break;
-case 'proj-due-open':{
-if(pop&&pop.anchor===btn){closePopover();break}
-const meta={type:'projdue',mid:ds.mid};
-openPopover(btn,projDuePopHtml(ds.mid),'proj-due-pop',meta);break}
 case 'toggle-read':{
 if(!i)break;
 const was=i.read;i.read=!i.read;
@@ -3765,16 +3674,16 @@ case 'search-back':closeSearch();if(history.length>1)history.back();else goHash(
 case 's-clear':searchState.q='';searchState.active=-1;['#hs-input','#ms-input'].forEach(s=>{const el=$(s);if(el)el.value=''});searchRefresh();break;
 case 's-expand':searchState.expanded.has(ds.key)?searchState.expanded.delete(ds.key):searchState.expanded.add(ds.key);searchRefresh();break;
 case 's-go':{const x=searchState.items.find(v=>v.key===ds.key);if(x)searchGo(x);break}
-case 'tag-custom':{if(!m)break;ui.tagDraft=m.id;refreshTagsBox(m);break}
-case 'tag-cancel':{if(!m)break;ui.tagDraft=null;refreshTagsBox(m);break}
+case 'tag-custom':{const inp=$('#tag-input');if(inp){inp.disabled=false;inp.focus()}break}
 case 'ctag-open':{
 if(!m)break;if(pop&&pop.anchor===btn){closePopover();break}
 const avail=state.competencies.filter(c=>!m.compTags.includes(c.id));
 openPopover(btn,`<label class="lbl">Компетенция как тег</label><div class="comp-pick">${avail.length?avail.map(c=>`<button class="comp-pick-row pc-${c.color}" data-action="ctag-add" data-mid="${m.id}" data-cid="${c.id}"><span class="dot" style="background:var(--pc-accent)"></span><span>${esc(c.name)}</span></button>`).join(''):'<div class="hint" style="padding:8px">Все компетенции уже добавлены или не созданы.</div>'}</div>`,'comp-pop',{type:'ctag'});break}
 case 'ctag-add':{
 if(!m)break;if(m.tags.length+m.compTags.length>=6){toast('Максимум 6 тегов',{type:'info'});break}
-if(!m.compTags.includes(ds.cid))m.compTags.push(ds.cid);save();closePopover();refreshTagsBox(m);break}
-case 'ctag-del':{if(!m)break;m.compTags=m.compTags.filter(x=>x!==ds.cid);save();refreshTagsBox(m);break}
+if(!m.compTags.includes(ds.cid))m.compTags.push(ds.cid);save();closePopover();
+const box=$('#tags-box');if(box){box.outerHTML=tagsBoxHtml(m);icons()}break}
+case 'ctag-del':{if(!m)break;m.compTags=m.compTags.filter(x=>x!==ds.cid);save();const box=$('#tags-box');if(box){box.outerHTML=tagsBoxHtml(m);icons()}break}
 case 'journal-go':ui.scrollSel='#item-'+ds.iid;goHash(`#/module/${ds.mid}/discipline/${ds.did}`);break;
 case 'heat-day':{
 if(pop&&pop.anchor===btn){closePopover();break}
@@ -3851,15 +3760,9 @@ save();closeModal();render();
 toast(`«${x.name}» добавлен в «${dd.name}»`,{type:'success',action:{label:'Открыть',fn(){ui.scrollSel='#item-'+ni.id;goHash(`#/module/${mid}/discipline/${did}`)}}});break}
 case 'fav-toggle':{
 const k=ds.key,ix=state.favorites.findIndex(f=>f.key===k);
-const pd=pop&&pop.meta.type==='projdue'?pop.meta:null;
 if(ix>=0){state.favorites.splice(ix,1);toast('Убрано из избранного',{type:'info'})}
 else{state.favorites.unshift({key:k,addedAt:Date.now()});toast('Добавлено в избранное',{type:'success'})}
-save();render();refreshEntryModal();
-if(pd){const b=document.getElementById('proj-due-btn');if(b)openPopover(b,projDuePopHtml(pd.mid),'proj-due-pop',pd)}
-break}
-case 'plan-week':openWeekPickerModal(ds.field);break;
-case 'pw-prev':case 'pw-next':{const c=modalCtx;if(!c||c.type!=='planweek')break;c.month.m+=a==='pw-next'?1:-1;if(c.month.m<0){c.month.m=11;c.month.y--}if(c.month.m>11){c.month.m=0;c.month.y++}refreshWeekPicker();break}
-case 'pw-pick':case 'pw-today':{const c=modalCtx;if(!c||c.type!=='planweek')break;const w=weekStart(a==='pw-today'?today():ds.date);c.planCtx.draft[c.field]=w;openPlanModal(c.planCtx.draft.id,c.planCtx.draft);break}
+save();render();refreshEntryModal();break}
 case 'fav-expand':ui.favExpand.has(ds.key)?ui.favExpand.delete(ds.key):ui.favExpand.add(ds.key);render();break;
 case 'fav-go':ui.scrollSel=ds.scroll;break;
 case 'fav-go-event':{const ev=state.events.find(x=>x.id===ds.eid);if(!ev)break;ui.weekAnchor=weekStart(ev.date);ui.calDay=ev.date;goHash('#/calendar');break}
@@ -3880,8 +3783,8 @@ case 'ach-toggle':ui.achOpen=!ui.achOpen;render();break;
 case 'comp-toggle':ui.compOpen=!ui.compOpen;syncCompPanel();break;
 case 'evlink-add':if(modalCtx&&modalCtx.type==='event'){modalCtx.draft.links.push({id:uid(),url:'',label:''});$('#ev-links').innerHTML=draftLinksHtml(modalCtx.draft.links,'data-evlink');icons()}break;
 case 'evlink-del':if(modalCtx&&modalCtx.type==='event'){modalCtx.draft.links=modalCtx.draft.links.filter(x=>x.id!==ds.id);$('#ev-links').innerHTML=draftLinksHtml(modalCtx.draft.links,'data-evlink');icons()}break;
-case 'modal-close':requestCloseModal();break;
-case 'modal-overlay':if(e.target===btn)requestCloseModal();break;
+case 'modal-close':closeModal();break;
+case 'modal-overlay':if(e.target===btn)closeModal();break;
 case 'modal-ok':{const c=modalCtx;closeModal();if(c&&c.fn)c.fn();break}
 }
 });
@@ -4228,7 +4131,7 @@ if(nq.length<2)return[];
 const out=[];
 searchIndex().forEach(e=>{const s=scoreEntry(e,nq);if(s>0)out.push(Object.assign({},e,{score:s}))});
 out.sort((a,b)=>b.score-a.score||a.title.length-b.title.length||a.title.localeCompare(b.title,'ru'));
-return out.slice(0,60);
+return out.slice(0,40);
 }
 function searchHl(text,q){
 const t=String(text||''),i=q?t.toLowerCase().indexOf(q.toLowerCase()):-1;
@@ -4258,29 +4161,16 @@ function closeSearch(){searchState.open=false;searchState.active=-1;const d=$('#
 function goHash(h){if(location.hash===h)render({top:true});else location.hash=h}
 function searchIndex(){
 const out=[];
-state.modules.forEach(m=>{
-out.push({key:'m-'+m.id,kind:'module',id:m.id,mid:m.id,title:m.name,mod:'',disc:'',color:m.color,icon:m.icon,desc:m.description,links:[],extra:m.tags.join(' ')});
-m.disciplines.forEach(d=>{
-out.push({key:'d-'+d.id,kind:'disc',id:d.id,mid:m.id,did:d.id,title:d.name,mod:m.name,disc:'',color:d.color,icon:d.icon,desc:'',links:[],extra:d.items.map(i=>i.name).join(' ')});
-d.sections.forEach(s=>out.push({key:'s-'+s.id,kind:'section',id:s.id,mid:m.id,did:d.id,title:s.name,mod:m.name,disc:d.name,color:d.color,icon:'folder',desc:s.items.map(id=>{const i=d.items.find(x=>x.id===id);return i?i.name:''}).filter(Boolean).join('\n'),links:[],extra:''}));
-d.items.forEach(i=>out.push({key:'i-'+i.id,kind:i.type,id:i.id,mid:m.id,did:d.id,title:i.name,mod:m.name,disc:d.name,color:d.color,icon:i.type==='task'?'clipboard-list':'book-open',desc:i.description,links:i.links,extra:''}));
-});
-if(m.project.enabled)out.push({key:'p-'+m.id,kind:'project',id:m.id,mid:m.id,title:m.project.name,mod:m.name,disc:'Финальный проект',color:m.color,icon:'flag',desc:m.project.description,links:m.project.refs,extra:''});
-});
+state.modules.forEach(m=>m.disciplines.forEach(d=>d.items.forEach(i=>{
+out.push({key:'i-'+i.id,kind:i.type,id:i.id,mid:m.id,did:d.id,title:i.name,mod:m.name,disc:d.name,color:d.color,icon:i.type==='task'?'clipboard-list':'book-open',desc:i.description,links:i.links,extra:''});
+})));
 state.events.forEach(e=>out.push({key:'e-'+e.id,kind:'event',id:e.id,title:e.title,mod:'',disc:'',color:e.color,icon:'calendar',desc:e.description,links:e.links||[],date:e.date,start:e.start,end:e.end,allDay:e.allDay,extra:fmtLong(e.date)+' '+(e.allDay?'весь день':e.start)}));
-state.inbox.forEach(x=>out.push({key:'in-'+x.id,kind:'inbox',id:x.id,title:x.name,mod:'Входящие',disc:x.type==='task'?'Задание':'Тема',color:'gray',icon:x.type==='task'?'clipboard-list':'book-open',desc:x.description,links:x.links||[],extra:''}));
 return out;
 }
 function searchItemHtml(x,q,i){
 const open=searchState.expanded.has(x.key);
-const LBL={topic:'Тема',task:'Задание',event:'Событие',module:'Модуль',disc:'Дисциплина',project:'Проект',section:'Раздел',inbox:'Входящее'};
-const sub=x.kind==='event'?(fmtLong(x.date)+' · '+(x.allDay?'весь день':x.start+'–'+x.end))
-:x.kind==='module'?'Модуль курса'
-:x.kind==='project'?('Финальный проект · '+x.mod)
-:x.kind==='inbox'?('Входящие · '+x.disc)
-:x.kind==='disc'?('Дисциплина · '+x.mod)
-:(x.mod+' · '+x.disc);
-const kind=`<span class="kind-chip ${x.kind==='task'?'task':'topic'}">${LBL[x.kind]||x.kind}</span>`;
+const sub=x.kind==='event'?(fmtLong(x.date)+' · '+(x.allDay?'весь день':x.start+'–'+x.end)):(x.mod+' · '+x.disc);
+const kind=x.kind==='event'?'<span class="chip">Событие</span>':('<span class="kind-chip '+x.kind+'">'+(x.kind==='task'?'Задание':'Тема')+'</span>');
 let body='';
 if(open){
 if(x.kind==='event')body=`<p class="s-desc">${esc(x.desc)||'<span style="opacity:.6">Без описания</span>'}</p><div class="s-meta"><i data-lucide="calendar"></i>${fmtLong(x.date)}<i data-lucide="clock"></i>${x.allDay?'Весь день':x.start+'–'+x.end}</div>${x.links&&x.links.length?`<div class="links-row">${x.links.map(l=>linkChip(l)).join('')}</div>`:''}`;
@@ -4298,11 +4188,6 @@ function searchGo(x){
 closeSearch();closePopover();
 const inp=$('#hs-input');if(inp)inp.blur();
 if(x.kind==='event'){ui.weekAnchor=weekStart(x.date);ui.calDay=x.date;goHash('#/calendar')}
-else if(x.kind==='module')goHash('#/module/'+x.mid);
-else if(x.kind==='project'){ui.scrollSel='#project';goHash('#/module/'+x.mid)}
-else if(x.kind==='section'){ui.secOpen.add(x.id);ui.scrollSel='#sec-'+x.id;goHash('#/module/'+x.mid+'/discipline/'+x.did)}
-else if(x.kind==='inbox'){ui.scrollSel='#inb-'+x.id;goHash('#/inbox')}
-else if(x.kind==='disc')goHash('#/module/'+x.mid+'/discipline/'+x.did);
 else{ui.scrollSel='#item-'+x.id;goHash('#/module/'+x.mid+'/discipline/'+x.did)}
 }
 function searchPage(){
@@ -4488,18 +4373,10 @@ function discItemsOrdered(d){return discEntries(d).flatMap(e=>e.kind==='item'?[e
 function journalPage(){
 const rows=[];let maxCols=0;
 state.modules.forEach(m=>{const drows=m.disciplines.map(d=>{const tasks=discItemsOrdered(d).filter(i=>i.type==='task');maxCols=Math.max(maxCols,tasks.length);return{d,tasks}});rows.push({m,drows})});
-const mob=matchMedia('(max-width:760px)').matches;
-const nameW=mob?150:220,colW=mob?44:46;
-const avail=Math.max(320,($('#app')?.clientWidth||900)-(mob?28:44)-2);
-const fill=Math.max(0,Math.ceil((avail-nameW)/colW)-maxCols);
-const total=maxCols+fill,totalW=nameW+colW*total;
 const cols=Array.from({length:maxCols},(_,i)=>i+1);
-const fillTh='<th aria-hidden="true"></th>'.repeat(fill);
-const fillTd='<td aria-hidden="true"></td>'.repeat(fill);
-const colgroup=`<colgroup><col style="width:${nameW}px">${`<col style="width:${colW}px">`.repeat(total)}</colgroup>`;
 return`<div class="page"><a class="back-link" href="#/passport"><i data-lucide="arrow-left"></i>Образовательный паспорт</a>
-<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Наведите на ячейку — название задания. Нажмите — переход к заданию.</span></div>
-${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr" style="width:${totalW}px;min-width:100%">${colgroup}<thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}${fillTh}</tr></thead><tbody>${rows.map(({m,drows})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${total+1}"><span class="jr-mod-in"><i data-lucide="${m.icon}"></i><b title="${esc(m.name)}">${esc(m.name)}</b></span></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><span class="jr-disc"><i data-lucide="${d.icon}"></i><b title="${esc(d.name)}">${esc(d.name)}</b></span></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="journal-go" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}${fillTd}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${'<td aria-hidden="true"></td>'.repeat(total)}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
+<div class="page-head"><h1>Журнал оценок</h1><span class="hint hide-s">Оценка открывает карточку задания. Названия модулей и дисциплин — их страницы.</span></div>
+${!maxCols?'<div class="empty"><i data-lucide="table-2"></i><p>В курсе пока нет заданий.</p></div>':`<div class="panel jr-wrap reveal"><div class="jr-scroll"><table class="jr"><thead><tr><th class="jr-name">Дисциплина</th>${cols.map(n=>`<th>№${n}</th>`).join('')}</tr></thead><tbody>${rows.map(({m,drows})=>`<tr class="jr-mod pc-${m.color}"><td colspan="${maxCols+1}"><a class="jr-mod-in" href="#/module/${m.id}" title="Открыть модуль"><i data-lucide="${m.icon}"></i><b>${esc(m.name)}</b><i data-lucide="arrow-up-right" class="jr-go"></i></a></td></tr>${drows.length?drows.map(({d,tasks})=>`<tr class="pc-${d.color}"><td class="jr-name"><a class="jr-disc" href="#/module/${m.id}/discipline/${d.id}" title="Открыть дисциплину"><i data-lucide="${d.icon}"></i><b>${esc(d.name)}</b></a></td>${cols.map(n=>{const i=tasks[n-1];if(!i)return'<td><span class="jr-cell empty"></span></td>';const g=calcGrade(i.criteria,i.scores);return g?`<td><button class="jr-cell lt-${g.letter}" data-action="jr-open" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>${g.g.toFixed(1)} · ${g.pct}%${i.gradedAt?' · '+fmtLong(i.gradedAt):''}</span>">${g.letter}</button></td>`:`<td><button class="jr-cell none" data-action="jr-open" data-mid="${m.id}" data-did="${d.id}" data-iid="${i.id}" data-tip="${esc(i.name)}<span class='tt-sub'>ещё не оценено</span>">·</button></td>`}).join('')}</tr>`).join(''):`<tr><td class="jr-name hint">Нет дисциплин</td>${cols.map(()=>'<td></td>').join('')}</tr>`}`).join('')}</tbody></table></div></div><p class="hint" style="margin-top:10px">Столбцы — порядковые номера заданий в вашей сортировке. Финальные проекты в журнал не входят.</p>`}</div>`;
 }
 function gradeHistory(){
 const f=ui.chart,out=[];
@@ -4658,22 +4535,17 @@ const tile=(ic,val,lab)=>`<div class="stat-tile"><i data-lucide="${ic}"></i><b>$
 const pr=state.profile;
 return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Образовательный паспорт</h1></div>
 <div class="bento">
-<div class="panel b-profile reveal">
-<div class="b-profile-band" aria-hidden="true"></div>
-<div class="b-profile-main">
-<div class="b-profile-top">${avatarHtml(60)}<div class="b-pinfo"><h2 class="b-name">${esc(pr.name)||'Студент'}</h2>${pr.specialization?`<span class="chip"><i data-lucide="graduation-cap"></i>${esc(pr.specialization)}</span>`:''}${pr.bio?`<p class="b-bio">${esc(pr.bio)}</p>`:''}</div></div>
-<div class="b-gpa"><span class="gpa-big">${g?g.toFixed(1):'—'}</span>${g?letterChip(g):''}<span class="hint">средний балл${allGrades.length?' · '+allGrades.length+' '+plural(allGrades.length,['оценка','оценки','оценок']):''}</span></div>
-<div class="b-actions"><a class="btn btn-primary" href="#/journal"><i data-lucide="table-2"></i>Журнал оценок</a><a class="btn btn-soft" href="#/editor"><i data-lucide="pencil"></i>Профиль</a></div>
-</div>
-</div>
+${passportHeroHtml(g,allGrades,pr)}
 <div class="b-level reveal" style="--d:60ms">${levelCardHtml()}</div>
 <div class="b-tiles reveal" style="--d:100ms">${tile('layers',doneN+'/'+state.modules.length,'модулей завершено')}${tile('book-open',tRead+'/'+topics,'тем изучено')}${tile('clipboard-list',tGraded+'/'+tasks,'заданий выполнено')}${tile('library',discsDoneCount()+'/'+state.modules.reduce((a,m)=>a+m.disciplines.length,0),'дисциплин освоено')}${tile('flame',streak(),'дней серия')}${tile('clock',fmtMins(totalMinutes()),'времени обучения')}</div>
 <div class="panel b-comp reveal" style="--d:140ms" id="comp-panel">${compPanelHtml()}</div>
-<div class="panel b-chart reveal" style="--d:180ms"><div class="panel-title"><i data-lucide="chart-spline"></i>Динамика оценок</div><div id="chart-box">${chartHtml()}</div></div>
-<div class="panel b-ach reveal" style="--d:220ms" id="ach-panel">${achPanelHtml()}</div>
+<div class="panel b-ach reveal" style="--d:180ms" id="ach-panel">${achPanelHtml()}</div>
+<div class="b-duo reveal" style="--d:220ms">
+<div class="panel b-chart"><div class="panel-title"><i data-lucide="chart-spline"></i>Динамика оценок</div><div id="chart-box">${chartHtml()}</div></div>
+<div class="panel b-mods"><div class="panel-title"><i data-lucide="gauge"></i>Оценки модулей</div>${infos.length?infos.map(({m,inf})=>`<div class="mg-row pc-${m.color}"><span class="row-ic"><i data-lucide="${m.icon}"></i></span><span class="mg-main"><b>${esc(m.name)}</b><div class="bar" style="--p:${inf.mg?(inf.mg-1)/4:inf.progress}"><i></i></div></span>${inf.mg?`<span class="mono" style="font-weight:700;font-size:13px">${inf.mg.toFixed(1)}</span>${letterChip(inf.mg)}`:`<span class="hint">${inf.done?'зачёт':Math.round(inf.progress*100)+'%'}</span>`}</div>`).join(''):'<div class="hint">Модулей пока нет.</div>'}</div>
+</div>
 <div class="panel b-heat reveal" style="--d:260ms"><div class="panel-title"><i data-lucide="activity"></i>Активность · 12 месяцев</div><div id="heat-box">${heatYearHtml()}</div></div>
-<div class="panel b-mods reveal" style="--d:300ms"><div class="panel-title"><i data-lucide="gauge"></i>Оценки модулей</div>${infos.length?infos.map(({m,inf})=>`<div class="mg-row pc-${m.color}"><span class="row-ic"><i data-lucide="${m.icon}"></i></span><span class="mg-main"><b>${esc(m.name)}</b><div class="bar" style="--p:${inf.mg?(inf.mg-1)/4:inf.progress}"><i></i></div></span>${inf.mg?`<span class="mono" style="font-weight:700;font-size:13px">${inf.mg.toFixed(1)}</span>${letterChip(inf.mg)}`:`<span class="hint">${inf.done?'зачёт':Math.round(inf.progress*100)+'%'}</span>`}</div>`).join(''):'<div class="hint">Модулей пока нет.</div>'}</div>
-<div class="panel b-dist reveal" style="--d:340ms"><div class="panel-title"><i data-lucide="trending-up"></i>Распределение оценок</div>${allGrades.length?`<div class="dist-bar">${['A','B','C','D','F'].map(l=>dist[l]?`<i style="width:${dist[l]/total*100}%;background:${dcol[l]}" title="${l}: ${dist[l]}"></i>`:'').join('')}</div><div class="dist-legend">${['A','B','C','D','F'].map(l=>`<span><span class="dot" style="background:${dcol[l]}"></span>${l} · ${dist[l]}</span>`).join('')}</div>`:'<div class="hint">Оцените задания, чтобы увидеть распределение.</div>'}</div>
+<div class="panel b-dist reveal" style="--d:300ms"><div class="panel-title"><i data-lucide="trending-up"></i>Распределение оценок</div>${allGrades.length?`<div class="dist-bar">${['A','B','C','D','F'].map(l=>dist[l]?`<i style="width:${dist[l]/total*100}%;background:${dcol[l]}" title="${l}: ${dist[l]}"></i>`:'').join('')}</div><div class="dist-legend">${['A','B','C','D','F'].map(l=>`<span><span class="dot" style="background:${dcol[l]}"></span>${l} · ${dist[l]}</span>`).join('')}</div>`:'<div class="hint">Оцените задания, чтобы увидеть распределение.</div>'}</div>
 </div></div>`;
 }
 function sessElapsed(){return state.activeSession?Date.now()-state.activeSession.startedAt:0}
@@ -4768,8 +4640,37 @@ return`<div class="panel inbox-card" data-inbid="${x.id}">
 }
 function inbSlot(secId,beforeId){return`<div class="inb-slot" data-inbsec="${secId||''}" data-inbbefore="${beforeId||''}"><span></span></div>`}
 function inboxPage(){
-return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head ph-inline"><h1>Входящие</h1><span class="count-badge">${state.inbox.length}</span><button class="btn btn-primary" data-action="inbox-add" style="margin-left:auto"><i data-lucide="plus"></i>Добавить</button></div>
-${state.inbox.length?`<div class="inbox-list">${state.inbox.map(x=>`<div class="panel inbox-card reveal" id="inb-${x.id}"><span class="it-ic" style="color:var(--accent)"><i data-lucide="${x.type==='task'?'clipboard-list':'book-open'}"></i></span><div style="flex:1;min-width:0"><b class="inbox-name">${esc(x.name)}</b><span class="hint">${x.type==='task'?'Задание':'Тема'} · ${x.links.length} ${plural(x.links.length,['ссылка','ссылки','ссылок'])}${x.type==='task'&&x.criteria&&x.criteria.length?' · '+x.criteria.length+' '+plural(x.criteria.length,['критерий','критерия','критериев']):''}</span></div><div class="inbox-acts"><button class="icon-btn sm" data-action="inbox-edit" data-id="${x.id}" title="Редактировать"><i data-lucide="pencil"></i></button><button class="icon-btn sm danger" data-action="inbox-del" data-id="${x.id}" title="Удалить"><i data-lucide="trash-2"></i></button><button class="btn btn-soft sm" data-action="inbox-sort" data-id="${x.id}"><i data-lucide="folder-input"></i>Рассортировать</button></div></div>`).join('')}</div>`:`<div class="empty reveal"><i data-lucide="inbox"></i><p>Входящие пусты. Складывайте сюда материалы, чтобы рассортировать позже.</p><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>`}</div>`;
+ensureInbox();
+const root=state.inbox.filter(x=>!x.sectionId);
+const secHtml=state.inboxSections.map((s,si)=>{
+const items=state.inbox.filter(x=>x.sectionId===s.id);
+return`<section class="panel inb-sec" data-inbsecid="${s.id}">
+<div class="inb-sec-head" data-inbsec="${s.id}">
+<span class="inb-sec-ic"><i data-lucide="folder"></i></span>
+<b>${esc(s.name)}</b><span class="count-badge">${items.length}</span>
+<span class="inb-sec-acts">
+<button class="icon-btn plain sm" data-action="inbsec-up" data-id="${s.id}" ${si===0?'disabled':''} title="Выше"><i data-lucide="chevron-up"></i></button>
+<button class="icon-btn plain sm" data-action="inbsec-down" data-id="${s.id}" ${si===state.inboxSections.length-1?'disabled':''} title="Ниже"><i data-lucide="chevron-down"></i></button>
+<button class="icon-btn plain sm" data-action="inbsec-edit" data-id="${s.id}" title="Переименовать"><i data-lucide="pencil"></i></button>
+<button class="btn btn-soft sm" data-action="inbsec-move" data-id="${s.id}"><i data-lucide="folder-input"></i>Перенести в дисциплину</button>
+<button class="icon-btn plain sm danger" data-action="inbsec-del" data-id="${s.id}" title="Удалить раздел"><i data-lucide="trash-2"></i></button>
+</span></div>
+<div class="inb-sec-body">
+${items.map(x=>inbSlot(s.id,x.id)+inboxCardHtml(x)).join('')}
+${inbSlot(s.id,'')}
+${!items.length?'<div class="hint inb-empty">Перетащите сюда темы и задания</div>':''}
+</div></section>`;
+}).join('');
+return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a>
+<div class="page-head"><h1>Входящие</h1><span class="count-badge">${state.inbox.length}</span><span style="flex:1"></span><button class="btn btn-soft" data-action="inbsec-add"><i data-lucide="folder-plus"></i>Раздел</button><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>
+<p class="hint fav-hint"><i data-lucide="move" style="width:13px;height:13px"></i>Перетаскивайте карточки за ручку — в разделы, между ними и обратно. «В модуль» переносит элемент в дисциплину курса.</p>
+<div class="inb-root" id="inb-root">
+${root.map(x=>inbSlot('',x.id)+inboxCardHtml(x)).join('')}
+${inbSlot('','')}
+${!root.length&&!state.inboxSections.length?'<div class="empty reveal"><i data-lucide="inbox"></i><p>Входящие пусты. Складывайте сюда материалы, чтобы рассортировать позже.</p><button class="btn btn-primary" data-action="inbox-add"><i data-lucide="plus"></i>Добавить</button></div>':''}
+</div>
+${secHtml}
+</div>`;
 }
 function ensureInbox(){if(!Array.isArray(state.inboxSections))state.inboxSections=[];const ids=new Set(state.inboxSections.map(s=>s.id));state.inbox.forEach(x=>{if(!x.sectionId||!ids.has(x.sectionId))x.sectionId=null})}
 function inboxMove(id,secId,beforeId){
@@ -4847,7 +4748,7 @@ tree.querySelectorAll('.inbox-slot').forEach(s=>{s.ondragover=e=>{e.preventDefau
 }
 function favoritesPage(){
 const list=state.favorites.map(f=>({f,t:favTarget(f.key)})).filter(x=>x.t);
-return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head ph-inline"><h1>Избранное</h1><span class="count-badge">${list.length}</span></div>${list.length?`<div class="fav-masonry">${list.map(({f,t},i)=>favCardHtml(f,t,i)).join('')}</div>`:`<div class="empty reveal"><i data-lucide="star"></i><p>Отмечайте звёздочкой модули, дисциплины, темы, задания, проекты и события — они соберутся здесь.</p></div>`}</div>`;
+return`<div class="page"><a class="back-link" href="#/"><i data-lucide="arrow-left"></i>Главная</a><div class="page-head"><h1>Избранное</h1><span class="count-badge">${list.length}</span></div>${list.length?`<p class="hint fav-hint"><i data-lucide="move" style="width:13px;height:13px"></i>Перетаскивайте карточки за ручку — порядок сохраняется автоматически.</p><div class="fav-grid" id="fav-grid">${list.map(({f,t},i)=>favCardHtml(f,t,i)).join('')}</div>`:`<div class="empty reveal"><i data-lucide="star"></i><p>Отмечайте звёздочкой модули, дисциплины, темы, задания, проекты и события — они соберутся здесь.</p></div>`}</div>`;
 }
 function favCardHtml(f,t,i){
 const open=ui.favExpand.has(f.key),big=t.kind==='module'||t.kind==='disc',proj=t.kind==='project';
@@ -4910,11 +4811,11 @@ return`<div class="wp-head"><button class="icon-btn plain sm" data-action="wp-pr
 <div class="wp-list">${rows}</div>
 <div class="pop-foot"><span class="hint">Неделя · пн — вс</span><button class="btn btn-soft sm" data-action="wp-today">Текущая неделя</button></div>`;
 }
-function openPlanModal(id,draftIn){
+function openPlanModal(id){
 const p=id?state.plan.find(x=>x.id===id):null;
-const draft=draftIn?Object.assign({},draftIn):(p?Object.assign({},p):{id:null,type:'module',moduleId:state.modules[0]?state.modules[0].id:'',title:'',from:weekStart(today()),to:weekStart(today())});
+const draft=p?Object.assign({},p):{id:null,type:'module',moduleId:state.modules[0]?state.modules[0].id:'',title:'',from:weekStart(today()),to:weekStart(today())};
 const pm=findM(draft.moduleId);
-openModal(`<div class="modal-head"><h3>${p||draft.id?'Изменить период':'Новый период'}</h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div><div class="modal-body"><div class="form-stack"><div><label class="lbl">Тип периода</label>${selectBtnHtml('plan-type-btn','plan-type',PLAN_TYPES[draft.type].icon,PLAN_TYPES[draft.type].label)}</div><div id="plan-mod-wrap" ${draft.type!=='module'?'hidden':''}><label class="lbl">Модуль</label>${selectBtnHtml('plan-mod-btn','plan-module',pm?pm.icon:'book',pm?pm.name:'Выберите модуль')}<p class="hint" style="margin-top:6px">Название подставится автоматически.</p></div><div id="plan-title-wrap" ${draft.type==='module'?'hidden':''}><label class="lbl">Название</label><input class="field" data-plan="title" value="${esc(draft.title)}" placeholder="Например: Защита проектов"></div><div class="plan-dates"><div><label class="lbl">Начальная неделя · пн</label><button class="field ics-date-btn" data-action="plan-week" data-field="from"><i data-lucide="calendar"></i><span id="plan-from-lbl">${icsDateLabel(weekStart(draft.from))}</span><i data-lucide="chevron-down" class="chev"></i></button></div><div><label class="lbl">Конечная неделя · вс</label><button class="field ics-date-btn" data-action="plan-week" data-field="to"><i data-lucide="calendar"></i><span id="plan-to-lbl">${icsDateLabel(addD(weekStart(draft.to),6))}</span><i data-lucide="chevron-down" class="chev"></i></button></div></div><p class="hint">Начало — понедельник выбранной недели, конец — воскресенье.</p><div class="err-line" id="plan-err"></div></div></div><div class="modal-foot">${p||draft.id?`<button class="btn btn-danger left" data-action="plan-del" data-id="${draft.id}"><i data-lucide="trash-2"></i></button>`:''}<button class="btn btn-ghost" data-action="modal-close">Отмена</button><button class="btn btn-primary" data-action="plan-save"><i data-lucide="check"></i>Сохранить</button></div>`,{type:'plan',draft});
+openModal(`<div class="modal-head"><h3>${p?'Изменить период':'Новый период'}</h3><button class="icon-btn plain sm" data-action="modal-close"><i data-lucide="x"></i></button></div><div class="modal-body"><div class="form-stack"><div><label class="lbl">Тип периода</label>${selectBtnHtml('plan-type-btn','plan-type',PLAN_TYPES[draft.type].icon,PLAN_TYPES[draft.type].label)}</div><div id="plan-mod-wrap" ${draft.type!=='module'?'hidden':''}><label class="lbl">Модуль</label>${selectBtnHtml('plan-mod-btn','plan-module',pm?pm.icon:'book',pm?pm.name:'Выберите модуль')}<p class="hint" style="margin-top:6px">Название подставится автоматически.</p></div><div id="plan-title-wrap" ${draft.type==='module'?'hidden':''}><label class="lbl">Название</label><input class="field" data-plan="title" value="${esc(draft.title)}" placeholder="Например: Защита проектов"></div><div class="wp-fields"><div><label class="lbl">Начальная неделя</label><button class="field wp-btn" data-action="wp-open" data-field="from"><i data-lucide="calendar-range"></i><span id="plan-from-lbl">${weekRangeLabel(weekStart(draft.from))}</span><i data-lucide="chevron-down" class="chev"></i></button></div><div><label class="lbl">Конечная неделя</label><button class="field wp-btn" data-action="wp-open" data-field="to"><i data-lucide="calendar-check"></i><span id="plan-to-lbl">${weekRangeLabel(weekStart(draft.to))}</span><i data-lucide="chevron-down" class="chev"></i></button></div></div><p class="hint">Начало — понедельник выбранной недели, конец — воскресенье.</p><div class="err-line" id="plan-err"></div></div></div><div class="modal-foot">${p?`<button class="btn btn-danger left" data-action="plan-del" data-id="${p.id}"><i data-lucide="trash-2"></i></button>`:''}<button class="btn btn-ghost" data-action="modal-close">Отмена</button><button class="btn btn-primary" data-action="plan-save"><i data-lucide="check"></i>Сохранить</button></div>`,{type:'plan',draft});
 }
 function overdueHtml(){
 const od=[];state.modules.forEach(m=>m.disciplines.forEach(d=>d.items.forEach(i=>{if(i.dueDate&&diffD(i.dueDate,today())<0&&!itemDone(i))od.push({i,d,m,days:-diffD(i.dueDate,today())})})));
@@ -5111,50 +5012,6 @@ inbCleanup();
 if(dest)inboxMove(id,dest.sec,dest.before);
 });
 document.addEventListener('pointercancel',()=>inbCleanup());
-// #endregion
-// #region UX-правки v2: вспомогательные функции
-function eventCounts(){const m=new Map();state.events.forEach(e=>m.set(e.date,(m.get(e.date)||0)+1));return m}
-function projDuePopHtml(mid){
-const m=findM(mid);if(!m)return'';
-const p=m.project,days=p.dueDate?diffD(p.dueDate,today()):0;
-return`<div class="pd-head pc-${m.color}"><span class="row-ic"><i data-lucide="flag"></i></span><div style="flex:1;min-width:0"><b>${esc(p.name)}</b><span class="hint">${esc(m.name)}</span></div></div>
-<div class="pd-meta"><span class="chip${days<0?' pd-over':''}"><i data-lucide="alarm-clock"></i>D ${days}</span><span class="hint">${p.dueDate?fmtLong(p.dueDate):'без даты'}</span></div>
-<div class="pd-discs">${m.disciplines.length?m.disciplines.map(d=>`<span class="chip pc-${d.color}"><i data-lucide="${d.icon}"></i>${esc(d.name)}</span>`).join(''):'<span class="hint">Дисциплин пока нет</span>'}</div>
-<div class="pop-foot">${favBtn('p:'+mid)}<a class="btn btn-primary sm" href="#/module/${mid}" data-action="fav-go" data-scroll="#project"><i data-lucide="arrow-up-right"></i>Перейти</a></div>`;
-}
-function openWeekPickerModal(field){
-const c=modalCtx;if(!c||c.type!=='plan')return;
-const v=c.draft[field];
-const mo=validISO(v)?{y:fromISO(v).getFullYear(),m:fromISO(v).getMonth()}:curMonth();
-openModal(`<div class="modal-head"><h3>${field==='from'?'Начальная неделя':'Конечная неделя'}</h3><button class="icon-btn plain sm" data-action="modal-close" aria-label="Закрыть"><i data-lucide="x"></i></button></div>
-<div class="modal-body"><div class="week-picker" id="week-picker-cal">${miniCal(mo,{sel:validISO(v)?weekStart(v):null,prefix:'pw'})}</div>
-<p class="hint" style="margin-top:10px;text-align:center">Выберите любой день — периодом станет неделя пн–вс.</p></div>
-<div class="modal-foot"><button class="btn btn-ghost" data-action="modal-close">Отмена</button><button class="btn btn-soft" data-action="pw-today"><i data-lucide="calendar-check"></i>Текущая неделя</button></div>`,{type:'planweek',field,month:mo,planCtx:c});
-}
-function refreshWeekPicker(){
-const c=modalCtx;if(!c||c.type!=='planweek')return;
-const el=$('#week-picker-cal');
-if(el){const v=c.planCtx.draft[c.field];el.innerHTML=miniCal(c.month,{sel:validISO(v)?weekStart(v):null,prefix:'pw'});icons()}
-}
-function requestCloseModal(){
-const c=modalCtx;
-if(c&&c.type==='planweek'&&c.planCtx){openPlanModal(c.planCtx.draft.id,c.planCtx.draft);return}
-closeModal();
-}
-function refreshTagsBox(m){const box=$('#tags-box');if(box){box.outerHTML=tagsBoxHtml(m);icons();const inp=$('#tag-input');if(inp)inp.focus()}}
-function afterHome(){
-const mq=matchMedia('(max-width:760px)');
-const onMq=()=>{if(route().name==='home')render()};
-if(mq.addEventListener)mq.addEventListener('change',onMq);else mq.addListener(onMq);
-pageCleanup=()=>{if(mq.removeEventListener)mq.removeEventListener('change',onMq);else mq.removeListener(onMq)};
-}
-function afterJournal(){
-const wrap=$('.jr-wrap');if(!wrap)return;
-const w=wrap.clientWidth;let t=null;
-const onR=()=>{clearTimeout(t);t=setTimeout(()=>{const el=$('.jr-wrap');if(route().name==='journal'&&el&&Math.abs(el.clientWidth-w)>60)render()},180)};
-addEventListener('resize',onR);
-pageCleanup=()=>{clearTimeout(t);removeEventListener('resize',onR)};
-}
 // #endregion
 // #region Инициализация
 async function init(){
